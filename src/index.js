@@ -1,19 +1,19 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './resources/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './resources/index.css';
-import App from './containers/App';
-import registerServiceWorker from './registerServiceWorker';
-import {
-  BrowserRouter as Router,
-  browserHistory
-} from 'react-router-dom';
+import thunk from 'redux-thunk';
+import promise from 'redux-promise';
+import logger from 'redux-logger';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import VoucherReducer from './reducers/voucher';
+import registerServiceWorker from './registerServiceWorker';
+import allReducer from './reducers';
+import {createStore, applyMiddleware} from 'redux';
+import App from './containers/App';
 
 const store = createStore(
-  VoucherReducer, 
-  window.devToolsExtension && window.devToolsExtension()
+  allReducer, 
+  applyMiddleware(thunk, promise, logger)
 );
 
 ReactDOM.render(
