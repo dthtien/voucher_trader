@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import {  Link } from 'react-router-dom';
 import { getVouchers } from '../../actions/voucher';
 
@@ -8,6 +7,24 @@ class Vouchers extends Component {
   componentWillMount(){
     this.props.getVouchers();
   };
+
+  renderVoucherList = () => {
+    console.log(this.props.vouchers);
+
+    if (this.props.loading) {
+      return (<li>Loading </li>);
+    } else {
+      return this.props.vouchers.map( voucher => {
+          return (
+            <li key = {voucher.id_s}>
+              <Link to={"vouchers/" + voucher.id_s}>
+                {voucher.content} - {voucher.price}
+              </Link>
+            </li>
+          );
+        })
+    }
+  }
   
   render() {
     return (
@@ -17,15 +34,18 @@ class Vouchers extends Component {
         </Link>
         <p className="App-intro">
           Vouchers
-
         </p>
+        <ul>
+          {this.renderVoucherList()}
+        </ul>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  getVouchers: getVouchers
+  vouchers: state.vouchers.all,
+  loading: state.vouchers.loading
 });
 
-export default connect(mapStateToProps)(Vouchers);
+export default connect(mapStateToProps, {getVouchers: getVouchers})(Vouchers);

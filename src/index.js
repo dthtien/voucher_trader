@@ -5,12 +5,13 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 import allReducer from './reducers';
-import {createStore} from 'redux';
+import thunk from 'redux-thunk';
+import {createStore, applyMiddleware} from 'redux';
 import App from './containers/App';
 
 const store = createStore(
-  allReducer, 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  allReducer,
+  applyMiddleware(thunk)
 );
 
 ReactDOM.render(

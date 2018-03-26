@@ -6,7 +6,6 @@ import * as actions from '../../actions/voucher';
 import {VoucherValidation as validate} from '../../validates';
 
 const renderInput = field =>{
-  console.log(field);
   const { input, label, type, meta: { touched, error, warning } } = field;
   return(
     <div className="form-group">

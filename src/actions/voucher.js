@@ -4,12 +4,16 @@ import axios from 'axios';
 const API_URL = 'http://localhost:6060/api/v1';
 
 export const getVouchers = () => {
-  const request = axios.get(`${API_URL}/vouchers`);
-
-  return {
-    type: VoucherActionType.GET_VOUCHERS,
-    payload: request
-  };
+  return (dispatch) => {
+    dispatch({type: VoucherActionType.GET_VOUCHERS})
+    axios.get(`${API_URL}/vouchers`)
+      .then(response => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
+      })
+      .catch(error => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: error});
+      });    
+  }
 };
 
 export const createVoucher = (props, callback) => {
@@ -20,3 +24,16 @@ export const createVoucher = (props, callback) => {
     payload: request
   };
 };
+
+export const getVoucher = (id) => {
+  return (dispatch) => {
+    dispatch({type: VoucherActionType.GET_VOUCHER})
+    axios.get(`${API_URL}/vouchers/${id}`)
+      .then(response => {
+        dispatch({type: VoucherActionType.GET_VOUCHER, payload: response})
+      })
+      .catch(error => {
+        dispatch({type: VoucherActionType.GET_VOUCHER, payload: error});
+      });    
+  }
+}
