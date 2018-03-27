@@ -15,9 +15,11 @@ export default function Voucher(state = initialState, action){
         return {...state, loading: true};
       }
     case VoucherActionType.GET_VOUCHER:
-      return (typeof action.payload !== 'undefined') ?      
-        {...state, voucher: action.payload.data.voucher, loading: false} :
-        {...state, loading: true}
+      if (typeof action.payload !== 'undefined') {
+        return {...state, voucher: action.payload.data.voucher, loading: false};
+      } else {
+        return {...state, loading: true};
+      }
     default:
       return state;
   }

@@ -9,8 +9,6 @@ class Vouchers extends Component {
   };
 
   renderVoucherList = () => {
-    console.log(this.props.vouchers);
-
     if (this.props.loading) {
       return (<li>Loading </li>);
     } else {
