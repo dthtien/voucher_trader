@@ -5,11 +5,12 @@ export default class Message extends Component {
   constructor(props){
     super(props);
     this.state = {
-      currentMessage: ''
+      currentMessage: '',
+      chatLogs: []
     }
   }
 
-  componentDidMount(){
+  componentWillMount(){
     const cable = ActionCable.createConsumer('ws://localhost:6060/cable');
 
     this.sub = cable.subscriptions.create({
@@ -17,20 +18,33 @@ export default class Message extends Component {
       }, {
         connected: () => {},
         received: data => {
-          console.log(data);
-      }, 
-      create: function(chatContent){
-        console.log(this);
-        this.perform('create', {
-          body: chatContent
-        });
-      }
+          let chatLogs = this.state.chatLogs;
+          chatLogs.push(data)
+          this.setState({
+            chatLogs: chatLogs
+          });
+        }, 
+        create: function(chatContent){
+          this.perform('create', {
+            body: chatContent
+          });
+        }
     });
   };
 
   handleChange = (e) => {
     this.setState({
       currentMessage: e.target.value
+    });
+  }
+
+  renderChatlog = () =>{
+    return this.state.chatLogs.map((log) => {
+      return (
+        <li key={`chat_${log.id}`}>
+          <span className='chat-message'>{ log.body }</span>
+        </li>
+      );
     });
   }
 
@@ -51,8 +65,9 @@ export default class Message extends Component {
         </h1>
         <div className="container">
           <h1>Chat</h1>
-          <div className='chat-logs'>
-          </div>
+          <ul className='chat-logs'>
+            {this.renderChatlog()}
+          </ul>
           <input
             onChange={this.handleChange.bind(this)}
             type='text'
