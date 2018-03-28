@@ -9,9 +9,11 @@ import '../resources/App.css';
 import Vouchers from '../components/vouchers/Vouchers';
 import NewVoucher from '../components/vouchers/NewVoucher';
 import VoucherShow from '../components/vouchers/VoucherShow';
+import Message from '../components/Message';
 
 
 const App = () => {
+
   return (
     <Router>
       <div className="APP">
@@ -23,6 +25,7 @@ const App = () => {
           <Route exact path='/' component={Vouchers} />
           <Route exact path='/vouchers/new' component={NewVoucher} />
           <Route path='/vouchers/:id' component={VoucherShow} />
+          <Route path='/messages' component={Message}/>
         </Switch>
       </div>
     </Router>

@@ -1,29 +1,38 @@
 import React, {Component} from 'react';
-// import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getVoucher, deleteVoucher } from '../../actions/voucher';
 
 class VoucherShow extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   componentWillMount(){
     const id = this.props.match.params.id;
     this.props.getVoucher(id);
-  }
-
+  };
+  
   renderVoucherContent = () => {
     if (this.props.loading) {
       return (<h4>Loading...</h4>);
     } else {
-      return (<h4>{this.props.voucher.content} - {this.props.voucher.price}</h4>);
+      return (
+        <h4>
+          {this.props.voucher.content} - {this.props.voucher.price}
+        </h4>);
     }
   }
 
   deleteVoucher = () => {
-    console.log(this);
+    const id = this.props.match.params.id;
+    console.log(this.props);
+    this.props.deleteVoucher(id, () => {
+      this.context.router.history.push('/')
+    });
   }
 
   render(){
-    console.log(this.props);
     return(
       <div className="container">
         <h1 className="text-center m-3">
@@ -31,11 +40,13 @@ class VoucherShow extends Component {
         </h1>
 
         {this.renderVoucherContent()}
-
-        <Link to={this.props.match.url} 
-          className="btn btn-danger"
-          onClick={this.deleteVoucher.bind(this)}> 
-          Delete </Link>
+        
+        <a className="btn btn-danger"
+          onClick={ () => {
+            if(window.confirm('Delete the item?')){
+              this.deleteVoucher();
+            }
+          }}> Delete </a>
       </div>
     );
   } 

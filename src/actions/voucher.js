@@ -39,7 +39,7 @@ export const getVoucher = (id) => {
 }
 
 export const deleteVoucher = (id, callback) => {
-  const request = axios.post(`${API_URL}/vouchers/${id}`).then(callback);
+  const request = axios.delete(`${API_URL}/vouchers/${id}`).then(callback);
 
   return {
     type: VoucherActionType.DELETE_VOUCHER,
