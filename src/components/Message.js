@@ -57,6 +57,12 @@ export default class Message extends Component {
     });
   }
 
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.handleSubmit(e);
+    }
+  }
+
   render(){
     return(
       <div className="container">
@@ -69,6 +75,7 @@ export default class Message extends Component {
             {this.renderChatlog()}
           </ul>
           <input
+            onKeyPress={this.handleKeyPress.bind(this)}
             onChange={this.handleChange.bind(this)}
             type='text'
             value={this.state.currentMessage}
