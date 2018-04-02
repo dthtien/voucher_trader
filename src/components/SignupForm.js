@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { signup } from '../actions/user';
+import {reduxForm, Field} from 'redux-form';
 import axios from 'axios'
 
 class SignupForm extends Component {
@@ -7,7 +10,7 @@ class SignupForm extends Component {
     this.state = {
       email: '',
       password: '',
-      passwordConfirmation: ''
+      password_confirmation: ''
     }
   }
 
@@ -19,11 +22,11 @@ class SignupForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('localhost:6060/api/v1/user/signup', {user: this.state})
+    axios.post('http://localhost:6060/api/v1/users/signup', {user: this.state})
       .then( response => {
         console.log(response); })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
       })
 
   }
@@ -57,7 +60,7 @@ class SignupForm extends Component {
               onChange={this.handleChange.bind(this)}
               value={this.state.password_confirmation}
               type='password'
-              name='passwordConfirmation'
+              name='password_confirmation'
               className='form-control' />
           </div>
 
@@ -69,4 +72,9 @@ class SignupForm extends Component {
   }
 }
 
-export default SignupForm;
+const mapStateToProps = state => ({
+  user: state.users.user,
+  loading: state.users.loading
+});
+
+export default connect(null, {signup: signup})(SignupForm);
