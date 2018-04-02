@@ -10,7 +10,8 @@ class SignupForm extends Component {
     this.state = {
       email: '',
       password: '',
-      password_confirmation: ''
+      password_confirmation: '',
+      error: {}
     }
   }
 
@@ -22,16 +23,21 @@ class SignupForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({ error: {} });
     axios.post('http://localhost:6060/api/v1/users/signup', {user: this.state})
       .then( response => {
         console.log(response); })
       .catch(error => {
-        console.log(error.response);
+        this.setState({
+          error: error.response.data.error
+        });
       })
 
   }
 
   render(){
+    const error = this.state.error;
+
     return(
       <div className="container">
         <form onSubmit={this.handleSubmit.bind(this)}>
@@ -44,6 +50,7 @@ class SignupForm extends Component {
               value={this.state.email}
               name='email'
               className='form-control'/>
+            {error.email && <span className="help-block">{error.email}</span>}
           </div>
           <div className='form-group'>
             <label className='control-label'> Password </label>
