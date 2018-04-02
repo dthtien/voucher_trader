@@ -9,15 +9,15 @@ class Vouchers extends Component {
   };
 
   renderVoucherList = () => {
-
-    if (this.props.loading) {
-      return (<li>Loading </li>);
+    console.log(this.props.voucher)
+    if (this.props.voucher) {
+      return (<li>Loading..</li>);
     } else {
       return this.props.vouchers.map( voucher => {
           return (
-            <li key = {voucher.id_s}>
-              <Link to={"vouchers/" + voucher.id_s}>
-                {voucher.content} - {voucher.price}
+            <li key = {voucher.id}>
+              <Link to={"vouchers/" + voucher.id}>
+                {voucher.description} - {voucher.kind}
               </Link>
             </li>
           );

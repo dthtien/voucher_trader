@@ -37,10 +37,10 @@ class NewVoucher extends Component {
         </h1>
         <div className="new-voucher">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <Field name="content" type="text" 
-              component={renderInput} label="Content" />
-            <Field name="price" type="number" 
-              component={renderInput} label="Price" />
+            <Field name="description" type="text" 
+              component={renderInput} label="Description" />
+            <Field name="kind" type="number" 
+              component={renderInput} label="Type" />
             <button type="submit" className="btn btn-success">Create</button>
           </form>
         </div>
