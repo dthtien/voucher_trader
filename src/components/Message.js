@@ -14,10 +14,11 @@ export default class Message extends Component {
     const cable = ActionCable.createConsumer('ws://localhost:6060/cable');
 
     this.sub = cable.subscriptions.create({
-      channel: 'MessagesChannel'
+      channel: 'MessengerChannel'
       }, {
         connected: () => {},
         received: data => {
+          console.log(data);
           let chatLogs = this.state.chatLogs;
           chatLogs.push(data)
           this.setState({

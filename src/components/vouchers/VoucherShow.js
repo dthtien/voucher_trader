@@ -14,6 +14,7 @@ class VoucherShow extends Component {
   };
   
   renderVoucherContent = () => {
+    console.log(this.props.loading);
     if (this.props.loading) {
       return (<h4>Loading...</h4>);
     } else {
