@@ -2,22 +2,23 @@ import * as UserActionType from '../actiontypes/user';
 
 const initialState ={
   message: null,
-  user: null,
+  data: null,
   accessToken: '',
-  loading: true
+  error: false
 }
 
 export default function User(state = initialState, action){
   switch(action.type){
     case UserActionType.SIGNUP:
-      if (typeof action.payload !== 'undefined') {
-        return {...state, 
-          message: action.payload.data.message, 
-          loading: false,
-          user: action.payload.data.user
-        };
-      } else {
-        return {...state, loading: true};
+      console.log(action.payload);
+      return {...state, 
+        error: false,
+        accessToken: action.payload.data.access_token,
+        data: action.payload.data.user }
+    case UserActionType.SIGNUP_ERROR:
+      return {...state,
+        error: true,
+        data: action.payload.response.data.error
       }
     default:
       return state;
