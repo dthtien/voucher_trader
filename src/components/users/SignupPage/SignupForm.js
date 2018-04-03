@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { signup } from '../actions/user';
+import PropTypes from 'prop-types';
 
-class SignupForm extends Component {
+export default class SignupForm extends Component {
   constructor(props){
     super(props);
     this.state = {
       email: '',
       password: '',
-      password_confirmation: ''
+      password_confirmation: '',
+      error: {}
     }
   }
 
@@ -21,16 +21,24 @@ class SignupForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ error: {} });
-    this.props.signup(this.state);
+    console.log(this.props.signup);
+    this.props.signup(this.state)
+      .then( response => {
+        console.log(response); })
+      .catch(error => {
+        console.log(error.response);
+        this.setState({
+          error: error.response.data.error
+        });
+      })
   }
 
   render(){
-    const error = (this.props.error) ? this.props.data : {}
+    const error = this.state.error
 
     return(
       <div className="container">
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <h1 className="text-center mt-2">Join our community!</h1>
           <div className='form-group'>
             <label className='control-label'> Email </label>
             <input 
@@ -39,7 +47,7 @@ class SignupForm extends Component {
               value={this.state.email}
               name='email'
               className='form-control'/>
-            {error.email && <span className="help-block">{error.email}</span>}
+            {error.email && <span className="text-danger">{error.email}</span>}
           </div>
           <div className='form-group'>
             <label className='control-label'> Password </label>
@@ -49,7 +57,7 @@ class SignupForm extends Component {
               type='password'
               name='password'
               className='form-control'/>
-              {error.password && <span className="help-block">{error.password}</span>}
+              {error.password && <span className="text-danger">{error.password}</span>}
           </div>
           <div className='form-group'>
             <label className='control-label'> Password Confirmation </label>
@@ -59,7 +67,7 @@ class SignupForm extends Component {
               type='password'
               name='password_confirmation'
               className='form-control' />
-              {error.password_confirmation && <span className="help-block">{error.password_confirmation}</span>}
+              {error.password_confirmation && <span className="text-danger">{error.password_confirmation}</span>}
           </div>
 
           <button className='btn btn-primary'>Signup </button>
@@ -70,10 +78,6 @@ class SignupForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  data: state.users.data,
-  error: state.users.error,
-  accessToken: state.users.accessToken
-});
-
-export default connect(mapStateToProps, {signup: signup})(SignupForm);
+SignupForm.propTypes = {
+  signup: PropTypes.func.isRequired
+}

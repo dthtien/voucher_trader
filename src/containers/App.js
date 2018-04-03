@@ -10,7 +10,7 @@ import Vouchers from '../components/vouchers/Vouchers';
 import NewVoucher from '../components/vouchers/NewVoucher';
 import VoucherShow from '../components/vouchers/VoucherShow';
 import Message from '../components/Message';
-import SignupForm from '../components/SignupForm';
+import SignupPage from '../components/users/SignupPage';
 
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
           <Route exact path='/vouchers/new' component={NewVoucher} />
           <Route path='/vouchers/:id' component={VoucherShow} />
           <Route path='/messages' component={Message}/>
-          <Route path='/signup' component={SignupForm}/>
+          <Route path='/signup' component={SignupPage}/>
         </Switch>
       </div>
     </Router>
