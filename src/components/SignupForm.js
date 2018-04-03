@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { signup } from '../actions/user';
 
+import InputSignupForm from './InputSignupForm';
+
 class SignupForm extends Component {
   constructor(props){
     super(props);
     this.state = {
       email: '',
       password: '',
-      password_confirmation: ''
+      password_confirmation: '',
+      error: {},
+      username: ''
     }
   }
 

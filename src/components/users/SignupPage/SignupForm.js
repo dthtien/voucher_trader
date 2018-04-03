@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import InputSignupForm from './InputSignupForm';
+import { signupValidation } from '../../../validates';
 
 export default class SignupForm extends Component {
   constructor(props){
@@ -19,22 +20,36 @@ export default class SignupForm extends Component {
 
   }
 
+  isValid = () => {
+    const {errors, isValid } = signupValidation(this.state);
+    console.log(errors);
+    if (!isValid) {
+      this.setState({ error: errors });
+    }
+
+    return isValid;
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ 
-      error: {},
-      isLoading: true
-    });
-    this.props.signup(this.state)
-      .then( response => {
-        console.log(response); })
-      .catch(error => {
-        console.log(error.response);
-        this.setState({
-          error: error.response.data.error, 
-          isLoading: false
-        });
-      })
+
+    if (this.isValid()) {   
+      this.setState({ 
+        error: {},
+        isLoading: true
+      });
+
+      this.props.signup(this.state)
+        .then( response => {
+          console.log(response); })
+        .catch(error => {
+          console.log(error.response);
+          this.setState({
+            error: error.response.data.error, 
+            isLoading: false
+          });
+        })
+    }
   }
 
   render(){
@@ -43,37 +58,29 @@ export default class SignupForm extends Component {
     return(
       <div className="container">
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className='form-group'>
-            <label className='control-label font-weight-bold'> Email </label>
-            <input 
-              onChange={this.handleChange.bind(this)}
-              type='text'
-              value={this.state.email}
-              name='email'
-              className={classnames('form-control', {'is-invalid': error.email})}/>
-            {error.email && <span className="text-danger">{error.email}</span>}
-          </div>
-          <div className='form-group'>
-            <label className='control-label font-weight-bold'> Password </label>
-            <input 
-              value={this.state.password}
-              onChange={this.handleChange.bind(this)}
-              type='password'
-              name='password'
-              className={classnames('form-control', {'is-invalid': error.password})}/>
-              {error.password && <span className="text-danger">{error.password}</span>}
-          </div>
-          <div className='form-group'>
-            <label className='control-label font-weight-bold'> Password Confirmation </label>
-            <input 
-              onChange={this.handleChange.bind(this)}
-              value={this.state.password_confirmation}
-              type='password'
-              name='password_confirmation'
-              className={classnames('form-control', {'is-invalid': error.password_confirmation})} />
-              {error.password_confirmation && <span className="text-danger">{error.password_confirmation}</span>}
-          </div>
+          <InputSignupForm 
+            type='text'
+            name='email'
+            value={this.state.email}
+            error={error}
+            handleChange={this.handleChange}
+          />
 
+          <InputSignupForm 
+            type='password'
+            name='password'
+            value={this.state.password}
+            error={error}
+            handleChange={this.handleChange}
+          />
+          
+          <InputSignupForm 
+            type='password'
+            name='password_confirmation'
+            value={this.state.password_confirmation}
+            error={error}
+            handleChange={this.handleChange}
+          />
           <button disabled={this.state.isLoading} className='btn btn-primary'>Signup </button>
 
         </form>
