@@ -12,6 +12,13 @@ import VoucherShow from '../components/vouchers/VoucherShow';
 import Message from '../components/Message';
 import SignupPage from '../components/users/SignupPage';
 
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toTitlelize= function(){
+  return this.capitalize().split('_').join(' ');
+}
 
 const App = () => {
 

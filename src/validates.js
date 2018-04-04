@@ -28,8 +28,8 @@ export const signupValidation = values => {
     errors.password = "This field is required"
   }
 
-  if (Validator.isEmail(values.email)) {
-    errors.email = 'is invalid'
+  if (!Validator.isEmail(values.email)) {
+    errors.email = 'Email is invalid'
   }
 
   if (values.password !== values.password_confirmation) {

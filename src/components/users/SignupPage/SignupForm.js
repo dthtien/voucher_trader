@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import InputSignupForm from './InputSignupForm';
+import TextFieldGroup from '../../shared/TextFieldGroup';
 import { signupValidation } from '../../../validates';
 
 export default class SignupForm extends Component {
@@ -15,6 +15,16 @@ export default class SignupForm extends Component {
     }
   }
 
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
+  static propTypes = {
+    signup: PropTypes.func.isRequired
+  };
+
+
+
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
 
@@ -22,7 +32,6 @@ export default class SignupForm extends Component {
 
   isValid = () => {
     const {errors, isValid } = signupValidation(this.state);
-    console.log(errors);
     if (!isValid) {
       this.setState({ error: errors });
     }
@@ -32,7 +41,7 @@ export default class SignupForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
+    
     if (this.isValid()) {   
       this.setState({ 
         error: {},
@@ -41,7 +50,8 @@ export default class SignupForm extends Component {
 
       this.props.signup(this.state)
         .then( response => {
-          console.log(response); })
+          this.context.router.history.push('/');
+        })
         .catch(error => {
           console.log(error.response);
           this.setState({
@@ -58,27 +68,27 @@ export default class SignupForm extends Component {
     return(
       <div className="container">
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <InputSignupForm 
+          <TextFieldGroup 
             type='text'
             name='email'
             value={this.state.email}
-            error={error}
+            error={error.email}
             handleChange={this.handleChange}
           />
 
-          <InputSignupForm 
+          <TextFieldGroup 
             type='password'
             name='password'
             value={this.state.password}
-            error={error}
+            error={error.password}
             handleChange={this.handleChange}
           />
           
-          <InputSignupForm 
+          <TextFieldGroup 
             type='password'
             name='password_confirmation'
             value={this.state.password_confirmation}
-            error={error}
+            error={error.password_confirmation}
             handleChange={this.handleChange}
           />
           <button disabled={this.state.isLoading} className='btn btn-primary'>Signup </button>

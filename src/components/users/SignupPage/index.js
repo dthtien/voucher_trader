@@ -6,9 +6,11 @@ import { signup } from '../../../actions/user';
 class SignupPage extends Component {
   render(){
     return(
-      <div className="container">
-        <h1 className="text-center mt-2">Join our community!</h1>
-        <SignupForm signup={this.props.signup} />
+      <div className='row'>
+        <div className="col-md-4 offset-md-4">
+          <h1 className="text-center mt-2">Join our community!</h1>
+          <SignupForm signup={this.props.signup} />
+        </div>
       </div>
     );
   }
