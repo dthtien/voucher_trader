@@ -6,3 +6,9 @@ export const addFlashMessage = message => {
     message
   }
 }
+export const deleteFlashMessage = id => {
+  return{
+    type: MessageActionType.DELETE_FLASH_MESSAGE,
+    id
+  }
+}

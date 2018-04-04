@@ -9,7 +9,6 @@ export default class SignupForm extends Component {
     this.state = {
       email: '',
       password: '',
-      password_confirmation: '',
       error: {},
       isLoading: false
     }
@@ -98,15 +97,8 @@ export default class SignupForm extends Component {
             error={error.password}
             handleChange={this.handleChange}
           />
-          
-          <TextFieldGroup 
-            type='password'
-            name='password_confirmation'
-            value={this.state.password_confirmation}
-            error={error.password_confirmation}
-            handleChange={this.handleChange}
-          />
-          <button disabled={this.state.isLoading} className='btn btn-primary'>Signup </button>
+
+          <button disabled={this.state.isLoading} className='btn btn-primary'> Login </button>
 
         </form>
       </div>

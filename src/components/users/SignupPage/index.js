@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SignupForm from './SignupForm';
 import { connect } from 'react-redux';
-import { signup, logedIn } from '../../../actions/user';
+import { signup, loggedIn } from '../../../actions/user';
 import { addFlashMessage } from '../../../actions/message';
 
 
@@ -14,7 +14,7 @@ class SignupPage extends Component {
           <SignupForm 
             signup={this.props.signup}
             addFlashMessage={this.props.addFlashMessage}
-            logedIn={this.props.logedIn}
+            loggedIn={this.props.loggedIn}
           />
         </div>
       </div>
@@ -25,5 +25,5 @@ class SignupPage extends Component {
 export default connect(null, {
   signup: signup,
   addFlashMessage: addFlashMessage,
-  logedIn: logedIn
+  loggedIn: loggedIn
 })(SignupPage);

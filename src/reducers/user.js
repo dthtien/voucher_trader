@@ -7,7 +7,7 @@ const initialState = {
 
 export default function User(state = initialState, action){
   switch(action.type){
-    case UserActionType.LOGED_IN:
+    case UserActionType.LOGGED_IN:
       console.log(action.data);
       return {
         ...state,
@@ -18,5 +18,3 @@ export default function User(state = initialState, action){
       return state;
   }
 }
-
-

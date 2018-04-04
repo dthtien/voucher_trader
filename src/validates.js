@@ -3,10 +3,10 @@ import isEmpty from 'lodash/isEmpty';
 
 export const VoucherValidation = values => {
   const errors = {}
-  if (!values.descriptions) {
-    errors.descriptions = 'Required';
-  } else if(!/^\S+$/.test(values.descriptions)){
-    errors.descriptions = "Must not have white space";
+  if (!values.description) {
+    errors.description = 'Required';
+  } else if(!/^\S+$/.test(values.description)){
+    errors.description = "Must not have white space";
   }
   if (!values.kind) {
     errors.kind = 'Required';
