@@ -23,7 +23,6 @@ TextFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  error: PropTypes.string,
   handleChange: PropTypes.func.isRequired
 }
 

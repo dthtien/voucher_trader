@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import { signupValidation } from '../../../validates';
 
-export default class SignupForm extends Component {
+export default class LoginForm extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -19,11 +19,10 @@ export default class SignupForm extends Component {
   };
 
   static propTypes = {
-    signup: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     loggedIn: PropTypes.func.isRequired
   };
-
 
 
   handleChange = (e) => {
@@ -55,7 +54,7 @@ export default class SignupForm extends Component {
         isLoading: true
       });
 
-      this.props.signup(this.state)
+      this.props.login(this.state)
         .then( response => {
           this.props.addFlashMessage({
             type: 'success',
@@ -69,7 +68,7 @@ export default class SignupForm extends Component {
         .catch(error => {
           console.log(error.response);
           this.setState({
-            error: error.response.data.error, 
+            error: error.response.data, 
             isLoading: false
           });
         })

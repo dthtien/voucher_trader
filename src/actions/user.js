@@ -9,6 +9,12 @@ export const signup = (userData) => {
   } 
 }
 
+export const login = (userData) => {
+  return (dispatch) => {
+    return axios.post(`${API_URL}/users/login`, {user: userData});
+  }
+}
+
 export const loggedIn = (userData) => {
   return {
     type: UserActionType.LOGGED_IN,

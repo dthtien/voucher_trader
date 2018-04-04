@@ -25,7 +25,6 @@ class FlashMessage extends Component {
         </button>
       </div>
     );
-    
   }
 }
 

@@ -12,6 +12,7 @@ import VoucherShow from '../components/vouchers/VoucherShow';
 import Message from '../components/Message';
 import SignupPage from '../components/users/SignupPage';
 import FlashMessagesList from '../components/shared/FlashMessagesList';
+import LoginPage from '../components/users/LoginPage';
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='/vouchers/:id' component={VoucherShow} />
           <Route path='/messages' component={Message}/>
           <Route path='/signup' component={SignupPage}/>
+          <Route path='/login' component={LoginPage}/>
         </Switch>
       </div>
     </Router>

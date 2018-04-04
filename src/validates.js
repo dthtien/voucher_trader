@@ -32,7 +32,7 @@ export const signupValidation = values => {
     errors.email = 'Email is invalid'
   }
 
-  if (values.password !== values.password_confirmation) {
+  if (values.password_confirmation && values.password !== values.password_confirmation) {
     errors.password_confirmation = "This field is not match to password"
   }
 

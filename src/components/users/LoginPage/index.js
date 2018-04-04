@@ -9,7 +9,7 @@ class LoginPage extends Component {
     return(
       <div className='row'>
         <div className='col-md-4 offset-md-4'>
-          <h4>Welcome!</h4>
+          <h4 className="text-center m-2">Welcome!</h4>
 
           <LoginForm 
             login={this.props.login}
@@ -22,4 +22,4 @@ class LoginPage extends Component {
   }
 }
 
-export default connect (null, {login: login, loggedIn: loggedIn})(LoginPage)
+export default connect (null, {login,loggedIn, addFlashMessage})(LoginPage)
