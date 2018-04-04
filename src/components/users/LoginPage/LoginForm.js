@@ -60,9 +60,8 @@ export default class LoginForm extends Component {
             type: 'success',
             text: response.data.message
           });
-          this.props.loggedIn(response.data);
-          console.log(response);
 
+          this.props.loggedIn(response.data);
           this.context.router.history.push('/');
         })
         .catch(error => {

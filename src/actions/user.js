@@ -1,4 +1,5 @@
 import * as UserActionType from '../actiontypes/user';
+import setAuthorizationToken from '../config/setAuthorizationToken';
 import axios from 'axios';
 
 const API_URL = 'http://localhost:6060/api/v1';
@@ -16,9 +17,13 @@ export const login = (userData) => {
 }
 
 export const loggedIn = (userData) => {
+  const token = userData.access_token
+  localStorage.setItem('access-token', token);
+  setAuthorizationToken(token);
+  
   return {
     type: UserActionType.LOGGED_IN,
-    userData
-  } 
+    userData 
+  }
 }
 
