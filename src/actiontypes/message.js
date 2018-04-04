@@ -1,2 +1,1 @@
-export const GET_MESSAGE = 'voucher/GET_MESSAGE';
-export const CREATE_MESSAGE = 'voucher/CREATE_MESSAGE';
+export const ADD_FLASH_MESSAGE = 'message/ADD_FLASH_MESSAGE';

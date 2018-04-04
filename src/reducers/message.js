@@ -1,18 +1,19 @@
 import * as MessageActionType from '../actiontypes/message';
+import shortid from 'shortid';
 
-const initialState ={
-  message: null,
-  loading: true
-}
+const initialState = []
 
 export default function Message(state = initialState, action){
   switch(action.type){
-    case MessageActionType.GET_MESSAGE:
-      if (typeof action.payload !== 'undefined') {
-        return {...state, message: action.payload.data.message, loading: false};
-      } else {
-        return {...state, loading: true};
-      }
+    case MessageActionType.ADD_FLASH_MESSAGE:
+      return [
+        ...state,
+        {
+          id: shortid.generate(),
+          type: action.message.type,
+          text: action.message.text
+        }
+      ]
     default:
       return state;
   }

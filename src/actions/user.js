@@ -9,3 +9,10 @@ export const signup = (userData) => {
   } 
 }
 
+export const logedIn = (userData) => {
+  return {
+    type: UserActionType.LOGED_IN,
+    userData
+  } 
+}
+

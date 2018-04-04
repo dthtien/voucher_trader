@@ -1,2 +1,1 @@
-export const SIGNUP = 'user/SIGNUP';
-export const SIGNUP_ERROR = 'user/SIGNUP_ERROR';
+export const LOGED_IN = 'user/LOGED_IN';

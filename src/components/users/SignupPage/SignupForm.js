@@ -20,7 +20,9 @@ export default class SignupForm extends Component {
   };
 
   static propTypes = {
-    signup: PropTypes.func.isRequired
+    signup: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    logedIn: PropTypes.func.isRequired
   };
 
 
@@ -41,7 +43,7 @@ export default class SignupForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (this.isValid()) {   
       this.setState({ 
         error: {},
@@ -50,6 +52,13 @@ export default class SignupForm extends Component {
 
       this.props.signup(this.state)
         .then( response => {
+          this.props.addFlashMessage({
+            type: 'success',
+            text: response.data.message
+          });
+          this.props.logedIn(response.data);
+          console.log(response);
+
           this.context.router.history.push('/');
         })
         .catch(error => {
@@ -97,8 +106,4 @@ export default class SignupForm extends Component {
       </div>
     );
   }
-}
-
-SignupForm.propTypes = {
-  signup: PropTypes.func.isRequired
 }
