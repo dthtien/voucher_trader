@@ -18,9 +18,9 @@ export const login = (userData) => {
 
 export const loggedIn = (userData) => {
   const token = userData.access_token
-  localStorage.setItem('access-token', token);
+  localStorage.setItem('accessToken', token);
   setAuthorizationToken(token);
-  
+
   return {
     type: UserActionType.LOGGED_IN,
     userData 

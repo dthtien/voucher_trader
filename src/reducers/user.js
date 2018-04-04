@@ -1,7 +1,9 @@
 import * as UserActionType from '../actiontypes/user';
+import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
-  currentUser: {}
+  currentUser: {},
+  isAuthenticate: false
 }
 
 export default function User(state = initialState, action){
@@ -10,6 +12,7 @@ export default function User(state = initialState, action){
       console.log(action.data);
       return {
         ...state,
+        isAuthenticate: !isEmpty(action.userData.user),
         currentUser: action.userData.user
       }
     default:
