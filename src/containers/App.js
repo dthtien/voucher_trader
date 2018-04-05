@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import '../resources/App.css';
 import Vouchers from '../components/vouchers/Vouchers';
-import NewVoucher from '../components/vouchers/NewVoucher';
+import NewVoucherPage from '../components/vouchers/NewVoucherPage';
 import VoucherShow from '../components/vouchers/VoucherShow';
 import Message from '../components/Message';
 import SignupPage from '../components/users/SignupPage';
@@ -22,7 +22,7 @@ const App = () => {
         <FlashMessagesList />
         <Switch>
           <Route exact path='/' component={Vouchers} />
-          <Route exact path='/vouchers/new' component={NewVoucher} />
+          <Route exact path='/vouchers/new' component={NewVoucherPage} />
           <Route path='/vouchers/:id' component={VoucherShow} />
           <Route path='/messages' component={Message}/>
           <Route path='/signup' component={SignupPage}/>

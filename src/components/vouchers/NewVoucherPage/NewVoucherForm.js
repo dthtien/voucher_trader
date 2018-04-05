@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {reduxForm, Field} from 'redux-form';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/voucher';
-import {VoucherValidation as validate} from '../../validates';
+import {VoucherValidation as validate} from '../../../validates';
 
 const renderInput = field =>{
   const { input, label, type, meta: { touched, error, warning } } = field;
@@ -17,25 +15,41 @@ const renderInput = field =>{
   );
 }
 
-class NewVoucher extends Component {
+class NewVoucherForm extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
 
   onSubmit = values => {
-    this.props.createVoucher(values, () =>{
-      this.context.router.history.push('/')
-    });
+    this.props.createVoucher(values)
+      .then(response => {
+         this.props.addFlashMessage({
+          type: 'success',
+          text: response.data.message
+        });
+
+        this.context.router
+          .history.push(`/vouchers/${response.data.voucher.id}`);
+        console.log(response);
+      })
+      .catch(error => {
+        const response = error.response;
+
+        this.props.addFlashMessage({
+          type: 'warning',
+          text: response.data.message
+        });
+
+        if (response.status === 401) {
+          this.context.router.history.push('/login');
+        }
+      })
   };
 
   render(){
     const {handleSubmit} = this.props;
 
     return(
-      <div className="container">
-        <h1 className="text-center m-3">
-          New Voucher
-        </h1>
         <div className="new-voucher">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <Field name="description" type="text" 
@@ -45,20 +59,11 @@ class NewVoucher extends Component {
             <button type="submit" className="btn btn-success">Create</button>
           </form>
         </div>
-      </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return{
-    form: state.form
-  };
-}
-
-NewVoucher = connect(mapStateToProps, actions)(NewVoucher);
-
 export default reduxForm({ 
   form: 'NewVoucherForm',
   validate
-})(NewVoucher);
+})(NewVoucherForm);
