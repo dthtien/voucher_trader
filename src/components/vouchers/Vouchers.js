@@ -27,9 +27,6 @@ class Vouchers extends Component {
   render() {
     return (
       <div className="App">
-        <Link to="vouchers/new" className="btn btn-warning m-2">
-          Create Vouchers
-        </Link>
         <p className="App-intro">
           Vouchers
         </p>
