@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, NavLink } from 'react-router-dom';
+import {logout} from '../../actions/user';
 
 class Header extends Component {
   static propTypes = {
-    users: PropTypes.object.isRequired
+    users: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired
+  }
+
+  logout = (e) => {
+    e.preventDefault();
+    this.props.logout();
   }
 
   render(){
@@ -20,7 +27,8 @@ class Header extends Component {
         </ul>
         <ul className='navbar-nav mt-2'>
           <li className="nav-item pull-right">
-            <a className="nav-link pull-right" to="/login">Log Out</a>
+            <a className="nav-link pull-right" href="#" 
+              onClick={this.logout.bind(this)}>Log Out</a>
           </li>
         </ul>
       </div>
@@ -29,7 +37,10 @@ class Header extends Component {
       <div className="collapse navbar-collapse" id="navbarTogglerDemo02" >
         <ul className='navbar-nav ml-auto mt-2'>
           <li className="nav-item pull-right">
-            <NavLink className="nav-link pull-right" to="/login">Login</NavLink>
+            <NavLink className="nav-link" to="/login">Login</NavLink>
+          </li>
+          <li className="nav-item pull-right">
+            <NavLink className="nav-link" to="/signup">Sign up</NavLink>
           </li>
         </ul>
       </div>
@@ -37,7 +48,7 @@ class Header extends Component {
 
     return(
       <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-primary">
-        <NavLink className="navbar-brand" to="/">Voucher Trader</NavLink>
+        <NavLink className="navbar-brand mt-1" to="/">Voucher Trader</NavLink>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -51,4 +62,4 @@ const mapStateToProps = (state) => ({
   users: state.users
 })
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, {logout})(Header);
