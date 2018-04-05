@@ -17,10 +17,20 @@ export const login = (userData) => {
   }
 }
 
+export const logout = () => {
+  return (dispatch) => {
+    localStorage.removeItem('accessToken');
+    setAuthorizationToken(false);
+
+    dispatch(loggedIn())
+  }
+}
+
 export const loggedIn = (accessToken) => {
   if (localStorage.accessToken !== accessToken ) {
     localStorage.setItem('accessToken', accessToken);
   }
+
   setAuthorizationToken(accessToken);
   const user = jwt.decode(accessToken)
 
