@@ -61,7 +61,7 @@ export default class LoginForm extends Component {
             text: response.data.message
           });
 
-          this.props.loggedIn(response.data);
+          this.props.loggedIn(response.data.access_token);
           this.context.router.history.push('/');
         })
         .catch(error => {

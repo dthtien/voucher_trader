@@ -1,6 +1,7 @@
 import * as UserActionType from '../actiontypes/user';
 import setAuthorizationToken from '../config/setAuthorizationToken';
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
 
 const API_URL = 'http://localhost:6060/api/v1';
 
@@ -16,14 +17,16 @@ export const login = (userData) => {
   }
 }
 
-export const loggedIn = (userData) => {
-  const token = userData.access_token
-  localStorage.setItem('accessToken', token);
-  setAuthorizationToken(token);
+export const loggedIn = (accessToken) => {
+  if (localStorage.accessToken !== accessToken ) {
+    localStorage.setItem('accessToken', accessToken);
+  }
+  setAuthorizationToken(accessToken);
+  const user = jwt.decode(accessToken)
 
   return {
     type: UserActionType.LOGGED_IN,
-    userData 
+    user
   }
 }
 

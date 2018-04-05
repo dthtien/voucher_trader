@@ -12,8 +12,8 @@ export default function User(state = initialState, action){
       console.log(action.data);
       return {
         ...state,
-        isAuthenticate: !isEmpty(action.userData.user),
-        currentUser: action.userData.user
+        isAuthenticate: !isEmpty(action.user),
+        currentUser: action.user
       }
     default:
       return state;

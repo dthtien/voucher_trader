@@ -62,8 +62,8 @@ export default class SignupForm extends Component {
             type: 'success',
             text: response.data.message
           });
-          this.props.loggedIn(response.data);
-          console.log(response);
+
+          this.props.loggedIn(response.data.access_token);
 
           this.context.router.history.push('/');
         })
