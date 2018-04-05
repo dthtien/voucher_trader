@@ -28,6 +28,12 @@ class Header extends Component {
         <ul className='navbar-nav mt-2'>
           <li className="nav-item pull-right">
             <a className="nav-link pull-right" href="#" 
+              onClick={this.logout.bind(this)}>
+              {currentUser && currentUser.email}
+            </a>
+          </li>
+          <li className="nav-item pull-right">
+            <a className="nav-link pull-right" href="#" 
               onClick={this.logout.bind(this)}>Log Out</a>
           </li>
         </ul>
