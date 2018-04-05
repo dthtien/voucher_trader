@@ -17,12 +17,9 @@ export const getVouchers = () => {
 };
 
 export const createVoucher = (props, callback) => {
-  const request = axios.post(`${API_URL}/vouchers`, {voucher: props}).then(callback);
-
-  return {
-    type: VoucherActionType.CREATE_VOUCHER,
-    payload: request
-  };
+  return (dispatch) => {
+    return axios.post(`${API_URL}/vouchers`, {voucher: props});
+  }
 };
 
 export const getVoucher = (id) => {

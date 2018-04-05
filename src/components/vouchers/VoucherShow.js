@@ -27,7 +27,6 @@ class VoucherShow extends Component {
 
   deleteVoucher = () => {
     const id = this.props.match.params.id;
-    console.log(this.props);
     this.props.deleteVoucher(id, () => {
       this.context.router.history.push('/')
     });

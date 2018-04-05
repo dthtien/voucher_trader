@@ -4,12 +4,12 @@ import isEmpty from 'lodash/isEmpty';
 export const VoucherValidation = values => {
   const errors = {}
   if (!values.description) {
-    errors.description = 'Required';
+    errors.description = 'This field is required';
   } else if(!/^\S+$/.test(values.description)){
     errors.description = "Must not have white space";
   }
   if (!values.kind) {
-    errors.kind = 'Required';
+    errors.kind = 'This field is required';
   } else if (!/^(?:[1-9]\d*|0)?(?:\.\d+)?$/.test(values.kind)) {
     errors.kind = 'Must be a number';
   }
