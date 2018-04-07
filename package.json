@@ -28,6 +28,7 @@
     "classnames": "^2.2.5",
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.5",
+    "react-google-maps": "^9.4.5",
     "shortid": "^2.2.8",
     "validator": "^9.4.1"
   }
