@@ -9,7 +9,7 @@ class Vouchers extends Component {
   };
 
   renderVoucherList = () => {
-    if (this.props.voucher) {
+    if (!this.props.vouchers) {
       return (<li>Loading..</li>);
     } else {
       return this.props.vouchers.map( voucher => {
