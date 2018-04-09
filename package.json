@@ -27,6 +27,7 @@
   "devDependencies": {
     "classnames": "^2.2.5",
     "google-map-react": "^0.34.0",
+    "google-maps-react": "^2.0.0",
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.5",
     "react-google-maps": "^9.4.5",

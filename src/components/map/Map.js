@@ -1,72 +1,100 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import GoogleMapReact from 'google-map-react';
 import { connect } from 'react-redux';
 import { getVouchers } from '../../actions/voucher';
-import { googleMapConfig } from '../../config/googleMapConfig';
+import {
+  Map, 
+  Marker,
+  GoogleApiWrapper,
+  InfoWindow
+} from 'google-maps-react';
 
-import Marker from './Marker';
+const GoogleMapConfig = {
+  key: 'AIzaSyCxCiL6khLdmEmHZh9A5fCOitV3iy2jY0A',
+  libraries: 'places',
+};
 
-class SimpleMap extends Component {
-  static defaultProps = {
-    center: {
-      lat: 10.846247,
-      lng: 106.778941
-    },
-    zoom: 14
-  };
+const LoadingContainer = (props) => (
+  <h1>Loading...!</h1>
+)
+
+export class MapContainer extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
+    }
+  }
 
   componentWillMount(){
     this.props.getVouchers();
   }
 
-  renderVouchersOnMap = () => {
-    if (!this.props.vouchers) {
-      return (
-        <Marker
-          lat={10.846247}
-          lng={106.778941}
-          text={'default'}
-        />
-      );
-    } else {
-      return this.props.vouchers.map( voucher => {
-          return (
-            <Marker
-              key={voucher.id}
-              lat={voucher.latitude}
-              lng={voucher.longitude}
-              text={voucher.description}
-            />
-          );
-        })
+  onMarkerClick = (props, marker, e) =>
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
     }
+  };
+
+  renderVouchersOnMap(){
+    const google = this.props.google;
+
+    return this.props.vouchers.map(voucher => {
+      console.log(voucher);
+      return(
+        <Marker
+          key={voucher.id}
+          name={voucher.kind}
+          title={`${voucher.kind}- ${voucher.description}`}
+          position={{lat: voucher.latitude, lng: voucher.longitude}}
+        >
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}>
+              <div>
+                <h1>{this.state.selectedPlace.name}</h1>
+              </div>
+          </InfoWindow>
+        </Marker>
+      );
+    });
   }
 
+  render(){
+    return(
+      <Map google={this.props.google}
+          initialCenter={{
+            lat: 10.846247,
+            lng: 106.778941
+          }}
+          style={{width: '100%', height: '100%', position: 'relative'}}
+          className={'map'}
+          zoom={14}>
 
-  render() {
-    return (
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys = {
-            {
-              key: 'AIzaSyAvbIGzAY0F_RoyTwx2NEy5l_pykbxcYZk',
-              libraries: 'geometry drawing places'
-            }
-          }
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          heatmapLibrary={true}
-        >
           {this.renderVouchersOnMap()}
-        </GoogleMapReact>
-      </div>
-    );
+      </Map>
+    )
   }
 }
 
-const mapStateToProps = state => ({
+MapContainer = GoogleApiWrapper({
+  apiKey: GoogleMapConfig.key,
+  LoadingContainer: LoadingContainer 
+})(MapContainer)
+
+const mapStateToProps = (state) => ({
   vouchers: state.vouchers.all,
-  loading: state.vouchers.loading
 })
-export default connect(mapStateToProps, {getVouchers})(SimpleMap);
+
+export default connect(mapStateToProps, {getVouchers})(MapContainer);

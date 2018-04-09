@@ -1,27 +1,26 @@
 import React, { Component } from 'react'; 
 import InitialMap from './InitialMap';
+import { connect } from 'react-redux';
+import { getVouchers } from '../../actions/voucher';
 
-class MapCotainer extends Component {
-  componentDidMount() {
-    this.delayedShowMarker()
-  }
-
-  delayedShowMarker = () => {
-    setTimeout(() => {
-      this.setState({ isMarkerShown: true })
-    }, 3000)
-  }
-
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false })
-    this.delayedShowMarker()
+class MapContainer extends Component {
+  componentWillMount(){
+    this.props.getVouchers();
   }
 
   render() {
+    console.log("mapcontainer");
     return (
       <InitialMap
         onMarkerClick={this.handleMarkerClick}
+        vouchers={this.props.vouchers}
       />
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  vouchers: state.vouchers.all
+})
+
+export default connect(mapStateToProps, {getVouchers})(MapContainer);

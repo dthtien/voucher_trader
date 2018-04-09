@@ -13,7 +13,7 @@ import SignupPage from '../components/users/SignupPage';
 import FlashMessagesList from '../components/shared/FlashMessagesList';
 import Header from '../components/shared/Header';
 import Map from '../components/map/Map';
-import MapCotainer from '../components/map/Map';
+import MapCotainer from '../components/map/MapContainer';
 import LoginPage from '../components/users/LoginPage';
 
 const App = () => {
@@ -30,7 +30,6 @@ const App = () => {
           <Route path='/signup' component={SignupPage}/>
           <Route path='/login' component={LoginPage}/>
           <Route path='/vouchers' component={MapCotainer}/>
-          <Route path='/vouchers2' component={Map}/>
         </Switch>
       </div>
     </Router>
