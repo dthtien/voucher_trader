@@ -9,6 +9,7 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
+import voucherIcon from '../../resources/voucher_icon.png'
 import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
 
 const INPUT_STYLE = {
@@ -35,18 +36,35 @@ const InitMap = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>{
-  console.log(props.vouchers)
-
   const renderMarkers = props.vouchers.map(voucher => {
     return(
       <Marker
-        options={{icon: 'https://i.imgur.com/9G5JOp8.png'}}
+        options={{icon: voucherIcon}}
         key={voucher.id} 
         position={{ lat: voucher.latitude, lng: voucher.longitude }}
-        onClick={() => {props.showInfro}}
+        onClick={() => {props.showInfo(voucher)}}
       />
     )
   });
+
+  const renderInfor = () =>{
+    if (props.isOpen) {
+      return(
+        <InfoWindow 
+          position={{
+            lat: props.currentVoucher.latitude,
+            lng: props.currentVoucher.longitude
+          }}
+          onCloseClick={() => {props.onCloseInfo()}}>
+          <div>
+            Hello
+          </div>
+        </InfoWindow>
+      )
+    } else {
+      return null;
+    }
+  }
 
   return(
     <GoogleMap
@@ -63,6 +81,7 @@ const InitMap = compose(
         />
       </SearchBox>
       {renderMarkers}
+      {renderInfor()}
     </GoogleMap>
   )
 })
