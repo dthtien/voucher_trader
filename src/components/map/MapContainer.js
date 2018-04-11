@@ -1,9 +1,10 @@
 import React, { Component } from 'react'; 
 import InitialMap from './InitialMap';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getVouchers } from '../../actions/voucher';
 
-class MapContainer extends Component {
+export default class MapContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -12,8 +13,8 @@ class MapContainer extends Component {
     }
   }
 
-  componentWillMount(){
-    this.props.getVouchers();
+  static propsTypes = {
+    vouchers: PropTypes.object.isRequired
   }
 
   showInfor = (data) => {
@@ -45,9 +46,3 @@ class MapContainer extends Component {
     )
   }
 }
-
-const mapStateToProps = (state) => ({
-  vouchers: state.vouchers.all
-})
-
-export default connect(mapStateToProps, {getVouchers})(MapContainer);

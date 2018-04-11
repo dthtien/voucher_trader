@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {  Link } from 'react-router-dom';
 import { getVouchers } from '../../actions/voucher';
+import MapContainer from '../map/MapContainer';
 
 class Vouchers extends Component {
   componentWillMount(){
@@ -12,15 +13,9 @@ class Vouchers extends Component {
     if (!this.props.vouchers) {
       return (<li>Loading..</li>);
     } else {
-      return this.props.vouchers.map( voucher => {
-          return (
-            <li key = {voucher.id}>
-              <Link to={"vouchers/" + voucher.id}>
-                {voucher.description} - {voucher.kind}
-              </Link>
-            </li>
-          );
-        })
+      return(
+        <MapContainer vouchers={this.props.vouchers}/>
+      );
     }
   }
   
