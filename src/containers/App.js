@@ -12,6 +12,8 @@ import Message from '../components/Message';
 import SignupPage from '../components/users/SignupPage';
 import FlashMessagesList from '../components/shared/FlashMessagesList';
 import Header from '../components/shared/Header';
+import Map from '../components/map/Map';
+import MapCotainer from '../components/map/MapContainer';
 import LoginPage from '../components/users/LoginPage';
 
 const App = () => {
@@ -27,6 +29,7 @@ const App = () => {
           <Route path='/messages' component={Message}/>
           <Route path='/signup' component={SignupPage}/>
           <Route path='/login' component={LoginPage}/>
+          <Route path='/vouchers' component={MapCotainer}/>
         </Switch>
       </div>
     </Router>
