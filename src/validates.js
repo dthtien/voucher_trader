@@ -3,15 +3,18 @@ import isEmpty from 'lodash/isEmpty';
 
 export const VoucherValidation = values => {
   const errors = {}
+  console.log(values);
+
   if (!values.description) {
     errors.description = 'This field is required';
-  } else if(!/^\S+$/.test(values.description)){
-    errors.description = "Must not have white space";
   }
-  if (!values.kind) {
+
+  if (isEmpty(values.kind) || values.kind == "") {
     errors.kind = 'This field is required';
-  } else if (!/^(?:[1-9]\d*|0)?(?:\.\d+)?$/.test(values.kind)) {
-    errors.kind = 'Must be a number';
+  }
+
+  if (values.kind !== 'e' && values.kind !== 'general') {
+    errors.kind = 'Type is invalid';
   }
 
   return errors

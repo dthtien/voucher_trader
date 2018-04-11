@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {reduxForm, Field} from 'redux-form';
 import {VoucherValidation as validate} from '../../../validates';
+import DropDownSelect from '../../shared/DropDownSelect';
 
 const renderInput = field =>{
   const { input, label, type, meta: { touched, error, warning } } = field;
@@ -52,11 +53,24 @@ class NewVoucherForm extends Component {
     return(
         <div className="new-voucher">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <Field name="description" type="text" 
-              component={renderInput} label="Description" />
-            <Field name="kind" type="number" 
-              component={renderInput} label="Type" />
-            <button type="submit" className="btn btn-success">Create</button>
+            <Field 
+              name="description" 
+              type="text" 
+              component={renderInput}
+              label="Description" 
+            />
+
+            <Field 
+              name="kind" 
+              values={['e', 'general']}
+              component={DropDownSelect}
+              label="Type"
+              className='form-control'
+            />
+
+            <div className="text-center mt-2">
+              <button type="submit" className="btn btn-success">Create</button>
+            </div>
           </form>
         </div>
     );
