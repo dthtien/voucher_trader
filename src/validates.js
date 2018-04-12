@@ -9,7 +9,7 @@ export const VoucherValidation = values => {
     errors.description = 'This field is required';
   }
 
-  if (isEmpty(values.kind) || values.kind == "") {
+  if (isEmpty(values.kind) || values.kind === "") {
     errors.kind = 'This field is required';
   }
 

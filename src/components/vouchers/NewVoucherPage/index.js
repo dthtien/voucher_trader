@@ -1,6 +1,9 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux'; 
 import NewVoucherForm from './NewVoucherForm';
+import StoreFields from './StoreFields';
+import VoucherInfoFields from './VoucherInfoFields';
+import VoucherPostingOption from './VoucherPostingOption';
 import {createVoucher} from '../../../actions/voucher';
 import { addFlashMessage } from '../../../actions/message';
 
@@ -11,10 +14,9 @@ class NewVoucherPage extends Component {
         <div className='col-md-4 offset-md-4'>
           <h4 className="text-center m-2">Create voucher</h4>
 
-          <NewVoucherForm 
-            createVoucher={this.props.createVoucher}
-            addFlashMessage={this.props.addFlashMessage}
-          />
+          <StoreFields />
+          <VoucherInfoFields />
+          <VoucherPostingOption />
         </div>
       </div> 
     );
