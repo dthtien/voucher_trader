@@ -25,7 +25,7 @@ export default class VoucherInfoFields extends Component{
     return(
       <div>
         <h5 className="mb-3 ml-0">Voucher details</h5>
-        <form className="ml-2">
+        <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>
           <TextFieldGroup 
             name='type'
             value={this.state.type}
@@ -49,14 +49,20 @@ export default class VoucherInfoFields extends Component{
             value={this.state.code}
             handleChange={this.handleChange}
           />
+          <PlacesWithStandaloneSearchBox
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
+            loadingElement={<div style={{ height: `100%` }}/>}
+            name='address_receiver'
+            handleAddressChanged={this.props.handleAddressChanged}
+            value={this.state.address}
+            handleChange={this.handleChange}
+          />
 
-           <PlacesWithStandaloneSearchBox
-              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
-              loadingElement={<div style={{ height: `100%` }}/>}
-              name='address_receiver'
-              value={this.state.address}
-              handleChange={this.handleChange}
-            />
+          <button className="btn btn-primary">Next Step </button>
+          <button 
+            className="btn btn-warning"
+            onClick={this.props.previousStep.bind(this)}
+          >Privious Step </button>
   
         </form>
       </div>

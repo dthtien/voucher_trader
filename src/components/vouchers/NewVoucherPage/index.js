@@ -4,10 +4,6 @@ import NewVoucherForm from './NewVoucherForm';
 import StoreFields from './StoreFields';
 import VoucherInfoFields from './VoucherInfoFields';
 import VoucherPostingOption from './VoucherPostingOption';
-import { 
-  Route,
-  Switch
-} from 'react-router-dom';
 import {createVoucher} from '../../../actions/voucher';
 import { addFlashMessage } from '../../../actions/message';
 
@@ -40,8 +36,8 @@ class NewVoucherPage extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.store)
-
+    //Custom errors
+    this.changeStep(1);
   }
 
   changeStep = (step) => {
@@ -49,6 +45,11 @@ class NewVoucherPage extends Component {
       ...this.state,
       currentStep: this.state.currentStep + step
     })
+  }
+
+  previousStep = (e) => {
+    e.preventDefault();
+    this.changeStep(-1);
   }
 
   handleStoreAddressChanged = text => {
@@ -71,6 +72,16 @@ class NewVoucherPage extends Component {
     });
   }
 
+  handleVoucherAddressChanged = (text) =>{
+    this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        address: text
+      }
+    });
+  }
+
   showStep = () => {
     switch(this.state.currentStep){
       case 1:
@@ -86,7 +97,10 @@ class NewVoucherPage extends Component {
         return(
           <VoucherInfoFields
             fields={this.state.voucher}
-            handleChange={this.handleStoreFieldsChange} 
+            handleChange={this.handleStoreFieldsChange}
+            handleAddressChanged={this.handleVoucherAddressChanged}
+            handleSubmit={this.handleSubmit}
+            previousStep={this.previousStep}
           />
         )
       case 3:
