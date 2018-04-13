@@ -6,12 +6,13 @@ const TextFieldGroup = (props) => {
   return (
     <div className='form-group'>
       <label className='control-label font-weight-bold'> 
-        {props.name.toTitlelize()} </label>
+        {props.name.toTitlelize()}</label>
       <input 
-        value={props.password}
+        value={props.value}
         onChange={props.handleChange.bind(this)}
         type={props.type}
         name={props.name}
+        placeholder={props.name.capitalize()}
         className={classnames('form-control', 
           {'is-invalid': props.error})}/>
         {props.error && <span className="text-danger">{props.error}</span>}
@@ -22,12 +23,12 @@ const TextFieldGroup = (props) => {
 TextFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   handleChange: PropTypes.func.isRequired
 }
 
 TextFieldGroup.defaultProps = {
-  type: 'text'
+  type: 'text',
 }
 
 export default TextFieldGroup;

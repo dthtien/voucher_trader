@@ -3,18 +3,7 @@ import PropTypes from 'prop-types';
 import {reduxForm, Field} from 'redux-form';
 import {VoucherValidation as validate} from '../../../validates';
 import DropDownSelect from '../../shared/DropDownSelect';
-
-const renderInput = field =>{
-  const { input, label, type, meta: { touched, error, warning } } = field;
-  return(
-    <div className="form-group">
-      <label>{label}</label>
-      <input {...input} type={type} className="form-control" />
-      {touched && ((error && <span className='text-danger mt-2'>{error}</span>) || 
-        (warning && <span className='text-warning mt-2'>{warning}</span>))}
-    </div>
-  );
-}
+import ReduxInputGroup from '../../shared/ReduxInputGroup';
 
 class NewVoucherForm extends Component {
   static contextTypes = {
@@ -56,7 +45,7 @@ class NewVoucherForm extends Component {
             <Field 
               name="description" 
               type="text" 
-              component={renderInput}
+              component={ReduxInputGroup}
               label="Description" 
             />
 
