@@ -58,11 +58,11 @@ export default class VoucherInfoFields extends Component{
             handleChange={this.handleChange}
           />
 
-          <button className="btn btn-primary">Next Step </button>
           <button 
-            className="btn btn-warning"
+            className="btn btn-warning m-2"
             onClick={this.props.previousStep.bind(this)}
           >Privious Step </button>
+          <button className="btn btn-primary">Next Step </button>
   
         </form>
       </div>
