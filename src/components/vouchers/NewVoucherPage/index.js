@@ -38,16 +38,34 @@ class NewVoucherPage extends Component {
       }
     });
   }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state.store)
+
+  }
 
   changeStep = (step) => {
     this.setState({
+      ...this.state,
       currentStep: this.state.currentStep + step
     })
   }
 
+  handleStoreAddressChanged = text => {
+    this.setState({
+      ...this.state,
+      store: {
+        ...this.state.store,
+        address: text
+      }
+    });
+  }
+
   handleStoreFieldsChange = e =>{
     this.setState({
+      ...this.state,
       store: {
+        ...this.state.store,
         [e.target.name]: e.target.value 
       }
     });
@@ -59,7 +77,9 @@ class NewVoucherPage extends Component {
         return(
           <StoreFields
             fields={this.state.store}
-            handleChange={this.handleStoreFieldsChange} 
+            handleChange={this.handleStoreFieldsChange}
+            handleAddressChanged={this.handleStoreAddressChanged}
+            handleSubmit={this.handleSubmit}
           />
         )
       case 2:

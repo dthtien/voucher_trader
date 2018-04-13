@@ -1,9 +1,6 @@
-/*global google*/
 import React from 'react';
-import { compose } from 'recompose';
 import { withScriptjs } from 'react-google-maps';
 import {StandaloneSearchBox} from 'react-google-maps/lib/components/places/StandaloneSearchBox';
-import {inputStyle} from '../../config/inputStyle';
 
 const PlacesWithStandaloneSearchBox = withScriptjs(props => 
   <div className='form-group'>
@@ -11,13 +8,19 @@ const PlacesWithStandaloneSearchBox = withScriptjs(props =>
       {props.name.toTitlelize()}
     </label>
 
-    <StandaloneSearchBox>
+    <StandaloneSearchBox
+      onPlacesChanged={()=> {
+         props.handleAddressChanged(document.getElementsByClassName('address')[0].value);
+      }}>
       <input
         type="text"
         name={props.name}
         placeholder="Enter an address"
+        value={props.value}
+        onChange={props.handleChange.bind(this)}
         onKeyUp={props.handleChange.bind(this)}
-        className='form-control'
+        onKeyDown={props.handleChange.bind(this)}
+        className='form-control address'
       />
     </StandaloneSearchBox>
   </div>

@@ -23,13 +23,12 @@ const TextFieldGroup = (props) => {
 TextFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes
-    .oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   handleChange: PropTypes.func.isRequired
 }
 
 TextFieldGroup.defaultProps = {
-  type: 'text'
+  type: 'text',
 }
 
 export default TextFieldGroup;
