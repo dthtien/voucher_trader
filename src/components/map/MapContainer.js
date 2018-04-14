@@ -1,8 +1,6 @@
 import React, { Component } from 'react'; 
 import InitialMap from './InitialMap';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getVouchers } from '../../actions/voucher';
 
 export default class MapContainer extends Component {
   constructor(props){

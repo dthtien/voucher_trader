@@ -23,7 +23,9 @@ const TextFieldGroup = (props) => {
 TextFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType(
+    [PropTypes.string, PropTypes.number, PropTypes.bool]
+  ),
   handleChange: PropTypes.func.isRequired
 }
 

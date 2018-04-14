@@ -3,7 +3,6 @@ import isEmpty from 'lodash/isEmpty';
 
 export const VoucherValidation = values => {
   const errors = {}
-  console.log(values);
 
   if (!values.description) {
     errors.description = 'This field is required';

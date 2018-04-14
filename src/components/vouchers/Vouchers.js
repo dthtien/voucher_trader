@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {  Link } from 'react-router-dom';
 import { getVouchers } from '../../actions/voucher';
 import MapContainer from '../map/MapContainer';
 

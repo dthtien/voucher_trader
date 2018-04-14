@@ -12,7 +12,6 @@ import Message from '../components/Message';
 import SignupPage from '../components/users/SignupPage';
 import FlashMessagesList from '../components/shared/FlashMessagesList';
 import Header from '../components/shared/Header';
-import Map from '../components/map/Map';
 import MapCotainer from '../components/map/MapContainer';
 import LoginPage from '../components/users/LoginPage';
 
