@@ -19,6 +19,7 @@ class StoreFields extends Component {
             name='name'
             value={this.props.fields.name}
             handleChange={this.props.handleChange}
+            error={this.props.errors.name}
           />
 
           <PlacesWithStandaloneSearchBox
@@ -28,6 +29,7 @@ class StoreFields extends Component {
             value={this.props.fields.address}
             handleAddressChanged={this.props.handleAddressChanged}
             handleChange={this.props.handleChange}
+            error={this.props.errors.address}
           />
           <button className="btn btn-primary">Next Step</button>
         </form>

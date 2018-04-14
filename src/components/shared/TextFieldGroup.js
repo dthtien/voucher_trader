@@ -26,7 +26,8 @@ TextFieldGroup.propTypes = {
   value: PropTypes.oneOfType(
     [PropTypes.string, PropTypes.number, PropTypes.bool]
   ),
-  handleChange: PropTypes.func.isRequired
+  error: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
 }
 
 TextFieldGroup.defaultProps = {

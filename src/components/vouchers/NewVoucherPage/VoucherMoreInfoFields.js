@@ -4,12 +4,13 @@ import PlacesWithStandaloneSearchBox from '../../shared/PlacesWithStandaloneSear
 
 export default class VoucherMoreInfoFields extends Component{
   renderWithVoucherType = () =>{
-    if (this.props.fields.type === 'e') {
+    if (this.props.fields.kind === 'e') {
       return(
         <TextFieldGroup 
           name='code'
           value={this.props.fields.code}
           handleChange={this.props.handleChange}
+          error={this.props.errors.code}
         />
       );
     } else {
@@ -22,6 +23,7 @@ export default class VoucherMoreInfoFields extends Component{
             handleAddressChanged={this.props.handleAddressChanged}
             value={this.props.fields.address_receiver}
             handleChange={this.props.handleChange}
+            error={this.props.errors.address_receiver}
           />
           <TextFieldGroup 
             name='image'
