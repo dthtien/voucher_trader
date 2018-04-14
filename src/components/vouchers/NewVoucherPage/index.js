@@ -16,7 +16,7 @@ class NewVoucherPage extends Component {
       },
 
       voucher: {
-        type: '',
+        kind: '',
         description: '',
         price: '',
         code: '',
@@ -32,7 +32,13 @@ class NewVoucherPage extends Component {
     e.preventDefault();
 
     if (this.state.currentStep === 3) {
-
+      this.props.createVoucher(this.state)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error.response)
+      })
     } else {
       this.changeStep(1);
     }
@@ -85,7 +91,7 @@ class NewVoucherPage extends Component {
       ...this.state,
       voucher: {
         ...this.state.voucher,
-        address: text
+        address_receiver: text
       }
     });
   }

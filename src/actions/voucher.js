@@ -16,9 +16,14 @@ export const getVouchers = () => {
   }
 };
 
-export const createVoucher = (props, callback) => {
+export const createVoucher = (props) => {
   return (dispatch) => {
-    return axios.post(`${API_URL}/vouchers`, {voucher: props});
+    const params = {
+      voucher: props.voucher,
+      store: props.store
+    }
+    console.log(params)
+    return axios.post(`${API_URL}/vouchers`, params);
   }
 };
 

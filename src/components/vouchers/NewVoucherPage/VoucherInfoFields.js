@@ -9,7 +9,7 @@ export default class VoucherInfoFields extends Component{
         <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>
           <div className="form-group">
             <label className='font-weight-bold mt-3'>Type</label>
-            <select name='type' className='form-control' onChange={this.props.handleChange.bind(this)}>
+            <select name='kind' className='form-control' onChange={this.props.handleChange.bind(this)}>
               <option value="">Select</option>
               <option value='e'>E voucher</option>
               <option value='general'>General voucher</option>
