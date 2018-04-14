@@ -15,7 +15,7 @@ export default class DropDownSelect extends Component {
         <label>{label.capitalize()}</label>
         <select {...input} className={className}>
           <option value="">Select</option> 
-          {this.props.values.map(this.renderSelectOptions)}
+          {values.map(this.renderSelectOptions)}
         </select>
         {touched && (error && <span className='text-danger mt-2'>{error}</span>)}
       </div>

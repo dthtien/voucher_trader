@@ -1,5 +1,4 @@
 /* global google*/
-import _ from 'lodash';
 import React from "react";
 import { compose, withProps } from "recompose";
 import { 
