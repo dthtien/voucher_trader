@@ -91,9 +91,15 @@ class NewVoucherPage extends Component {
         })
         .catch(error => {
           console.log(error.response);
-          this.state.serverErrors = error.response;
+          this.setState({
+            ...this.state,
+            currentStep: 1,
+            serverErrors: error.response
+          })
         })
-    } else {}
+    } else {
+      return false
+    }
   }
 
   handleSubmit = (e) => {
