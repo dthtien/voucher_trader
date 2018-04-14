@@ -38,55 +38,45 @@ class NewVoucherPage extends Component {
   }
 
   isFirstStepValid = () => {
-    const {errors, isValid} = StoreValidation(this.state.store);
-
-    if (isValid) {
-      return isValid
-    } else {
-      this.setState({
-        ...this.state,
-        storeErrors: errors
-      });
-
-      return isValid;
-    }
+    return this.isStepValid('store', 'storeErrors');
   }
 
   isSecondStepValid = () => {
-    const {errors, isValid} = VoucherValidation(this.state.voucher)
-
-    if (isValid) {
-      return isValid
-    } else {
-      this.setState({
-        ...this.state,
-        voucherErrors: errors
-      });
-
-      return isValid;
-    }
+    return this.isStepValid('voucher', 'voucherErrors');
   }
 
   isThirdStepValid = () => {
-    const {errors, isValid} = VoucherMoreInfoValidation(this.state.voucher)
+    return this.isStepValid('voucherMoreInfo', 'voucherErrors');
+  }
+
+  isStepValid = (type, errorType) => {
+    var errorsHandle = {};
+    if (type === 'store') {
+      errorsHandle = StoreValidation(this.state.store);
+    }
+    if (type === 'voucher') {
+      errorsHandle = VoucherValidation(this.state.voucher)
+    }
+    if (type === 'voucherMoreInfo') {
+      errorsHandle = VoucherMoreInfoValidation(this.state.voucher)
+    }
+    const {errors, isValid} = errorsHandle;    
 
     if (isValid) {
       return isValid
     } else {
       this.setState({
         ...this.state,
-        voucherErrors: errors
+        [errorType]: errors
       });
 
       return isValid;
     }
   }
-
   handleThirdStepSubmit = () =>{
     if (this.isThirdStepValid()) {
       this.props.createVoucher(this.state)
         .then(response => {
-          console.log(response);
           this.changeStep(1);
         })
         .catch(error => {
@@ -113,7 +103,6 @@ class NewVoucherPage extends Component {
         return this.handleThirdStepSubmit();
       default:
         return this.changeStep(1);
-        
     }
   }
 
@@ -129,52 +118,46 @@ class NewVoucherPage extends Component {
     })
   }
 
-  handleStoreFieldsChange = e =>{
+
+  handleFieldsChange = (e, type, errors) => {
     this.setState({
       ...this.state,
-      store: {
-        ...this.state.store,
+      [type]: {
+        ...this.state[type],
         [e.target.name]: e.target.value 
       },
-      storeErrors: {
-        ...this.state.storeErrors,
+      [errors]: {
+        ...this.state[errors],
         [e.target.name]: ''
       }
     });
   }
 
+  handleStoreFieldsChange = e =>{
+    this.handleFieldsChange(e, 'store', 'storeErrors');
+  }
+
   handleVoucherFieldsChange = (e) =>{
+    this.handleFieldsChange(e, 'voucher', 'voucherErrors');
+  }
+
+  handleAddressChanged = (text, type, addressField) => {
     this.setState({
       ...this.state,
-      voucher: {
-        ...this.state.voucher,
-        [e.target.name]: e.target.value 
-      },
-      voucherErrors: {
-        ...this.state.voucherErrors,
-        [e.target.name]: ''
+      [type]: {
+        ...this.state[type],
+        [addressField]: text
       }
     });
   }
 
   handleStoreAddressChanged = text => {
-    this.setState({
-      ...this.state,
-      store: {
-        ...this.state.store,
-        address: text
-      }
-    });
+    this.handleAddressChanged(text, 'store', 'address'); 
   }
 
+
   handleVoucherAddressChanged = (text) =>{
-    this.setState({
-      ...this.state,
-      voucher: {
-        ...this.state.voucher,
-        address_receiver: text
-      }
-    });
+    this.handleAddressChanged(text, 'voucher', 'address_receiver'); 
   }
 
   showStep = () => {
@@ -217,6 +200,7 @@ class NewVoucherPage extends Component {
     }
   }
   render(){
+    console.log(this.props)
     return(
       <div className='row'>
         <div className='col-md-4 offset-md-4'>
