@@ -5,6 +5,12 @@ import VoucherInfoFields from './VoucherInfoFields';
 import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import {createVoucher} from '../../../actions/voucher';
 import { addFlashMessage } from '../../../actions/message';
+import { 
+  StoreValidation, 
+  VoucherValidation, 
+  VoucherMoreInfoValidation
+} from '../../../validates';
+
 
 class NewVoucherPage extends Component {
   constructor(props){
@@ -24,23 +30,84 @@ class NewVoucherPage extends Component {
         post_to_facebook: false,
         image: null
       }, 
-      currentStep: 1
+      currentStep: 1,
+      storeErrors: {},
+      voucherErrors: {},
+      serverErrors:{},
     }
+  }
+
+  isFirstStepValid = () => {
+    const {errors, isValid} = StoreValidation(this.state.store);
+
+    if (isValid) {
+      return isValid
+    } else {
+      this.setState({
+        ...this.state,
+        storeErrors: errors
+      });
+
+      return isValid;
+    }
+  }
+
+  isSecondStepValid = () => {
+    const {errors, isValid} = VoucherValidation(this.state.voucher)
+
+    if (isValid) {
+      return isValid
+    } else {
+      this.setState({
+        ...this.state,
+        voucherErrors: errors
+      });
+
+      return isValid;
+    }
+  }
+
+  isThirdStepValid = () => {
+    const {errors, isValid} = VoucherMoreInfoValidation(this.state.voucher)
+
+    if (isValid) {
+      return isValid
+    } else {
+      this.setState({
+        ...this.state,
+        voucherErrors: errors
+      });
+
+      return isValid;
+    }
+  }
+
+  handleThirdStepSubmit = () =>{
+    if (this.isThirdStepValid()) {
+      this.props.createVoucher(this.state)
+        .then(response => {
+          console.log(response);
+          this.changeStep(1);
+        })
+        .catch(error => {
+          console.log(error.response);
+          this.state.serverErrors = error.response;
+        })
+    } else {}
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-
-    if (this.state.currentStep === 3) {
-      this.props.createVoucher(this.state)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error.response)
-      })
-    } else {
-      this.changeStep(1);
+    switch(this.state.currentStep){
+      case 1:
+        return this.isFirstStepValid() ? this.changeStep(1): false;
+      case 2:
+        return this.isSecondStepValid() ? this.changeStep(1): false;
+      case 3:
+        return this.handleThirdStepSubmit();
+      default:
+        return this.changeStep(1);
+        
     }
   }
 
@@ -62,6 +129,10 @@ class NewVoucherPage extends Component {
       store: {
         ...this.state.store,
         [e.target.name]: e.target.value 
+      },
+      storeErrors: {
+        ...this.state.storeErrors,
+        [e.target.name]: ''
       }
     });
   }
@@ -72,6 +143,10 @@ class NewVoucherPage extends Component {
       voucher: {
         ...this.state.voucher,
         [e.target.name]: e.target.value 
+      },
+      voucherErrors: {
+        ...this.state.voucherErrors,
+        [e.target.name]: ''
       }
     });
   }
@@ -105,12 +180,14 @@ class NewVoucherPage extends Component {
             handleChange={this.handleStoreFieldsChange}
             handleAddressChanged={this.handleStoreAddressChanged}
             handleSubmit={this.handleSubmit}
+            errors={this.state.storeErrors}
           />
         )
       case 2:
         return(
           <VoucherInfoFields
             fields={this.state.voucher}
+            errors={this.state.voucherErrors}
             handleChange={this.handleVoucherFieldsChange}
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
@@ -120,6 +197,7 @@ class NewVoucherPage extends Component {
         return(
           <VoucherMoreInfoFields
             fields={this.state.voucher}
+            errors={this.state.voucherErrors}
             handleChange={this.handleVoucherFieldsChange}
             handleAddressChanged={this.handleVoucherAddressChanged}
             handleSubmit={this.handleSubmit}
