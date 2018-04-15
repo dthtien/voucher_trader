@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getVouchers } from '../../actions/voucher';
 import Voucher from './Voucher';
+import SlideBar from '../shared/SlideBar';
 
 
 class Vouchers extends Component {
@@ -28,8 +29,8 @@ class Vouchers extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col col-md-3">
-          Vouchers
+        <div className="col col-md-3 bg-secondary">
+          <SlideBar />
         </div>
         <div className="col col-md-9">
           {this.renderVoucherList()}
