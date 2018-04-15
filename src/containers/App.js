@@ -18,19 +18,20 @@ import LoginPage from '../components/users/LoginPage';
 const App = () => {
   return (
     <Router>
-      <div className="APP">
-        <Header />
-        <FlashMessagesList />
-        <Switch>
-          <Route exact path='/' component={Vouchers} />
-          <Route exact path='/vouchers/new' component={NewVoucherPage} />
-          <Route path='/vouchers/:id' component={VoucherShow} />
-          <Route path='/messages' component={Message}/>
-          <Route path='/signup' component={SignupPage}/>
-          <Route path='/login' component={LoginPage}/>
-          <Route path='/vouchers' component={MapCotainer}/>
-        </Switch>
-      </div>
+        <main>
+          <Header />
+          <FlashMessagesList />
+          <Switch>
+            <Route exact path='/' component={Vouchers} />
+            <Route exact path='/vouchers/new' component={NewVoucherPage} />
+            <Route path='/vouchers/:id' component={VoucherShow} />
+            <Route path='/messages' component={Message}/>
+            <Route path='/signup' component={SignupPage}/>
+            <Route path='/login' component={LoginPage}/>
+            <Route path='/vouchers' component={MapCotainer}/>
+          </Switch>
+        </main>
+
     </Router>
   );
 }

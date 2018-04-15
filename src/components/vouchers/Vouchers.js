@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getVouchers } from '../../actions/voucher';
-import MapContainer from '../map/MapContainer';
+import Voucher from './Voucher';
+import SlideBar from '../shared/SlideBar';
+
 
 class Vouchers extends Component {
   componentWillMount(){
@@ -12,21 +14,27 @@ class Vouchers extends Component {
     if (!this.props.vouchers) {
       return (<li>Loading..</li>);
     } else {
+      const vouchersList = this.props.vouchers.map(voucher => {
+        return <Voucher key={voucher.id} />;
+      })
+
       return(
-        <MapContainer vouchers={this.props.vouchers}/>
+        <div className="voucher-list">
+          {vouchersList}
+        </div>
       );
     }
   }
   
   render() {
     return (
-      <div className="App">
-        <p className="App-intro">
-          Vouchers
-        </p>
-        <ul>
+      <div className="row">
+        <div className="col col-md-3 bg-secondary">
+          <SlideBar />
+        </div>
+        <div className="col col-md-9">
           {this.renderVoucherList()}
-        </ul>
+        </div>
       </div>
     );
   }
