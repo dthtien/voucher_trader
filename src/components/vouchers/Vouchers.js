@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getVouchers } from '../../actions/voucher';
 import Voucher from './Voucher';
 import SlideBar from '../shared/SlideBar';
+import '../../resources/vouchers.css'
 
 
 class Vouchers extends Component {
@@ -29,7 +30,7 @@ class Vouchers extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col col-md-3 bg-secondary">
+        <div className="col col-md-3">
           <SlideBar />
         </div>
         <div className="col col-md-9">

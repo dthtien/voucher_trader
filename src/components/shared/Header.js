@@ -19,21 +19,21 @@ class Header extends Component {
     const { isAuthenticate, currentUser } = this.props.users;
 
     const userLinks = (
-      <div className="collapse navbar-collapse" id="navbarTogglerDemo02" >
-        <ul className="navbar-nav mt-2 mr-auto">
+      <div className="collapse navbar" id="navbarTogglerDemo02" >
+        <ul className="navbar-nav mt-2">
           <li className="nav-item">
             <NavLink className="nav-link" to="/vouchers/new">Create Voucher <span className="sr-only">(current)</span></NavLink>
           </li>
         </ul>
         <ul className='navbar-nav mt-2'>
           <li className="nav-item pull-right">
-            <a className="nav-link pull-right" href="#" 
+            <a className="nav-link pull-right" href="/" 
               onClick={this.logout.bind(this)}>
               {currentUser && currentUser.email}
             </a>
           </li>
           <li className="nav-item pull-right">
-            <a className="nav-link pull-right" href="#" 
+            <a className="nav-link pull-right" href="/" 
               onClick={this.logout.bind(this)}>Log Out</a>
           </li>
         </ul>
@@ -53,7 +53,7 @@ class Header extends Component {
     );
 
     return(
-      <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-primary">
+      <nav className="navbar navbar-default navbar-dark bg-primary">
         <NavLink className="navbar-brand mt-1" to="/">Voucher Trader</NavLink>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

@@ -15,12 +15,12 @@ export default class SlideBar extends Component {
 
   render () {
     return (
-      <ul className='bg-secondary'>
-        <a id="home" className="menu-item" href="/">Home</a>
-        <a id="about" className="menu-item" href="/about">About</a>
-        <a id="contact" className="menu-item" href="/contact">Contact</a>
-        <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a>
-      </ul>
+      <div class="sidenav">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a>
+      </div>
     );
   }
 }
