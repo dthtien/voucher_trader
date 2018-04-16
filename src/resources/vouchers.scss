@@ -1,0 +1,21 @@
+.voucher-detail{
+  border-bottom: 1px solid lightgrey;
+  .voucher-image {
+    img{
+      width: 80%;
+      height: 80%;
+    }
+  }
+
+
+  .voucher-footer{
+    width: 100%;
+    position: absolute;
+    bottom: 1em;
+
+    .owner-voucher{
+      pull: right !important;
+    }
+  }
+
+}

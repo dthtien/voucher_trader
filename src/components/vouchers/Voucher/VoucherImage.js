@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import defaultImage from '../../resources/default-image.jpg'
+import defaultImage from '../../../resources/default-image.jpg'
 
 export default class VoucherImage extends Component{
   render(){
