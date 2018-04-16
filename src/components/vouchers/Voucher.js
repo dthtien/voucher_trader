@@ -10,7 +10,7 @@ export default class Voucher extends Component{
           <VoucherImage />
         </div>
         <div className="col col-md-9">
-          <h4>Voucherdetails</h4>
+          <h4>Restaurant name</h4>
         </div>
       </div>
     );

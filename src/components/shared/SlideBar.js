@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../../resources/slidebar.css';
+import '../../resources/slidebar.scss';
 import { slide as Menu } from 'react-burger-menu'
 
 export default class SlideBar extends Component {
@@ -15,7 +15,7 @@ export default class SlideBar extends Component {
 
   render () {
     return (
-      <div class="sidenav">
+      <div className="sidenav">
         <a href="#about">About</a>
         <a href="#services">Services</a>
         <a href="#clients">Clients</a>

@@ -132,7 +132,7 @@ class NewVoucherPage extends Component {
       }
     });
   }
-
+  
   handleStoreFieldsChange = e =>{
     this.handleFieldsChange(e, 'store', 'storeErrors');
   }
@@ -153,6 +153,14 @@ class NewVoucherPage extends Component {
 
   handleStoreAddressChanged = text => {
     this.handleAddressChanged(text, 'store', 'address'); 
+
+    this.setState({
+      ...this.state,
+      store: {
+        ...this.state.store,
+        name: this.state.store.address.split(',')[0]
+      }
+    });
   }
 
 
