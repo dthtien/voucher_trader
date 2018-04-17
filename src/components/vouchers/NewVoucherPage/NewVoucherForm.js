@@ -2,18 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {reduxForm, Field} from 'redux-form';
 import {VoucherValidation as validate} from '../../../validates';
-
-const renderInput = field =>{
-  const { input, label, type, meta: { touched, error, warning } } = field;
-  return(
-    <div className="form-group">
-      <label>{label}</label>
-      <input {...input} type={type} className="form-control" />
-      {touched && ((error && <span className='text-danger mt-2'>{error}</span>) || 
-        (warning && <span className='text-warning mt-2'>{warning}</span>))}
-    </div>
-  );
-}
+import DropDownSelect from '../../shared/DropDownSelect';
+import ReduxInputGroup from '../../shared/ReduxInputGroup';
 
 class NewVoucherForm extends Component {
   static contextTypes = {
@@ -52,11 +42,24 @@ class NewVoucherForm extends Component {
     return(
         <div className="new-voucher">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <Field name="description" type="text" 
-              component={renderInput} label="Description" />
-            <Field name="kind" type="number" 
-              component={renderInput} label="Type" />
-            <button type="submit" className="btn btn-success">Create</button>
+            <Field 
+              name="description" 
+              type="text" 
+              component={ReduxInputGroup}
+              label="Description" 
+            />
+
+            <Field 
+              name="kind" 
+              values={['e', 'general']}
+              component={DropDownSelect}
+              label="Type"
+              className='form-control'
+            />
+
+            <div className="text-center mt-2">
+              <button type="submit" className="btn btn-success">Create</button>
+            </div>
           </form>
         </div>
     );

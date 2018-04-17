@@ -1,5 +1,4 @@
 /* global google*/
-import _ from 'lodash';
 import React from "react";
 import { compose, withProps } from "recompose";
 import { 
@@ -11,20 +10,7 @@ import {
 } from "react-google-maps";
 import voucherIcon from '../../resources/voucher_icon.png'
 import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
-
-const INPUT_STYLE = {
-  boxSizing: `border-box`,
-  border: `1px solid transparent`,
-  width: `240px`,
-  height: `32px`,
-  marginTop: `27px`,
-  padding: `0 12px`,
-  borderRadius: `3px`,
-  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-  fontSize: `14px`,
-  outline: `none`,
-  textOverflow: `ellipses`,
-}
+import {inputStyle} from '../../config/inputStyle';
 
 const InitMap = compose(
   withProps({
@@ -77,7 +63,7 @@ const InitMap = compose(
         <input
           type="text"
           placeholder="Customized your placeholder"
-          style={INPUT_STYLE}
+          style={inputStyle()}
         />
       </SearchBox>
       {renderMarkers}
