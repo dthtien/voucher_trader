@@ -4,6 +4,7 @@ import { getVouchers } from '../../actions/voucher';
 import Voucher from './Voucher';
 import SlideBar from '../shared/SlideBar';
 import '../../resources/vouchers.scss'
+import SearchForm from '../shared/SearchForm';
 
 
 class Vouchers extends Component {
@@ -34,6 +35,7 @@ class Vouchers extends Component {
           <SlideBar />
         </div>
         <div className="col col-md-9">
+          <SearchForm />
           <div className="mt-1">
             {this.renderVoucherList()}
           </div>

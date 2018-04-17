@@ -9,6 +9,7 @@ export default class SlideBar extends Component {
       isOpen: true
     }
   }
+  
   showSettings (event) {
     event.preventDefault();
   }
