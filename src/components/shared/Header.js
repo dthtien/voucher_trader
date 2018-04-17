@@ -11,7 +11,6 @@ class Header extends Component {
   }
 
   logout = (e) => {
-    e.preventDefault();
     this.props.logout();
   }
 
@@ -25,7 +24,7 @@ class Header extends Component {
             <NavLink className="nav-link" to="/vouchers/new">Create Voucher <span className="sr-only">(current)</span></NavLink>
           </li>
         </ul>
-        <ul className='navbar-nav mt-2'>
+        <ul className='navbar-nav mt-2 pull-right'>
           <li className="nav-item pull-right">
             <a className="nav-link pull-right" href="/" 
               onClick={this.logout.bind(this)}>
@@ -42,10 +41,10 @@ class Header extends Component {
     const guestLinks = (
       <div className="collapse navbar-collapse" id="navbarTogglerDemo02" >
         <ul className='navbar-nav ml-auto mt-2'>
-          <li className="nav-item pull-right">
+          <li className="nav-item">
             <NavLink className="nav-link" to="/login">Login</NavLink>
           </li>
-          <li className="nav-item pull-right">
+          <li className="nav-item">
             <NavLink className="nav-link" to="/signup">Sign up</NavLink>
           </li>
         </ul>
@@ -53,7 +52,7 @@ class Header extends Component {
     );
 
     return(
-      <nav className="navbar navbar-default navbar-dark bg-primary">
+      <nav className="navbar navbar-default navbar-dark navbar-expand-lg bg-primary">
         <NavLink className="navbar-brand mt-1" to="/">Voucher Trader</NavLink>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

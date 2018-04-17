@@ -19,10 +19,15 @@ export const login = (userData) => {
 
 export const logout = () => {
   return (dispatch) => {
-    localStorage.removeItem('accessToken');
-    setAuthorizationToken(false);
-
-    dispatch(loggedIn())
+    axios.delete(`${API_URL}/users/logout`)
+      .then(response => {  
+        localStorage.removeItem('accessToken');
+        setAuthorizationToken(false);
+        dispatch(loggedIn()); })
+      .catch(error => {
+        console.log(error);
+      })
+      ;
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { Component }from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'; 
 import StoreFields from './StoreFields';
 import VoucherInfoFields from './VoucherInfoFields';
@@ -37,9 +38,24 @@ class NewVoucherPage extends Component {
     }
   }
 
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
+  componentDidMount(){
+    if (!this.props.users.isAuthenticate) {
+      this.props.addFlashMessage({
+        type: 'error',
+        text: 'You have to login first'
+      })
+      this.context.router.history.push('/login');
+    }
+  }
+
   isFirstStepValid = () => {
     return this.isStepValid('store', 'storeErrors');
   }
+
 
   isSecondStepValid = () => {
     return this.isStepValid('voucher', 'voucherErrors');
@@ -208,7 +224,6 @@ class NewVoucherPage extends Component {
     }
   }
   render(){
-    console.log(this.props)
     return(
       <div className='row'>
         <div className='col-md-4 offset-md-4'>
@@ -219,4 +234,8 @@ class NewVoucherPage extends Component {
   }
 }
 
-export default connect(null, {createVoucher, addFlashMessage})(NewVoucherPage)
+const mapStateToProps = (state) => ({
+  users: state.users
+})
+
+export default connect(mapStateToProps, {createVoucher, addFlashMessage})(NewVoucherPage)
