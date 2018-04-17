@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getVouchers } from '../../actions/voucher';
 import Voucher from './Voucher';
 import SlideBar from '../shared/SlideBar';
+import '../../resources/vouchers.scss'
 
 
 class Vouchers extends Component {
@@ -15,7 +16,7 @@ class Vouchers extends Component {
       return (<li>Loading..</li>);
     } else {
       const vouchersList = this.props.vouchers.map(voucher => {
-        return <Voucher key={voucher.id} />;
+        return <Voucher key={voucher.id} voucher={voucher} />;
       })
 
       return(
@@ -29,11 +30,13 @@ class Vouchers extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col col-md-3 bg-secondary">
+        <div className="col col-md-3">
           <SlideBar />
         </div>
         <div className="col col-md-9">
-          {this.renderVoucherList()}
+          <div className="mt-1">
+            {this.renderVoucherList()}
+          </div>
         </div>
       </div>
     );

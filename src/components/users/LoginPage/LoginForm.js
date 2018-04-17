@@ -62,7 +62,7 @@ export default class LoginForm extends Component {
           });
 
           this.props.loggedIn(response.data.access_token);
-          this.context.router.history.push('/');
+          this.context.router.history.goBack();
         })
         .catch(error => {
           console.log(error.response);
@@ -76,7 +76,6 @@ export default class LoginForm extends Component {
 
   render(){
     const error = this.state.error
-
     return(
       <div className="container">
         <form onSubmit={this.handleSubmit.bind(this)}>

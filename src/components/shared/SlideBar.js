@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../../resources/slidebar.css';
+import '../../resources/slidebar.scss';
 import { slide as Menu } from 'react-burger-menu'
 
 export default class SlideBar extends Component {
@@ -15,12 +15,12 @@ export default class SlideBar extends Component {
 
   render () {
     return (
-      <ul className='bg-secondary'>
-        <a id="home" className="menu-item" href="/">Home</a>
-        <a id="about" className="menu-item" href="/about">About</a>
-        <a id="contact" className="menu-item" href="/contact">Contact</a>
-        <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a>
-      </ul>
+      <div>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#clients">Clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </div>
     );
   }
 }
