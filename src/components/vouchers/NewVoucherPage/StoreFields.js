@@ -13,7 +13,7 @@ class StoreFields extends Component {
     return (
       <div>
         <h4 className="mt-3 text-center font-weight-bold">
-          Store Informations</h4>
+          Đia điểm áp dụng mã gỉam gía</h4>
         <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>
 
           <PlacesWithStandaloneSearchBox
@@ -32,6 +32,10 @@ class StoreFields extends Component {
             handleChange={this.props.handleChange}
             error={this.props.errors.name}
           />
+          <button 
+            className="btn btn-warning m-2"
+            onClick={this.props.previousStep.bind(this)}
+          >Privious Step</button>
           <button className="btn btn-primary">Next Step</button>
         </form>
       </div>

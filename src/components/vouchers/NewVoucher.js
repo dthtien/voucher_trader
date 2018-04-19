@@ -34,14 +34,30 @@ class NewVoucher extends Component {
     return(
       <div className="container">
         <h1 className="text-center m-3">
-          New Voucher
+          Đăng mã giảm giá
         </h1>
         <div className="new-voucher">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <Field name="description" type="text" 
-              component={renderInput} label="Description" />
-            <Field name="kind" type="number" 
-              component={renderInput} label="Type" />
+            <Field name="name" type="text" 
+              component={renderInput} label="Tên mã giảm giá" />
+            <Field name="price" type="text" 
+              component={renderInput} label="Giá trị" />
+            <Field name="voucher_number" type="text" 
+              component={renderInput} label="Số voucher" />
+            <Field name="quantity" type="text" 
+              component={renderInput} label="Số  lượng" />
+            <div>
+              <h3>Thời gian sử  dụng</h3>
+              <Field name="date_start" type="text" 
+              component={renderInput} label="Ngày bắt đầu " />
+              <Field name="end_date" type="text" 
+              component={renderInput} label="Ngày kết thúc" />
+            </div>
+            <Field name="instruction" type="text" 
+              component={renderInput} label="Hướng dẫn sử dụng">
+            <Field name="instruction" type="text" 
+              component={renderInput} label="Hướng dẫn sử dụng">
+
             <button type="submit" className="btn btn-success">Create</button>
           </form>
         </div>
