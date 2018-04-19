@@ -9,6 +9,8 @@ const initialState = {
 export default function User(state = initialState, action){
   switch(action.type){
     case UserActionType.LOGGED_IN:
+      console.log('user', action.user)
+
       return {
         ...state,
         isAuthenticate: !isEmpty(action.user),

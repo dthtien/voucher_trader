@@ -18,8 +18,7 @@ class Vouchers extends Component {
     } else {
       const vouchersList = this.props.vouchers.map(voucher => {
         return <Voucher key={voucher.id} voucher={voucher} />;
-      })
-
+      });
       return(
         <div className="voucher-list">
           {vouchersList}
@@ -30,14 +29,16 @@ class Vouchers extends Component {
   
   render() {
     return (
-      <div className="row">
-        <div className="col col-md-3">
-          <SlideBar />
-        </div>
-        <div className="col col-md-9">
-          <SearchForm />
-          <div className="mt-1">
-            {this.renderVoucherList()}
+      <div className="vouchers">
+        <div className="row">
+          <div className="col col-md-3">
+            <SlideBar />
+          </div>
+          <div className="col col-md-9">
+            <SearchForm />
+            <div className="mt-1">
+              {this.renderVoucherList()}
+            </div>
           </div>
         </div>
       </div>

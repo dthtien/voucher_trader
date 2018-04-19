@@ -6,6 +6,7 @@ import VoucherInfoFields from './VoucherInfoFields';
 import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import {createVoucher} from '../../../actions/voucher';
 import { addFlashMessage } from '../../../actions/message';
+import '../../../resources/newVoucher.scss';
 import { 
   StoreValidation, 
   VoucherValidation, 
@@ -233,11 +234,11 @@ class NewVoucherPage extends Component {
   }
   render(){
     return(
-      <div className='row'>
-        <div className='col-md-4 offset-md-4'>
-          {this.showStep()}
+      <div className="new-voucher container">
+        <div className='row'>
+          {this.showStep()} 
         </div>
-      </div> 
+      </div>
     );      
   }
 }

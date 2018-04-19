@@ -11,7 +11,7 @@ class StoreFields extends Component {
 
   render() {
     return (
-      <div>
+       <div className='col-md-4 offset-md-4'>
         <h4 className="mt-3 text-center font-weight-bold">
           Đia điểm áp dụng mã gỉam gía</h4>
         <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>

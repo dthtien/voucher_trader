@@ -38,7 +38,7 @@ export default class VoucherMoreInfoFields extends Component{
 
   render(){
     return(
-      <div>
+      <div className='col-md-4 offset-md-4'>
         <h5 className="mb-3 ml-0">Voucher details</h5>
         <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>
           {this.renderWithVoucherType()}

@@ -1,5 +1,7 @@
 import 'bootstrap/scss/bootstrap.scss';
 import 'font-awesome/scss/font-awesome.scss'
+import 'mdbreact/dist/scss/mdb.scss';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import './resources/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -11,6 +13,8 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import setAuthorizationToken from './config/setAuthorizationToken';
 import { loggedIn } from './actions/user';
 import App from './containers/App';
+
+injectTapEventPlugin();
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
