@@ -23,6 +23,13 @@ class NewVoucherPage extends Component {
       },
 
       voucher: {
+        name: '',
+        voucher_number: '',
+        quantity: '',
+        date_start: '',
+        date_end: '',
+        instruction: '',
+        approved_condition: '',
         kind: '',
         description: '',
         price: '',
@@ -53,12 +60,12 @@ class NewVoucherPage extends Component {
   }
 
   isFirstStepValid = () => {
-    return this.isStepValid('store', 'storeErrors');
-  }
-
-
-  isSecondStepValid = () => {
     return this.isStepValid('voucher', 'voucherErrors');
+  }
+  
+  
+  isSecondStepValid = () => {
+    return this.isStepValid('store', 'storeErrors');
   }
 
   isThirdStepValid = () => {
@@ -89,6 +96,7 @@ class NewVoucherPage extends Component {
       return isValid;
     }
   }
+
   handleThirdStepSubmit = () =>{
     if (this.isThirdStepValid()) {
       this.props.createVoucher(this.state)
@@ -188,21 +196,21 @@ class NewVoucherPage extends Component {
     switch(this.state.currentStep){
       case 1:
         return(
+          <VoucherInfoFields
+          fields={this.state.voucher}
+          errors={this.state.voucherErrors}
+          handleChange={this.handleVoucherFieldsChange}
+          handleSubmit={this.handleSubmit}
+          />
+        )
+      case 2:
+        return(
           <StoreFields
             fields={this.state.store}
             handleChange={this.handleStoreFieldsChange}
             handleAddressChanged={this.handleStoreAddressChanged}
             handleSubmit={this.handleSubmit}
             errors={this.state.storeErrors}
-          />
-        )
-      case 2:
-        return(
-          <VoucherInfoFields
-            fields={this.state.voucher}
-            errors={this.state.voucherErrors}
-            handleChange={this.handleVoucherFieldsChange}
-            handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
           />
         )
@@ -238,4 +246,5 @@ const mapStateToProps = (state) => ({
   users: state.users
 })
 
-export default connect(mapStateToProps, {createVoucher, addFlashMessage})(NewVoucherPage)
+export default connect(mapStateToProps, {createVoucher, addFlashMessage})
+(NewVoucherPage)
