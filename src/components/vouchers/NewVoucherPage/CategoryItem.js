@@ -5,17 +5,41 @@ class CategoryItem extends Component {
     this.props.handleCategoryChange(this.props.id);
   }
 
+  renderCategoryIcon = () =>{
+    switch(this.props.name){
+      case "Ẩm Thực":
+        return (<i className="material-icons float-left">restaurant</i>);
+      case "Spa & Làm đẹp":
+        return <i className="material-icons float-left">face</i>;
+      case "Giải Trí & Thể Thao":
+        return (<i className="material-icons float-left">gamepad</i>);
+      case "Du Lịch":
+        return (<i className="material-icons float-left">flight</i>);
+      case "Thời Trang & Phụ Kiện":
+        return (<i className="material-icons float-left">shopping_basket</i>);
+      case "Mẹ & Bé":
+        return (<i className="material-icons float-left">pregnant_woman</i>);
+      case "Thực Phẩm":
+        return (<i className="material-icons float-left">free_breakfast</i>);
+      case "Sức Khỏe & Sắc Đẹp":
+        return (<i className="material-icons float-left">accessibility</i>);
+      case "Phụ Kiện- Thiết bị số":
+        return (<i className="material-icons float-left">phonelink</i>);
+      default:
+        return (<i className="material-icons float-left">home</i>);
+    }
+  }
+
   render() {
     const props = this.props
     return (
       <a className="btn" onClick={this.onClick.bind(this)}>
-        <i className="material-icons float-left fa-2">restaurant</i>
+        {this.renderCategoryIcon()}
         <span>{props.name}</span>
-        <i className="material-icons float-right">
           {props.id === props.categoryID ? 
-            'check' :
-            'keyboard_arrow_right'
-          }</i>
+            <i className="material-icons float-right text-warning">check</i> :
+            <i className="material-icons float-right">keyboard_arrow_right</i>
+          }
       </a>
     );
   }
