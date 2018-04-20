@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import VoucherReducer from './voucher';
 import MessageReducer from './message';
 import UserReducer from './user';
+import CategoryReducer from './category';
 
 import {reducer as formReducer} from 'redux-form';
 
@@ -9,6 +10,7 @@ const allReducers = combineReducers({
   vouchers: VoucherReducer,
   messages: MessageReducer,
   users: UserReducer,
+  categories: CategoryReducer,
   form: formReducer
 });
 

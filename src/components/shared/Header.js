@@ -20,7 +20,7 @@ class Header extends Component {
     users: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired
   }
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -83,7 +83,7 @@ class Header extends Component {
     );
 
     return(
-      <Navbar color="indigo" dark expand="md" scrolling color="green" fixed="top">
+      <Navbar color="indigo" dark expand="md" scrolling color="blue" fixed="top">
         <NavbarBrand href="/">
           <strong>Chợ voucher</strong>
         </NavbarBrand>

@@ -31,6 +31,36 @@ export default class VoucherInfoFields extends Component{
               />
 
               <TextFieldGroup
+                name='date_start'
+                error={errors.date_start}
+                type='datepicker'
+                label="Ngày bắt đầu"
+                value={fields.date_start}
+                handleChange={handleDateFieldChange}
+              />
+              <TextFieldGroup
+                name='date_end'
+                error={errors.date_end}
+                type='datepicker'
+                label="Ngày kết thúc"
+                value={fields.date_end}
+                handleChange={handleDateFieldChange}
+              />
+              
+              <div className="form-group">
+                <label className='mt-3'>Loại mã giảm giá:</label>
+                <select name='kind' className='form-control' 
+                  onChange={handleChange.bind(this)}>
+                  <option value="">Chọn</option>
+                  <option value='e'>E voucher</option>
+                  <option value='general'>General voucher</option>
+                </select>
+                {errors.kind && <span className="text-danger">
+                  {errors.kind}</span>}
+              </div>
+            </div>
+            <div className="col col-md-6">
+              <TextFieldGroup
                 name='voucher_number'
                 error={errors.VoucherInfoFields}
                 type='text'
@@ -47,38 +77,6 @@ export default class VoucherInfoFields extends Component{
                 value={fields.quantity}
                 handleChange={handleChange}
               />
-              
-              <div className="form-group">
-                <label className='mt-3'>Loại mã giảm giá:</label>
-                <select name='kind' className='form-control' 
-                  onChange={handleChange.bind(this)}>
-                  <option value="">Chọn</option>
-                  <option value='e'>E voucher</option>
-                  <option value='general'>General voucher</option>
-                </select>
-                {errors.kind && <span className="text-danger">
-                  {errors.kind}</span>}
-              </div>
-            </div>
-            <div className="col col-md-6">
-              <div className="time-use mt-3">
-                <TextFieldGroup
-                  name='date_start'
-                  error={errors.date_start}
-                  type='datepicker'
-                  label="Ngày bắt đầu"
-                  value={fields.date_start}
-                  handleChange={handleDateFieldChange}
-                />
-                <TextFieldGroup
-                  name='date_end'
-                  error={errors.date_end}
-                  type='datepicker'
-                  label="Ngày kết thúc"
-                  value={fields.date_end}
-                  handleChange={handleDateFieldChange}
-                />
-              </div>
 
               <TextFieldGroup
                 name='instruction'
@@ -99,6 +97,10 @@ export default class VoucherInfoFields extends Component{
             </div>
           </div>
           <div className="text-center">
+            <button 
+              className="btn btn-warning m-2"
+              onClick={this.props.previousStep.bind(this)}
+            >Privious Step</button>
             <button className="btn btn-primary">Next Step </button>
           </div>
         </form>

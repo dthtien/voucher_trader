@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DatePicker from 'material-ui/DatePicker';
+import moment from 'moment';
 
 export default class DatePickerField extends Component  {
   componentDidMount() {
@@ -18,13 +19,15 @@ export default class DatePickerField extends Component  {
         <MuiThemeProvider>
           <div className="datepicker-wrapper">
             <DatePicker 
+              floatingLabelText={this.props.label}
               name={this.props.name} 
-              style={{borderBottom: '1px solid #bdbdbd', height: '3rem'}} 
-              id="datepicker" textFieldStyle={{width: '100%'}} 
-              hintText={this.props.label}
+              style={{borderBottom: '1px solid #bdbdbd'}} 
+              id="datepicker"
               value={this.props.value} 
               autoOk={true}
-              onChange={this.onChange.bind(this)}></DatePicker>
+              onChange={this.onChange.bind(this)}
+              formatDate={(date) => moment(date).format('DD-MM-YYYY')}>
+            </DatePicker>
           </div>
         </MuiThemeProvider>
       </div>

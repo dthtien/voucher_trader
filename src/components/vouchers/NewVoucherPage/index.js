@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import StoreFields from './StoreFields';
 import VoucherInfoFields from './VoucherInfoFields';
 import VoucherMoreInfoFields from './VoucherMoreInfoFields';
+import CategoryFields from './CategoryFields';
 import {createVoucher} from '../../../actions/voucher';
+import { getCategories } from '../../../actions/category';
 import { addFlashMessage } from '../../../actions/message';
 import '../../../resources/newVoucher.scss';
 import { 
@@ -20,7 +22,8 @@ class NewVoucherPage extends Component {
     this.state = {
       store: {
         name: '',
-        address: ''
+        address: '',
+        category_id: -1
       },
 
       voucher: {
@@ -39,7 +42,7 @@ class NewVoucherPage extends Component {
         post_to_facebook: false,
         image: null
       }, 
-      currentStep: 1,
+      currentStep: 0,
       storeErrors: {},
       voucherErrors: {},
       serverErrors:{},
@@ -199,9 +202,32 @@ class NewVoucherPage extends Component {
     });
   }
 // end
+// Handle category change
+  handleCategoryChange = (value) => {
+    console.log(value);
+    this.setState({
+      ...this.state,
+      store: {
+        ...this.state.store,
+        category_id: value
+      },
+      currentStep: 1
+    });
+  }
+// end
 // Handle render component when step change
   showStep = () => {
     switch(this.state.currentStep){
+      case 0:
+        return(
+          <CategoryFields 
+            categories={this.props.categories}
+            getCategories={this.props.getCategories}
+            isLoading={this.props.isCategoryLoading}
+            categoryID={this.state.store.category_id}
+            handleCategoryChange={this.handleCategoryChange}
+          />
+        );
       case 1:
         return(
           <VoucherInfoFields
@@ -209,6 +235,7 @@ class NewVoucherPage extends Component {
             errors={this.state.voucherErrors}
             handleChange={this.handleVoucherFieldsChange}
             handleSubmit={this.handleSubmit}
+            previousStep={this.previousStep}
             handleDateFieldChange={this.handleDateFieldChange}
           />
         )
@@ -252,8 +279,10 @@ class NewVoucherPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.users
+  users: state.users,
+  isCategoryLoading: state.categories.isLoading,
+  categories: state.categories.categories,
 })
 
 export default connect(mapStateToProps, 
-  {createVoucher, addFlashMessage})(NewVoucherPage)
+  {createVoucher, addFlashMessage, getCategories})(NewVoucherPage)
