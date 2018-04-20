@@ -11,8 +11,7 @@ import {
   NavItem,
   Dropdown, 
   DropdownToggle, 
-  DropdownMenu, 
-  DropdownItem 
+  DropdownMenu
 } from 'mdbreact';
 import {logout} from '../../actions/user';
 
@@ -21,6 +20,7 @@ class Header extends Component {
     users: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired
   }
+  
   constructor(props) {
     super(props);
     this.state = {

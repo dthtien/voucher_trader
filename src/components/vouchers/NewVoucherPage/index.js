@@ -27,8 +27,8 @@ class NewVoucherPage extends Component {
         name: '',
         voucher_number: '',
         quantity: '',
-        date_start: '',
-        date_end: '',
+        date_start: {},
+        date_end: {},
         instruction: '',
         approved_condition: '',
         kind: '',
@@ -60,6 +60,7 @@ class NewVoucherPage extends Component {
     }
   }
 
+// Handle step by step submit
   isFirstStepValid = () => {
     return this.isStepValid('voucher', 'voucherErrors');
   }
@@ -75,25 +76,17 @@ class NewVoucherPage extends Component {
 
   isStepValid = (type, errorType) => {
     var errorsHandle = {};
-    if (type === 'store') {
-      errorsHandle = StoreValidation(this.state.store);
-    }
-    if (type === 'voucher') {
-      errorsHandle = VoucherValidation(this.state.voucher)
-    }
-    if (type === 'voucherMoreInfo') {
-      errorsHandle = VoucherMoreInfoValidation(this.state.voucher)
-    }
+    if(type==='store'){errorsHandle = StoreValidation(this.state.store);}
+    if(type==='voucher'){errorsHandle = VoucherValidation(this.state.voucher)}
+    if(type==='voucherMoreInfo'){errorsHandle = VoucherMoreInfoValidation(this.state.voucher)}
+
     const {errors, isValid} = errorsHandle;    
 
-    if (isValid) {
-      return isValid
-    } else {
+    if (isValid) { return isValid} else {
       this.setState({
         ...this.state,
         [errorType]: errors
       });
-
       return isValid;
     }
   }
@@ -130,7 +123,8 @@ class NewVoucherPage extends Component {
         return this.changeStep(1);
     }
   }
-
+//end
+// Handle change step
   previousStep = (e) => {
     e.preventDefault();
     this.changeStep(-1);
@@ -142,8 +136,8 @@ class NewVoucherPage extends Component {
       currentStep: this.state.currentStep + step
     })
   }
-
-
+//end
+// Handle fields change
   handleFieldsChange = (e, type, errors) => {
     this.setState({
       ...this.state,
@@ -163,9 +157,11 @@ class NewVoucherPage extends Component {
   }
 
   handleVoucherFieldsChange = (e) =>{
+    console.log(e);
     this.handleFieldsChange(e, 'voucher', 'voucherErrors');
   }
-
+// end
+// Handle address fields change
   handleAddressChanged = (text, type, addressField) => {
     this.setState({
       ...this.state,
@@ -188,20 +184,32 @@ class NewVoucherPage extends Component {
     });
   }
 
-
   handleVoucherAddressChanged = (text) =>{
     this.handleAddressChanged(text, 'voucher', 'address_receiver'); 
   }
-
+// end
+// Handle date fields change
+  handleDateFieldChange = (value, field) => {
+    this.setState({
+      ...this.state, 
+      voucher: {
+        ...this.state.voucher,
+        [field]: value
+      }
+    });
+  }
+// end
+// Handle render component when step change
   showStep = () => {
     switch(this.state.currentStep){
       case 1:
         return(
           <VoucherInfoFields
-          fields={this.state.voucher}
-          errors={this.state.voucherErrors}
-          handleChange={this.handleVoucherFieldsChange}
-          handleSubmit={this.handleSubmit}
+            fields={this.state.voucher}
+            errors={this.state.voucherErrors}
+            handleChange={this.handleVoucherFieldsChange}
+            handleSubmit={this.handleSubmit}
+            handleDateFieldChange={this.handleDateFieldChange}
           />
         )
       case 2:
@@ -247,5 +255,5 @@ const mapStateToProps = (state) => ({
   users: state.users
 })
 
-export default connect(mapStateToProps, {createVoucher, addFlashMessage})
-(NewVoucherPage)
+export default connect(mapStateToProps, 
+  {createVoucher, addFlashMessage})(NewVoucherPage)

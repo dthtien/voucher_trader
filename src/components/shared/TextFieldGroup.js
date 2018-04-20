@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import DatePickerField from './DatePickerField';
+import { Input } from 'mdbreact';
 
 class TextFieldGroup extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.oneOfType(
-      [PropTypes.string, PropTypes.number, PropTypes.bool]
+      [PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]
     ),
     error: PropTypes.string,
     handleChange: PropTypes.func.isRequired,
@@ -20,24 +22,22 @@ class TextFieldGroup extends Component {
   renderWithType = () =>{
     const props = this.props;
     switch(props.type){
-      case "textarea":
-      return (
-        <textarea 
-          value={props.value}
-          onChange={props.handleChange.bind(this)}
-          type={props.type}
-          name={props.name}
-          placeholder={props.label.capitalize()}
-          className={classnames('form-control', 
-            {'is-invalid': props.error})}/>
-      )
+      case "datepicker":
+        return(
+          <DatePickerField 
+            value={props.value}  
+            name={props.name}
+            label={props.label}
+            handleChange={props.handleChange} />
+        );
       default:
         return (
-          <input 
+          <Input 
             value={props.value}
             onChange={props.handleChange.bind(this)}
             type={props.type}
             name={props.name}
+            label={props.label}
             placeholder={props.label.capitalize()}
             className={classnames('form-control', 
               {'is-invalid': props.error}, 
@@ -45,13 +45,10 @@ class TextFieldGroup extends Component {
         );
     }
   }
-
   render(){
     const props = this.props;
     return(
-      <div className='form-group'>
-        <label className='control-label font-weight-bold'> 
-          {props.label.toTitlelize()}</label>
+      <div>
         {this.renderWithType()}
         {props.error && <span className="text-danger">{props.error}</span>}
       </div>

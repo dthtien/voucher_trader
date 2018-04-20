@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "mdbreact": "git+https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design.git",
     "actioncable": "^5.1.5",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
@@ -32,6 +31,8 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "material-ui": "^0.20.0",
+    "mdbreact": "git+https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design.git",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
