@@ -37,7 +37,7 @@ class CategoryItem extends Component {
         {this.renderCategoryIcon()}
         <span>{props.name}</span>
           {props.id === props.categoryID ? 
-            <i className="material-icons float-right text-warning">check</i> :
+            <i className="material-icons float-right text-success">check</i> :
             <i className="material-icons float-right">keyboard_arrow_right</i>
           }
       </a>

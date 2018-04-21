@@ -62,7 +62,7 @@ export default class VoucherInfoFields extends Component{
             <div className="col col-md-6">
               <TextFieldGroup
                 name='voucher_number'
-                error={errors.VoucherInfoFields}
+                error={errors.voucher_number}
                 type='text'
                 label="Số voucher"
                 value={fields.voucher_number}
@@ -97,10 +97,6 @@ export default class VoucherInfoFields extends Component{
             </div>
           </div>
           <div className="text-center">
-            <button 
-              className="btn btn-warning m-2"
-              onClick={this.props.previousStep.bind(this)}
-            >Privious Step</button>
             <button className="btn btn-primary">Next Step </button>
           </div>
         </form>

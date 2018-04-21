@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import DatePickerField from './DatePickerField';
 import { Input } from 'mdbreact';
-
 class TextFieldGroup extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
@@ -34,14 +33,14 @@ class TextFieldGroup extends Component {
         return (
           <Input 
             value={props.value}
+            defaultValue={props.value}
             onChange={props.handleChange.bind(this)}
             type={props.type}
             name={props.name}
             label={props.label}
             placeholder={props.label.capitalize()}
             className={classnames('form-control', 
-              {'is-invalid': props.error}, 
-              {'datepicker': props.type === 'datepicker'})}/>
+              {'is-invalid': props.error})}/>
         );
     }
   }

@@ -29,7 +29,7 @@ class NewVoucherPage extends Component {
       voucher: {
         name: '',
         voucher_number: '',
-        quantity: '',
+        quantity: '1',
         date_start: {},
         date_end: {},
         instruction: '',
@@ -65,12 +65,12 @@ class NewVoucherPage extends Component {
 
 // Handle step by step submit
   isFirstStepValid = () => {
-    return this.isStepValid('voucher', 'voucherErrors');
+    return this.isStepValid('store', 'storeErrors');
   }
   
   
   isSecondStepValid = () => {
-    return this.isStepValid('store', 'storeErrors');
+    return this.isStepValid('voucher', 'voucherErrors');
   }
 
   isThirdStepValid = () => {
@@ -182,6 +182,7 @@ class NewVoucherPage extends Component {
       ...this.state,
       store: {
         ...this.state.store,
+        address: this.state.store.address.split(',')[0],
         name: this.state.store.address.split(',')[0]
       }
     });
@@ -230,17 +231,6 @@ class NewVoucherPage extends Component {
         );
       case 1:
         return(
-          <VoucherInfoFields
-            fields={this.state.voucher}
-            errors={this.state.voucherErrors}
-            handleChange={this.handleVoucherFieldsChange}
-            handleSubmit={this.handleSubmit}
-            previousStep={this.previousStep}
-            handleDateFieldChange={this.handleDateFieldChange}
-          />
-        )
-      case 2:
-        return(
           <StoreFields
             fields={this.state.store}
             handleChange={this.handleStoreFieldsChange}
@@ -248,6 +238,17 @@ class NewVoucherPage extends Component {
             handleSubmit={this.handleSubmit}
             errors={this.state.storeErrors}
             previousStep={this.previousStep}
+          />
+        )
+      case 2:
+        return(
+          <VoucherInfoFields
+            fields={this.state.voucher}
+            errors={this.state.voucherErrors}
+            handleChange={this.handleVoucherFieldsChange}
+            handleSubmit={this.handleSubmit}
+            previousStep={this.previousStep}
+            handleDateFieldChange={this.handleDateFieldChange}
           />
         )
       case 3:
@@ -271,7 +272,10 @@ class NewVoucherPage extends Component {
     return(
       <div className="new-voucher container">
         <div className='row'>
-          {this.showStep()} 
+          {this.state.currentStep > 0 && 
+          <a className="m-2" onClick={this.previousStep.bind(this)}> 
+            <i className="material-icons float-left">keyboard_arrow_left</i></a>}
+          {this.showStep()}
         </div>
       </div>
     );      

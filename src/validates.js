@@ -4,10 +4,33 @@ import isEmpty from 'lodash/isEmpty';
 export const VoucherValidation = values => {
   const errors = {
   }
-
-  if (Validator.isEmpty(values.description)) {
-    errors.description = 'This field is required';
+  if (Validator.isEmpty(values.name)) {
+    errors.name = "This field is required"
   }
+
+  if (Validator.isEmpty(values.voucher_number)) {
+    errors.voucher_number = "This field is required"
+  }
+
+  if (values.quantity === '0' || values.quantity === '') {
+    errors.quantity = "Quantity must be greater than 0"
+  }
+
+  if (JSON.stringify(values.date_start) === JSON.stringify({})) {
+    errors.date_start = "This field is required"
+  }
+
+  if (JSON.stringify(values.date_end) === JSON.stringify({})) {
+    errors.date_end = "This field is required"
+  }
+
+  if (values.date_start > values.date_end) {
+    errors.date_end = "End date must greater than start date"
+  }
+
+  // if (Validator.isEmpty(values.description)) {
+  //   errors.description = 'This field is required';
+  // }
 
   if (Validator.isEmpty(values.kind)) {
     errors.kind = 'This field is required';

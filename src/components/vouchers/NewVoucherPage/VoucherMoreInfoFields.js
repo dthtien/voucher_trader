@@ -9,6 +9,7 @@ export default class VoucherMoreInfoFields extends Component{
         <TextFieldGroup 
           name='code'
           value={this.props.fields.code}
+          label="Mã code"
           handleChange={this.props.handleChange}
           error={this.props.errors.code}
         />
@@ -28,6 +29,7 @@ export default class VoucherMoreInfoFields extends Component{
           <TextFieldGroup 
             name='image'
             type='file'
+            label='Ảnh'
             value={this.props.fields.image || ''}
             handleChange={this.props.handleChange}
           />
@@ -45,6 +47,7 @@ export default class VoucherMoreInfoFields extends Component{
           <TextFieldGroup 
             name='post_to_facebook'
             type='radio'
+            label="Đăng lên facebook"
             value={this.props.fields.post_to_facebook}
             handleChange={this.props.handleChange}
           />
