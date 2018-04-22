@@ -40,7 +40,8 @@ class NewVoucherPage extends Component {
         code: '',
         address_receiver: '',
         post_to_facebook: false,
-        image: null
+        image: null,
+        approved_regions: []
       }, 
       currentStep: 0,
       storeErrors: {},
@@ -164,6 +165,18 @@ class NewVoucherPage extends Component {
     this.handleFieldsChange(e, 'voucher', 'voucherErrors');
   }
 // end
+// Handle region change
+  handleRegionSelectChange = (value) =>{
+    console.log(this.state.voucher);
+    this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        approved_regions: value
+      }
+    });
+  }
+// end
 // Handle address fields change
   handleAddressChanged = (text, type, addressField) => {
     this.setState({
@@ -188,7 +201,7 @@ class NewVoucherPage extends Component {
     });
   }
 
-  handleVoucherAddressChanged = (text) =>{
+  handleVoucherAddressChanged = (text) => {
     this.handleAddressChanged(text, 'voucher', 'address_receiver'); 
   }
 // end
@@ -205,7 +218,6 @@ class NewVoucherPage extends Component {
 // end
 // Handle category change
   handleCategoryChange = (value) => {
-    console.log(value);
     this.setState({
       ...this.state,
       store: {
@@ -232,12 +244,14 @@ class NewVoucherPage extends Component {
       case 1:
         return(
           <StoreFields
+            approved_regions={this.state.voucher.approved_regions}
             fields={this.state.store}
             handleChange={this.handleStoreFieldsChange}
             handleAddressChanged={this.handleStoreAddressChanged}
             handleSubmit={this.handleSubmit}
             errors={this.state.storeErrors}
             previousStep={this.previousStep}
+            handleRegionSelectChange={this.handleRegionSelectChange}
           />
         )
       case 2:

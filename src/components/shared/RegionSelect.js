@@ -5,20 +5,11 @@ import 'react-select/scss/default.scss';
 import {CITIES} from '../../data';
 
 const MAX_CITIES = 6;
-const ASYNC_DELAY = 500;
+const ASYNC_DELAY = 200;
 
 class RegionSelect extends Component{
-  constructor(props){
-    super(props);
-    this.state={
-      value: ""
-    }
-  }
-
   onChange  = (value) => {
-    this.setState({
-      value: value,
-    });
+    this.props.handleChange(value)
   }
 
   getContributors (input, callback) {
@@ -26,10 +17,12 @@ class RegionSelect extends Component{
     var options = CITIES.filter(i => {
       return i.github.substr(0, input.length) === input;
     });
+
     var data = {
       options: options.slice(0, MAX_CITIES),
       complete: options.length <= MAX_CITIES,
     };
+
     setTimeout(function() {
       callback(null, data);
     }, ASYNC_DELAY);
@@ -38,7 +31,7 @@ class RegionSelect extends Component{
   render () {
     return (
       <div className="section">
-        <Select.Async multi value={this.state.value} onChange={this.onChange} onValueClick={this.gotoContributor} valueKey="github" labelKey="name" loadOptions={this.getContributors} />
+        <Select.Async multi value={this.props.approved_regions} onChange={this.onChange.bind(this)} onValueClick={this.gotoContributor} valueKey="name" labelKey="name" loadOptions={this.getContributors} />
       </div>
     );
   }

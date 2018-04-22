@@ -29,7 +29,8 @@ const PlacesWithStandaloneSearchBox = withScriptjs(props =>
 )
 
 PlacesWithStandaloneSearchBox.defaultProps = {
-  label: "Địa chỉ"
+  label: "Địa chỉ",
+  googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyAvbIGzAY0F_RoyTwx2NEy5l_pykbxcYZk&v=3.exp&libraries=geometry,drawing,places"
 }
 
 export default PlacesWithStandaloneSearchBox;

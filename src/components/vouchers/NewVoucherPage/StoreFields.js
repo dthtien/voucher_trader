@@ -5,9 +5,41 @@ import PlacesWithStandaloneSearchBox from '../../shared/PlacesWithStandaloneSear
 import RegionSelect from '../../shared/RegionSelect';
 
 class StoreFields extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+
+    }
+  }
+
   static propType = {
     fields: PropTypes.object.isRequired,
     handleChange: PropTypes.func.isRequired
+  }
+
+  renderMoreFields = () =>{
+    if (this.props.fields.name !== '') {
+      return(
+        <div className="mt-3 border-top-light">
+          <TextFieldGroup 
+            name='name'
+            type="text"
+            label="Tên địa điểm"
+            value={this.props.fields.name}
+            handleChange={this.props.handleChange}
+            error={this.props.errors.name}
+          />
+          <h5 className="mt-3 mb-4">
+            Them dia điểm áp dụng mã gỉam gía</h5>
+            <RegionSelect 
+              handleChange={this.props.handleRegionSelectChange} 
+              approved_regions={this.props.approved_regions}
+            />
+        </div>
+      );
+    } else {
+      return (<p className="text-primary">Mời bạn chọn địa điểm</p>)
+    }
   }
 
   render() {
@@ -17,29 +49,15 @@ class StoreFields extends Component {
           Đia điểm áp dụng mã gỉam gía</h4>
         <form className="mt-4" onSubmit={this.props.handleSubmit.bind(this)}>
           <PlacesWithStandaloneSearchBox
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvbIGzAY0F_RoyTwx2NEy5l_pykbxcYZk&v=3.exp&libraries=geometry,drawing,places"
             name='address'
-            label="Địa chỉ"
+            label="Chọn tên địa điểm áp dụng"
             loadingElement={<div style={{ height: `100%` }}/>}
             value={this.props.fields.address}
             handleAddressChanged={this.props.handleAddressChanged}
             handleChange={this.props.handleChange}
             error={this.props.errors.address}
           />
-          {this.props.fields.name !== '' && <TextFieldGroup 
-            name='name'
-            type="text"
-            label="Tên địa điểm"
-            value={this.props.fields.name}
-            handleChange={this.props.handleChange}
-            error={this.props.errors.name}
-          />}
-
-          <div className="mt-3 border-top-light">
-            <h5 className="mt-3 mb-4">
-              Them dia điểm áp dụng mã gỉam gía</h5>
-              <RegionSelect />
-          </div>
+          {this.renderMoreFields()}
           <button className="btn btn-primary">Next Step</button>
         </form>
       </div>
