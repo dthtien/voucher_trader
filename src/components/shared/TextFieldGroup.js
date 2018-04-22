@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import DatePickerField from './DatePickerField';
+import InputSwitch from './InputSwitch'
 import { Input } from 'mdbreact';
+
 class TextFieldGroup extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
@@ -29,6 +31,15 @@ class TextFieldGroup extends Component {
             label={props.label}
             handleChange={props.handleChange} />
         );
+      case "radio":
+        return(
+          <InputSwitch 
+            label={props.label}
+            value={props.value}
+            name={props.name}
+            handleChange={props.handleChange}
+          />
+        )
       default:
         return (
           <Input 

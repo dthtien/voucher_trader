@@ -218,6 +218,17 @@ class NewVoucherPage extends Component {
     });
   }
 // end
+// handle radioBtn change
+  handleRadioBtnChange = (value) => {
+    this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        post_to_facebook: value
+      }
+    });
+  }
+// end
 // Handle category change
   handleCategoryChange = (value) => {
     this.setState({
@@ -278,6 +289,7 @@ class NewVoucherPage extends Component {
             handleAddressChanged={this.handleVoucherAddressChanged}
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
+            handleRadioBtnChange={this.handleRadioBtnChange}
           />
         )
       default:

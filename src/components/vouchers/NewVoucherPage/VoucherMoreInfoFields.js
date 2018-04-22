@@ -40,7 +40,7 @@ export default class VoucherMoreInfoFields extends Component{
 
   render(){
     return(
-      <div className='col-md-4 offset-md-4'>
+      <div className='col-md-4 offset-md-4 mt-3'>
         <h5 className="mb-3 ml-0">Voucher details</h5>
         <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>
           {this.renderWithVoucherType()}
@@ -49,7 +49,7 @@ export default class VoucherMoreInfoFields extends Component{
             type='radio'
             label="Đăng lên facebook"
             value={this.props.fields.post_to_facebook}
-            handleChange={this.props.handleChange}
+            handleChange={this.props.handleRadioBtnChange}
           />
 
           <button 
