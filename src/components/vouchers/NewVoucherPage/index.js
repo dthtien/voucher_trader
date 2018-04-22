@@ -7,6 +7,7 @@ import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import CategoryFields from './CategoryFields';
 import {createVoucher} from '../../../actions/voucher';
 import { getCategories } from '../../../actions/category';
+import { getRegions } from '../../../actions/region';
 import { addFlashMessage } from '../../../actions/message';
 import '../../../resources/newVoucher.scss';
 import { 
@@ -173,7 +174,7 @@ class NewVoucherPage extends Component {
       ...this.state,
       voucher: {
         ...this.state.voucher,
-        approved_regions: value
+        approved_regions_attributes: value
       }
     });
   }
@@ -253,6 +254,8 @@ class NewVoucherPage extends Component {
             errors={this.state.storeErrors}
             previousStep={this.previousStep}
             handleRegionSelectChange={this.handleRegionSelectChange}
+            regions = {this.props.regions}
+            getRegions={this.props.getRegions}
           />
         )
       case 2:
@@ -301,7 +304,9 @@ const mapStateToProps = (state) => ({
   users: state.users,
   isCategoryLoading: state.categories.isLoading,
   categories: state.categories.categories,
+  regions: state.regions.regions,
+  isRegionLoading: state.regions.isLoading
 })
 
 export default connect(mapStateToProps, 
-  {createVoucher, addFlashMessage, getCategories})(NewVoucherPage)
+  {createVoucher, addFlashMessage, getCategories, getRegions})(NewVoucherPage)

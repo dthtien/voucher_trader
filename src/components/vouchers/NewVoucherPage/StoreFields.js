@@ -12,6 +12,10 @@ class StoreFields extends Component {
     }
   }
 
+  componentDidMount(){
+    this.props.getRegions()
+  }
+
   static propType = {
     fields: PropTypes.object.isRequired,
     handleChange: PropTypes.func.isRequired
@@ -32,6 +36,7 @@ class StoreFields extends Component {
           <h5 className="mt-3 mb-4">
             Them dia điểm áp dụng mã gỉam gía</h5>
             <RegionSelect 
+              regions={this.props.regions}
               handleChange={this.props.handleRegionSelectChange} 
               approved_regions={this.props.approved_regions}
             />

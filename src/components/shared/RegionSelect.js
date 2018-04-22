@@ -9,13 +9,16 @@ const ASYNC_DELAY = 200;
 
 class RegionSelect extends Component{
   onChange  = (value) => {
-    this.props.handleChange(value)
+    this.props.handleChange(value);
   }
 
   getContributors (input, callback) {
     input = input.toLowerCase();
     var options = CITIES.filter(i => {
-      return i.github.substr(0, input.length) === input;
+      var name = i.acrnomy.substr(0, input.length).toLowerCase();
+      var ortherName = i.name.substr(0, input.length).toLowerCase();
+
+      return name === input || ortherName === input;
     });
 
     var data = {
@@ -31,7 +34,11 @@ class RegionSelect extends Component{
   render () {
     return (
       <div className="section">
-        <Select.Async multi value={this.props.approved_regions} onChange={this.onChange.bind(this)} onValueClick={this.gotoContributor} valueKey="name" labelKey="name" loadOptions={this.getContributors} />
+        <Select.Async multi joinValues 
+          value={this.props.approved_regions} 
+          onChange={this.onChange.bind(this)}
+          valueKey="region_id" labelKey="name" 
+          loadOptions={this.getContributors} />
       </div>
     );
   }
