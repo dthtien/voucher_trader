@@ -18,8 +18,6 @@ const PlacesWithStandaloneSearchBox = withScriptjs(props =>
         label={props.label}
         value={props.value}
         onChange={props.handleChange.bind(this)}
-        onKeyUp={props.handleChange.bind(this)}
-        onKeyDown={props.handleChange.bind(this)}
         className={classnames('form-control address', 
           {'is-invalid': props.error})}
       />

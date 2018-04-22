@@ -22,6 +22,7 @@ class NewVoucherPage extends Component {
     this.state = {
       store: {
         name: '',
+        showStoreName: false,
         address: '',
         category_id: -1
       },
@@ -41,8 +42,8 @@ class NewVoucherPage extends Component {
         address_receiver: '',
         post_to_facebook: false,
         image: null,
-        approved_regions: []
-      }, 
+        approved_regions_attributes: []
+      },
       currentStep: 0,
       storeErrors: {},
       voucherErrors: {},
@@ -195,8 +196,8 @@ class NewVoucherPage extends Component {
       ...this.state,
       store: {
         ...this.state.store,
-        address: this.state.store.address.split(',')[0],
-        name: this.state.store.address.split(',')[0]
+        name: this.state.store.address.split(',')[0],
+        showStoreName: true
       }
     });
   }
@@ -244,7 +245,7 @@ class NewVoucherPage extends Component {
       case 1:
         return(
           <StoreFields
-            approved_regions={this.state.voucher.approved_regions}
+            approved_regions={this.state.voucher.approved_regions_attributes}
             fields={this.state.store}
             handleChange={this.handleStoreFieldsChange}
             handleAddressChanged={this.handleStoreAddressChanged}

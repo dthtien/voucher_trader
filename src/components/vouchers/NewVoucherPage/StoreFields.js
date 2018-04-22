@@ -18,7 +18,7 @@ class StoreFields extends Component {
   }
 
   renderMoreFields = () =>{
-    if (this.props.fields.name !== '') {
+    if (this.props.fields.showStoreName) {
       return(
         <div className="mt-3 border-top-light">
           <TextFieldGroup 
