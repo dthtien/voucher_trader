@@ -13,7 +13,8 @@ const initialState ={
   },
   store: {
     name: '',
-    address: ''
+    address: '',
+    category_id: -1
   },
   loading: true
 }

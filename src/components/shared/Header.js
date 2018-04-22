@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { 
+  Navbar, 
+  NavbarBrand, 
+  NavbarNav, 
+  NavbarToggler, 
+  Collapse, 
+  NavItem,
+  Dropdown, 
+  DropdownToggle, 
+  DropdownMenu
+} from 'mdbreact';
 import {logout} from '../../actions/user';
 
 class Header extends Component {
@@ -10,55 +21,77 @@ class Header extends Component {
     logout: PropTypes.func.isRequired
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+        collapse: false,
+        isWideEnough: false,
+        dropdownOpen: false
+    };
+    this.onClick = this.onClick.bind(this);
+    this.toggle = this.toggle.bind(this);
+    }
+
+    onClick(){
+      this.setState({
+          collapse: !this.state.collapse,
+      });
+    }
+
+    toggle() {
+      this.setState({
+          dropdownOpen: !this.state.dropdownOpen
+      });
+    }
+
   logout = (e) => {
     this.props.logout();
   }
+
+
 
   render(){
     const { isAuthenticate, currentUser } = this.props.users;
 
     const userLinks = (
-      <div className="collapse navbar" id="navbarTogglerDemo02" >
-        <ul className="navbar-nav mt-2">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/vouchers/new">Create Voucher <span className="sr-only">(current)</span></NavLink>
-          </li>
-        </ul>
-        <ul className='navbar-nav mt-2 pull-right'>
-          <li className="nav-item pull-right">
-            <a className="nav-link pull-right" href="/" 
-              onClick={this.logout.bind(this)}>
-              {currentUser && currentUser.email}
-            </a>
-          </li>
-          <li className="nav-item pull-right">
-            <a className="nav-link pull-right" href="/" 
-              onClick={this.logout.bind(this)}>Log Out</a>
-          </li>
-        </ul>
-      </div>
+      <NavbarNav right>
+        <NavItem>
+          <NavLink className="nav-link" to="/vouchers/new">
+            Create voucher</NavLink>
+        </NavItem>
+        <NavItem>
+          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <DropdownToggle nav caret>{currentUser.email}</DropdownToggle>
+            <DropdownMenu>
+              <a className="dropdown-item waves-effect waves-light" onClick={this.logout.bind(this)} href="/">
+                <i className="fa fa-sign-out mr-2"></i> Logout
+              </a>
+            </DropdownMenu>
+          </Dropdown>
+        </NavItem>
+      </NavbarNav>
     );
     const guestLinks = (
-      <div className="collapse navbar-collapse" id="navbarTogglerDemo02" >
-        <ul className='navbar-nav ml-auto mt-2'>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/login">Login</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/signup">Sign up</NavLink>
-          </li>
-        </ul>
-      </div>
+      <NavbarNav right>
+        <NavItem>
+          <NavLink className="nav-link" to="/login">Login</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink className="nav-link" to="/signup">Sign up</NavLink>
+        </NavItem>
+      </NavbarNav>
     );
 
     return(
-      <nav className="navbar navbar-default navbar-dark navbar-expand-lg bg-primary">
-        <NavLink className="navbar-brand mt-1" to="/">Voucher Trader</NavLink>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        {isAuthenticate ? userLinks : guestLinks}
-      </nav>
+      <Navbar color="indigo" dark expand="md" scrolling color="blue" fixed="top">
+        <NavbarBrand href="/">
+          <strong>Chợ voucher</strong>
+        </NavbarBrand>
+        { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
+        <Collapse isOpen = { this.state.collapse } navbar>
+          { isAuthenticate ? userLinks : guestLinks}
+        </Collapse>
+      </Navbar>
     );
   }
 }

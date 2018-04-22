@@ -1,21 +1,23 @@
-.voucher-detail{
-  border-bottom: 1px solid lightgrey;
-  .voucher-image {
-    img{
+.vouchers{
+  margin-top: 4.5em;
+  .voucher-detail{
+    margin-bottom: 5px;
+    border-bottom: 1px solid lightgrey;
+    .voucher-image {
+      img{
+        width: 80%;
+        height: 80%;
+      }
+    }
+
+
+    .voucher-footer{
+      margin-top: 2em;
       width: 80%;
-      height: 80%;
+
+      .owner-voucher{
+        pull: right !important;
+      }
     }
-  }
-
-
-  .voucher-footer{
-    width: 100%;
-    position: absolute;
-    bottom: 1em;
-
-    .owner-voucher{
-      pull: right !important;
-    }
-  }
-
+}
 }

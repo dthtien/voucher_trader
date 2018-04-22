@@ -10,7 +10,7 @@ const SearchForm = (props) => {
             <input type="text" className="form-control input-lg" placeholder="Type anything...." />
             <span className="input-group-btn">
                 <button className="btn btn-info btn-lg" type="button">
-                    <i className="glyphicon glyphicon-search"></i>
+                    <i className="fa fa-search"></i>
                 </button>
             </span>
           </div>

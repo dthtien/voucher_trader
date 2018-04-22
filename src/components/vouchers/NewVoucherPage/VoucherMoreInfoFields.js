@@ -9,6 +9,7 @@ export default class VoucherMoreInfoFields extends Component{
         <TextFieldGroup 
           name='code'
           value={this.props.fields.code}
+          label="Mã code"
           handleChange={this.props.handleChange}
           error={this.props.errors.code}
         />
@@ -28,6 +29,7 @@ export default class VoucherMoreInfoFields extends Component{
           <TextFieldGroup 
             name='image'
             type='file'
+            label='Ảnh'
             value={this.props.fields.image || ''}
             handleChange={this.props.handleChange}
           />
@@ -38,13 +40,14 @@ export default class VoucherMoreInfoFields extends Component{
 
   render(){
     return(
-      <div>
+      <div className='col-md-4 offset-md-4'>
         <h5 className="mb-3 ml-0">Voucher details</h5>
         <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>
           {this.renderWithVoucherType()}
           <TextFieldGroup 
             name='post_to_facebook'
             type='radio'
+            label="Đăng lên facebook"
             value={this.props.fields.post_to_facebook}
             handleChange={this.props.handleChange}
           />

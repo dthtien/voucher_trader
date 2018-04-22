@@ -85,6 +85,7 @@ export default class LoginForm extends Component {
             value={this.state.email}
             error={error.email}
             handleChange={this.handleChange}
+            label="Email"
           />
 
           <TextFieldGroup 
@@ -93,6 +94,7 @@ export default class LoginForm extends Component {
             value={this.state.password}
             error={error.password}
             handleChange={this.handleChange}
+            label="password"
           />
 
           <button disabled={this.state.isLoading} className='btn btn-primary'> Login </button>

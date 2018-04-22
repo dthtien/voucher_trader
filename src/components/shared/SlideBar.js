@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import '../../resources/slidebar.scss';
-import { slide as Menu } from 'react-burger-menu'
 
 export default class SlideBar extends Component {
   constructor(props){
