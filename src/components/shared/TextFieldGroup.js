@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import DatePickerField from './DatePickerField';
-import InputSwitch from './InputSwitch'
+import InputSwitch from './InputSwitch';
+import FileInput from './FileInput';
 import { Input } from 'mdbreact';
 
 class TextFieldGroup extends Component {
@@ -40,6 +41,10 @@ class TextFieldGroup extends Component {
             handleChange={props.handleChange}
           />
         )
+      case "file":
+        return (
+          <FileInput handleChange={props.handleChange}/>
+        );
       default:
         return (
           <Input 

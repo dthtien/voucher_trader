@@ -9,6 +9,7 @@ import {createVoucher} from '../../../actions/voucher';
 import { getCategories } from '../../../actions/category';
 import { getRegions } from '../../../actions/region';
 import { addFlashMessage } from '../../../actions/message';
+import { createImage } from '../../../actions/image'
 import '../../../resources/newVoucher.scss';
 import { 
   StoreValidation, 
@@ -42,7 +43,7 @@ class NewVoucherPage extends Component {
         code: '',
         address_receiver: '',
         post_to_facebook: false,
-        image: null,
+        images: null,
         approved_regions_attributes: []
       },
       currentStep: -1,
@@ -230,14 +231,18 @@ class NewVoucherPage extends Component {
   }
 // end
 // Handle file field change
-  handleFieldFieldChange = (e) => {
-     this.setState({
-      ...this.state,
-      voucher: {
-        ...this.state.voucher,
-        image: e.target.files
-      }
-    });
+  handleFileFieldChange = (files) => {
+    files.map(file => {
+      const formData = new FormData();
+      formData.append("image", file);
+      this.props.createImage(formData)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error.response)
+        })
+    })
   }
 // end
 // Handle category change
@@ -264,7 +269,7 @@ class NewVoucherPage extends Component {
             handleAddressChanged={this.handleVoucherAddressChanged}
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
-            handleFieldFieldChange={this.handleFieldFieldChange}
+            handleFileFieldChange={this.handleFileFieldChange}
             handleRadioBtnChange={this.handleRadioBtnChange}
           />
         )
@@ -345,4 +350,10 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, 
-  {createVoucher, addFlashMessage, getCategories, getRegions})(NewVoucherPage)
+  {
+    createVoucher, 
+    addFlashMessage, 
+    getCategories, 
+    getRegions,
+    createImage
+  })(NewVoucherPage)
