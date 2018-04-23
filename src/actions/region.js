@@ -1,6 +1,6 @@
 import * as RegionActionTypes from '../actiontypes/region';
 import axios from 'axios';
-const API_URL = 'http://localhost:6060/api/v1';
+import {apiLinkDev as API_URL} from '../config/apiLink';
 
 export const getRegions = () => {
   return (dispatch) => {

@@ -45,7 +45,7 @@ class NewVoucherPage extends Component {
         image: null,
         approved_regions_attributes: []
       },
-      currentStep: 0,
+      currentStep: -1,
       storeErrors: {},
       voucherErrors: {},
       serverErrors:{},
@@ -229,6 +229,17 @@ class NewVoucherPage extends Component {
     });
   }
 // end
+// Handle file field change
+  handleFieldFieldChange = (e) => {
+     this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        image: e.target.files
+      }
+    });
+  }
+// end
 // Handle category change
   handleCategoryChange = (value) => {
     this.setState({
@@ -244,6 +255,19 @@ class NewVoucherPage extends Component {
 // Handle render component when step change
   showStep = () => {
     switch(this.state.currentStep){
+      case -1:
+        return(
+          <VoucherMoreInfoFields
+            fields={this.state.voucher}
+            errors={this.state.voucherErrors}
+            handleChange={this.handleVoucherFieldsChange}
+            handleAddressChanged={this.handleVoucherAddressChanged}
+            handleSubmit={this.handleSubmit}
+            previousStep={this.previousStep}
+            handleFieldFieldChange={this.handleFieldFieldChange}
+            handleRadioBtnChange={this.handleRadioBtnChange}
+          />
+        )
       case 0:
         return(
           <CategoryFields 

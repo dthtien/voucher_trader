@@ -3,7 +3,7 @@ import setAuthorizationToken from '../config/setAuthorizationToken';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
-const API_URL = 'http://localhost:6060/api/v1';
+import {apiLinkDev as API_URL} from '../config/apiLink';
 
 export const signup = (userData) => {
   return (dispatch) => {
