@@ -11,7 +11,7 @@ class TextFieldGroup extends Component {
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.oneOfType(
-      [PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]
+      [PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.bool, PropTypes.object]
     ),
     error: PropTypes.string,
     handleChange: PropTypes.func.isRequired,
@@ -43,7 +43,10 @@ class TextFieldGroup extends Component {
         )
       case "file":
         return (
-          <FileInput handleChange={props.handleChange}/>
+          <FileInput 
+            handleChange={props.handleChange}
+            values={props.value}
+          />
         );
       default:
         return (

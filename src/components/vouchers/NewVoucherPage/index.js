@@ -43,7 +43,8 @@ class NewVoucherPage extends Component {
         code: '',
         address_receiver: '',
         post_to_facebook: false,
-        images: null,
+        image_ids: [],
+        images: [],
         approved_regions_attributes: []
       },
       currentStep: -1,
@@ -233,16 +234,27 @@ class NewVoucherPage extends Component {
 // Handle file field change
   handleFileFieldChange = (files) => {
     files.map(file => {
-      const formData = new FormData();
-      formData.append("image", file);
-      this.props.createImage(formData)
+      this.props.createImage(file)
         .then(response => {
-          console.log(response);
+          console.log(response)
+          this.setImageField(response.data.image)
         })
         .catch(error => {
-          console.log(error.response)
+          console.log(error.response);
         })
     })
+  }
+
+  setImageField = (image) => {
+    console.log(image)
+    this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        image_ids: [ ...this.state.voucher.image_ids, image.id],
+        images: [...this.state.voucher.images, image]
+      }
+    });
   }
 // end
 // Handle category change
@@ -318,6 +330,7 @@ class NewVoucherPage extends Component {
             handleAddressChanged={this.handleVoucherAddressChanged}
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
+            handleFileFieldChange={this.handleFileFieldChange}
             handleRadioBtnChange={this.handleRadioBtnChange}
           />
         )

@@ -1,3 +1,23 @@
 .new-voucher{
   margin-top: 4.5em;
 }
+.uploadImage{
+  .fileuploader{
+    position: relative;
+    background: white;
+    width: 100%;
+    height: 170px;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 0.25rem;  
+    border: 3px dotted lightgrey;
+  }
+
+  img{
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    width: 100%;
+    height: 170px;
+  }
+}

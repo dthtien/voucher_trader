@@ -31,7 +31,7 @@ export default class VoucherMoreInfoFields extends Component{
             name='image'
             type='file'
             label='Ảnh'
-            value={this.props.fields.image || ''}
+            value={this.props.fields.images}
             handleChange={this.props.handleFileFieldChange}
           />
         </div>
@@ -41,7 +41,7 @@ export default class VoucherMoreInfoFields extends Component{
 
   render(){
     return(
-      <div className='col-md-4 offset-md-4 mt-3'>
+      <div className='col-md-8 offset-md-2 mt-3'>
         <h5 className="mb-3 ml-0">Voucher details</h5>
         <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>
           <TextFieldGroup 

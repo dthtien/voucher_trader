@@ -22,7 +22,6 @@ export const createVoucher = (props) => {
       voucher: props.voucher,
       store: props.store
     }
-    console.log(params)
     return axios.post(`${API_URL}/vouchers`, params);
   }
 };
