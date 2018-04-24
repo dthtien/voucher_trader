@@ -7,12 +7,22 @@ class FileInput extends Component {
     this.props.handleChange(acceptFiles);
   }
 
+  onDelete = (e, value) => {
+    e.preventDefault()
+    this.props.handleDeleteFile(value)
+  }
+
   renderImage = () =>{
     const {values} = this.props
     if (values.length > 0) {
       return values.map(value => {
         return(
           <div className="col col-md-3" key={value.id}>
+            <a onClick={e => {this.onDelete(e, value)}}
+              className="deleteImage"
+            >
+              <i className="material-icons">clear</i>
+            </a>
             <img 
               src={`http://localhost:6060${value.url_medium}`} alt="cho-voucher"
               className="img-thumbnail"

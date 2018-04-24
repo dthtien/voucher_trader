@@ -8,3 +8,9 @@ export const createImage = (data) => {
     return axios.post(`${API_URL}/images`, formData);
   }
 };
+
+export const deleteImage = (id) =>{
+  return (dispatch) => {
+    return axios.delete(`${API_URL}/images/${id}`);
+  }
+}

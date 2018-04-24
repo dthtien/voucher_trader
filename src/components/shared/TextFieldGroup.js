@@ -45,6 +45,7 @@ class TextFieldGroup extends Component {
         return (
           <FileInput 
             handleChange={props.handleChange}
+            handleDeleteFile={props.handleDeleteFile}
             values={props.value}
           />
         );

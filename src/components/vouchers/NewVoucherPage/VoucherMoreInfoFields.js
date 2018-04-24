@@ -32,6 +32,7 @@ export default class VoucherMoreInfoFields extends Component{
             type='file'
             label='Ảnh'
             value={this.props.fields.images}
+            handleDeleteFile={this.props.handleDeleteFile}
             handleChange={this.props.handleFileFieldChange}
           />
         </div>

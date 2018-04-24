@@ -9,7 +9,7 @@ import {createVoucher} from '../../../actions/voucher';
 import { getCategories } from '../../../actions/category';
 import { getRegions } from '../../../actions/region';
 import { addFlashMessage } from '../../../actions/message';
-import { createImage } from '../../../actions/image'
+import { createImage, deleteImage } from '../../../actions/image'
 import '../../../resources/newVoucher.scss';
 import { 
   StoreValidation, 
@@ -256,6 +256,33 @@ class NewVoucherPage extends Component {
       }
     });
   }
+  handleDeleteFile = (value) =>{
+    this.props.deleteImage(value.id)
+      .then(response => {
+        this.deleteFile(value);
+      })
+      .catch(error => {
+        console.log(error.response);
+      })
+  }
+
+  deleteFile = (value) => {
+    var arrayImages = this.state.voucher.images, 
+      indexImage = arrayImages.indexOf(value);
+      arrayImages.splice(indexImage, 1);
+    var arrayImageIds = this.state.voucher.image_ids, 
+      indexImageId = arrayImageIds.indexOf(value.id);
+      arrayImageIds.splice(indexImageId, 1);
+
+    this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        image_ids: arrayImageIds,
+        images: arrayImages
+      }
+    });
+  }
 // end
 // Handle category change
   handleCategoryChange = (value) => {
@@ -282,6 +309,7 @@ class NewVoucherPage extends Component {
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
             handleFileFieldChange={this.handleFileFieldChange}
+            handleDeleteFile={this.handleDeleteFile}
             handleRadioBtnChange={this.handleRadioBtnChange}
           />
         )
@@ -362,11 +390,11 @@ const mapStateToProps = (state) => ({
   isRegionLoading: state.regions.isLoading
 })
 
-export default connect(mapStateToProps, 
-  {
+export default connect(mapStateToProps, {
     createVoucher, 
     addFlashMessage, 
     getCategories, 
     getRegions,
-    createImage
+    createImage,
+    deleteImage
   })(NewVoucherPage)
