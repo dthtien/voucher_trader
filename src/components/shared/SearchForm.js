@@ -20,7 +20,7 @@ class SearchForm extends Component {
                 ref={(input) => this.query = input} 
               />
               <span className="input-group-btn">
-                  <button className="btn btn-info btn-lg" type="button">
+                  <button className="btn btn-lg" type="button">
                       <i className="fa fa-search"></i>
                   </button>
               </span>
