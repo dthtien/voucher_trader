@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import Select from 'react-select';
 import 'react-select/scss/default.scss';
 import {CITIES} from '../../data';

@@ -19,7 +19,7 @@ export default class InputSwitch extends Component {
           value={props.value}
           onToggle={this.onToggle}
           label={props.label}
-          defaultToggled={props.value || true}
+          defaultToggled={props.value}
         />
       </MuiThemeProvider>
     );

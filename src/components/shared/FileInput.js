@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import DropZone from 'react-dropzone';
-import axios from 'axios';
 
 class FileInput extends Component {
   onDrop = (acceptFiles) => {

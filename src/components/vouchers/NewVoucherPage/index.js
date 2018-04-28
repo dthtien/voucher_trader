@@ -47,7 +47,7 @@ class NewVoucherPage extends Component {
         images: [],
         approved_regions_attributes: []
       },
-      currentStep: -1,
+      currentStep: 0,
       storeErrors: {},
       voucherErrors: {},
       serverErrors:{},
