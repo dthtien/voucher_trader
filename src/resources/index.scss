@@ -17,3 +17,15 @@ body {
   outline: 'none';
   text-overflow: 'ellipses';
 }
+.voucher-type{
+  font-size: 9px;
+  i{
+    font-size: 2em;
+  }
+}
+.page-footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}

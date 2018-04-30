@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getVoucher, deleteVoucher } from '../../actions/voucher';
+import '../../../resources/voucherShow.scss'
+import ImageSlider from './ImageSlider';
+import VoucherShowContent from './VoucherShowContent';
+import StoreContent from './StoreContent';
+import { getVoucher, deleteVoucher } from '../../../actions/voucher';
+import isEmpty from 'lodash/isEmpty';
 
 class VoucherShow extends Component {
   static contextTypes = {
@@ -14,13 +19,21 @@ class VoucherShow extends Component {
   };
   
   renderVoucherContent = () => {
-    if (this.props.loading || this.props.voucher == null) {
+    const {voucher, loading} = this.props;
+    if (loading || isEmpty(voucher)) {
       return (<h4>Loading...</h4>);
     } else {
       return (
-        <h4>
-          {this.props.voucher.description} - {this.props.voucher.kind}
-        </h4>);
+        <div className="row">
+          <div className="col col-md-5">
+            <ImageSlider images={voucher.images} />
+          </div>
+          <div className="col col-md-7">
+            <VoucherShowContent voucher={voucher}/>
+            <StoreContent store={voucher.store} />
+          </div>
+        </div>
+      );
     }
   }
 
@@ -32,20 +45,10 @@ class VoucherShow extends Component {
   }
 
   render(){
+    const {voucher} = this.props
     return(
-      <div className="container">
-        <h1 className="text-center m-3">
-          Show Voucher
-        </h1>
-
+      <div className="container voucher-show">
         {this.renderVoucherContent()}
-        
-        <a className="btn btn-danger"
-          onClick={ () => {
-            if(window.confirm('Delete the item?')){
-              this.deleteVoucher();
-            }
-          }}> Delete </a>
       </div>
     );
   } 

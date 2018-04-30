@@ -3,18 +3,8 @@ import * as VoucherActionType from '../actiontypes/voucher';
 const initialState ={
   all: [],
   voucher: {
-    kind: '',
-    description: '',
-    price: '',
-    code: '',
-    address_receiver: '',
-    post_to_facebook: false,
-    image: null
   },
   store: {
-    name: '',
-    address: '',
-    category_id: -1
   },
   loading: true
 }
