@@ -9,7 +9,6 @@ export default class VoucherImage extends Component{
 
   renderImage = () =>{
     const {images} = this.props;
-    console.log(images);
     
     if (images.length === 0) {
       return(

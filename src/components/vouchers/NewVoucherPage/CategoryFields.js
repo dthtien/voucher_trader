@@ -7,10 +7,6 @@ class CategoryFields extends Component {
     this.props.getCategories();
   }
 
-  constructor(props) {
-    super(props);
-  }
-
   renderCategoriesList(){
     return this.props.categories.map(category => {
       return(

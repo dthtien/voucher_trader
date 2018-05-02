@@ -19,9 +19,13 @@ class VoucherShow extends Component {
     const id = this.props.match.params.id;
     this.props.getVoucher(id);
   };
+
+  handleFeedBack = (id) =>{
+    console.log(id);
+  }
   
   renderVoucherContent = () => {
-    const {voucher, loading} = this.props;
+    const {voucher, loading, match} = this.props;
     if (loading || isEmpty(voucher)) {
       return (<h4>Loading...</h4>);
     } else {
@@ -33,7 +37,7 @@ class VoucherShow extends Component {
           </div>
           <div className="col col-md-7">
             <VoucherShowContent voucher={voucher}/>
-            <SellerInfo />
+            <SellerInfo handleFeedBack={this.handleFeedBack} />
           </div>
         </div>
       );
@@ -59,7 +63,8 @@ class VoucherShow extends Component {
 
 const mapStateToProps = state => ({
   voucher: state.vouchers.voucher,
-  loading: state.vouchers.loading
+  loading: state.vouchers.loading,
+  user: state.users.currentUser,
 });
 
 export default connect(mapStateToProps, 

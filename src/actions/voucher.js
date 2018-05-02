@@ -3,10 +3,11 @@ import axios from 'axios';
 
 import {apiLinkDev as API_URL} from '../config/apiLink';
 
-export const getVouchers = (query = '') => {
+export const getVouchers = (query) => {
+  const q = query.q || "", cat = query.cat || "";
   return (dispatch) => {
     dispatch({type: VoucherActionType.GET_VOUCHERS})
-    axios.get(`${API_URL}/vouchers?q=${query}`)
+    axios.get(`${API_URL}/vouchers?q=${q}&cat=${cat}`)
       .then(response => {
         dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
       })
