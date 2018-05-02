@@ -7,7 +7,7 @@ import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import CategoryFields from './CategoryFields';
 import {createVoucher} from '../../../actions/voucher';
 import { getCategories } from '../../../actions/category';
-import { getRegions } from '../../../actions/region';
+// import { getRegions } from '../../../actions/region';
 import { addFlashMessage } from '../../../actions/message';
 import '../../../resources/newVoucher.scss';
 import { 
@@ -309,4 +309,4 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, 
-  {createVoucher, addFlashMessage, getCategories, getRegions})(NewVoucherPage)
+  {createVoucher, addFlashMessage, getCategories})(NewVoucherPage)
