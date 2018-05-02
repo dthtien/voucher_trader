@@ -35,10 +35,7 @@ class Vouchers extends Component {
     return (
       <div className="vouchers">
         <div className="row">
-          <div className="col col-md-3">
-            <SlideBar />
-          </div>
-          <div className="col col-md-9">
+          <div className="col col-md-8 offset-md-2">
             <SearchForm onSearch={this.handleSearchSubmit}/>
             <div className="mt-1">
               {this.renderVoucherList()}

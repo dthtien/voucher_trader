@@ -5,6 +5,7 @@
     padding: 0 5em;
     height: 15rem;
   }
+
   .image-gallery-thumbnails-container{
     img{
       height: 5rem;
@@ -13,5 +14,12 @@
 
   .voucher-show-content{
     padding: 1em;
+  }
+  
+  .store-content{
+    margin-top: 4rem;
+  }
+  .image-gallery-left-nav, .image-gallery-right-nav{
+    font-size: 3em !important;
   }
 }

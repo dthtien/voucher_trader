@@ -6,6 +6,16 @@
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@mapbox/point-geometry/-/point-geometry-0.1.0.tgz#8a83f9335c7860effa2eeeca254332aa0aeed8f2"
 
+"@types/lodash@^4.14.105":
+  version "4.14.108"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
+
+"@types/react@^16.0.40":
+  version "16.3.13"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.13.tgz#47d466462b774556c1174ea0eda22c0578643362"
+  dependencies:
+    csstype "^2.2.0"
+
 abab@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -2045,6 +2055,10 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.2.37.tgz#541097234cb2513c83ceed3acddc27ff27987d54"
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.4.2.tgz#158e36c69566bf968da63d0ba14eda1c20e8643a"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -6532,6 +6546,13 @@ react-popper@^0.7.5:
   dependencies:
     popper.js "^1.12.5"
     prop-types "^15.5.10"
+
+react-rating@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-rating/-/react-rating-1.1.2.tgz#1e5e0e98f486eb27ec4198c2472cf03268d898cf"
+  dependencies:
+    "@types/lodash" "^4.14.105"
+    "@types/react" "^16.0.40"
 
 react-redux@^5.0.7:
   version "5.0.7"

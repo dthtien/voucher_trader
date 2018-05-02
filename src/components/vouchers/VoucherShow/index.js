@@ -5,8 +5,10 @@ import '../../../resources/voucherShow.scss'
 import ImageSlider from './ImageSlider';
 import VoucherShowContent from './VoucherShowContent';
 import StoreContent from './StoreContent';
+import SellerInfo from './SellerInfo';
 import { getVoucher, deleteVoucher } from '../../../actions/voucher';
 import isEmpty from 'lodash/isEmpty';
+
 
 class VoucherShow extends Component {
   static contextTypes = {
@@ -27,10 +29,11 @@ class VoucherShow extends Component {
         <div className="row">
           <div className="col col-md-5">
             <ImageSlider images={voucher.images} />
+            <StoreContent store={voucher.store} />
           </div>
           <div className="col col-md-7">
             <VoucherShowContent voucher={voucher}/>
-            <StoreContent store={voucher.store} />
+            <SellerInfo />
           </div>
         </div>
       );

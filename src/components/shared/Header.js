@@ -83,7 +83,7 @@ class Header extends Component {
     );
 
     return(
-      <Navbar color="indigo" dark expand="md" scrolling color="blue" fixed="top">
+      <Navbar color="indigo" dark expand="md" scrolling color="red" fixed="top">
         <NavbarBrand href="/">
           <strong>Chợ voucher</strong>
         </NavbarBrand>

@@ -9,7 +9,7 @@ class StoreContent extends Component {
   render() {
     const {store} = this.props;
     return (
-      <div className="row">
+      <div className="row store-content">
         <div className='col col-md-2'>
           <i className="material-icons fa-5x">store_mall_directory</i>
         </div>

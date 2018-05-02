@@ -32,7 +32,7 @@ class VoucherShowContent extends Component {
           </p>
           <p>
             <strong>Điều kiện áp dụng: </strong> 
-            {voucher.approved_condition == '' && 'Áp dụng cho tất cả mặt hàng'}
+            {voucher.approved_condition === '' && 'Áp dụng cho tất cả mặt hàng'}
             {voucher.approved_condition}
           </p>
           <p>
