@@ -11,7 +11,7 @@ export default class Voucher extends Component{
     return(
       <div className="voucher-detail mt-1">
         <Link 
-          to={`vouchers/${voucher.id}`}>
+          to={`/vouchers/${voucher.id}`}>
           <div className="row">
             <div className="col col-md-3">
               <VoucherImage images={voucher.images} />

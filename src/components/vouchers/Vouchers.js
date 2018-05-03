@@ -9,11 +9,12 @@ import SearchForm from '../shared/SearchForm';
 
 class Vouchers extends Component {
   componentWillMount(){
-    this.props.getVouchers();
+    const query = this.props.location.search ? this.props.location.search.match(/^\?cat=(.+)$/)[1] : "";
+    this.props.getVouchers({cat: query});
   };
 
   handleSearchSubmit = (query) => {
-    this.props.getVouchers(query);
+    this.props.getVouchers({q: query});
   }
 
   renderVoucherList = () => {

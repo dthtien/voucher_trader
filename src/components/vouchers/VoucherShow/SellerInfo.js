@@ -16,7 +16,9 @@ class SellerInfo extends Component {
           emptySymbol="fa fa-star-o fa-2x"
           fullSymbol="fa fa-star fa-2x"
           fractions={2}
-          readonly
+          onChange={(obj)=>{
+            this.props.handleFeedBack(obj)
+          }}
         />
         <p className="font-weight-bold">Name</p>
       </div>
