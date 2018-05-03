@@ -16,7 +16,7 @@ import Footer from '../components/Footer';
 import MapCotainer from '../components/map/MapContainer';
 import LoginPage from '../components/users/LoginPage';
 import Home from '../components/Home';
-import FacebookLoginButton from '../components/users/SocialButton/FacebookLoginButton';
+import SocialButton from '../components/users/SocialButton';
 
 const App = () => {
   return (
@@ -34,7 +34,7 @@ const App = () => {
             <Route path='/signup' component={SignupPage}/>
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>
-            <Route path='/social' component={FacebookLoginButton}/>
+            <Route path='/social' component={SocialButton}/>
           </Switch>
         </div>
         <Footer />

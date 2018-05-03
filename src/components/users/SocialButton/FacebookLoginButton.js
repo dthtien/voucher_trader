@@ -3,7 +3,7 @@ import FacebookLogin from 'react-facebook-login';
 
 class FacebookLoginButton extends Component {
   handleFacebookResponse = (response) => {
-    console.log(response);
+    this.props.handleResponse(response)
   }
   render() {
     return (

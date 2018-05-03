@@ -10,7 +10,7 @@
   version "4.14.108"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
 
-"@types/react@^16.0.40":
+"@types/react@*", "@types/react@^16.0.40":
   version "16.3.13"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.13.tgz#47d466462b774556c1174ea0eda22c0578643362"
   dependencies:
@@ -6484,6 +6484,13 @@ react-event-listener@^0.5.1:
 react-facebook-login@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-4.0.1.tgz#7d43672ee86e3f2cd9e8758de1e61eb66a212611"
+
+react-google-login@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-3.2.1.tgz#9ab6ac3694d0e6e2974f1e588c53cf7b903a36e6"
+  dependencies:
+    "@types/react" "*"
+    prop-types "^15.6.0"
 
 react-google-maps@^9.4.5:
   version "9.4.5"
