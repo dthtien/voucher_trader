@@ -5056,9 +5056,9 @@ md5.js@^1.3.4:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-"mdbreact@git+https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design.git":
+"mdbreact@git+https://github.com/dthtien/React-Bootstrap-with-Material-Design.git":
   version "4.3.0"
-  resolved "git+https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design.git#d0faffbabd351a6644a41a9848fb72a4d1cf13e0"
+  resolved "git+https://github.com/dthtien/React-Bootstrap-with-Material-Design.git#5e87779664ef1f5d7ea41175af5ef67886f5e686"
   dependencies:
     bootstrap "4.0.0"
     classnames "^2.2.5"
@@ -6480,6 +6480,10 @@ react-event-listener@^0.5.1:
     fbjs "^0.8.16"
     prop-types "^15.6.0"
     warning "^3.0.0"
+
+react-facebook-login@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-4.0.1.tgz#7d43672ee86e3f2cd9e8758de1e61eb66a212611"
 
 react-google-maps@^9.4.5:
   version "9.4.5"
