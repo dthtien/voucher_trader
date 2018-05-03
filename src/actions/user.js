@@ -19,10 +19,10 @@ export const login = (userData) => {
 
 export const logout = () => {
   return (dispatch) => {
+    axios.delete(`${API_URL}/users/logout`);
     localStorage.removeItem('accessToken');
     setAuthorizationToken(false);
     dispatch(loggedIn());
-    axios.delete(`${API_URL}/users/logout`);
   }
 }
 
@@ -32,6 +32,7 @@ export const loggedIn = (accessToken) => {
   }
 
   setAuthorizationToken(accessToken);
+  console.log(accessToken);
 
   const user = jwt.decode(accessToken)
 
@@ -41,3 +42,14 @@ export const loggedIn = (accessToken) => {
   }
 }
 
+export const facebookLogin = (data) => {
+  return(dispatch) => {
+    return axios.post(`${API_URL}/users/facebook_signup`, {user: data})
+      .then(response => {
+        dispatch(loggedIn(response.data.access_token));
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  }
+}

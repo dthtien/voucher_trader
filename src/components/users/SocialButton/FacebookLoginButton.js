@@ -5,11 +5,12 @@ class FacebookLoginButton extends Component {
   handleFacebookResponse = (response) => {
     this.props.handleResponse(response)
   }
+
   render() {
     return (
       <FacebookLogin
         appId="1226403430790462"
-        autoLoad={true}
+        autoLoad={false}
         cssClass='btn btn-ptc waves-effect waves-light bg-primary socialButton'
         scope="public_profile,user_friends"
         fields="name,email,picture"

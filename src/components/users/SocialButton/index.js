@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import FacebookLoginButton from './FacebookLoginButton'
 import GoogleLoginButton from './GoogleLoginButton'
+import {connect} from 'react-redux';
+import {facebookLogin} from '../../../actions/user';
 
 class SocialButton extends Component {
     handleIdentityResponse = (response) => {
-      console.log(response);
+      this.props.facebookLogin(response)
     }
 
     render() {
@@ -17,4 +19,4 @@ class SocialButton extends Component {
     }
 }
 
-export default SocialButton;
+export default connect(null, {facebookLogin})(SocialButton);
