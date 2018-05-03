@@ -22,7 +22,8 @@ const InitMap = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>{
-  const renderMarkers = props.vouchers.map(voucher => {
+  console.log('props.vouchers', props.vouchers);
+  const renderMarkers = (typeof props.vouchers !== 'undefined' && Array.isArray(props.vouchers)) && props.vouchers.map(voucher => {
     return(
       <Marker
         options={{icon: voucherIcon}}

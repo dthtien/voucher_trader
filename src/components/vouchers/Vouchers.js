@@ -12,6 +12,10 @@ class Vouchers extends Component {
     this.props.getVouchers();
   };
 
+  handleSearchSubmit = (query) => {
+    this.props.getVouchers(query);
+  }
+
   renderVoucherList = () => {
     if (!this.props.vouchers) {
       return (<li>Loading..</li>);
@@ -31,11 +35,8 @@ class Vouchers extends Component {
     return (
       <div className="vouchers">
         <div className="row">
-          <div className="col col-md-3">
-            <SlideBar />
-          </div>
-          <div className="col col-md-9">
-            <SearchForm />
+          <div className="col col-md-8 offset-md-2">
+            <SearchForm onSearch={this.handleSearchSubmit}/>
             <div className="mt-1">
               {this.renderVoucherList()}
             </div>

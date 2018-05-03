@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { 
   Navbar, 
   NavbarBrand, 
@@ -69,6 +69,12 @@ class Header extends Component {
             </DropdownMenu>
           </Dropdown>
         </NavItem>
+        {
+          (currentUser && currentUser.id) &&
+          <NavItem>
+            <Link className="nav-link" to={`/profile/${currentUser.id}`}>Profile</Link>
+          </NavItem>
+        }
       </NavbarNav>
     );
     const guestLinks = (
@@ -83,7 +89,7 @@ class Header extends Component {
     );
 
     return(
-      <Navbar color="indigo" dark expand="md" scrolling color="blue" fixed="top">
+      <Navbar color="indigo" dark expand="md" scrolling color="red" fixed="top">
         <NavbarBrand href="/">
           <strong>Chợ voucher</strong>
         </NavbarBrand>

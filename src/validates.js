@@ -61,6 +61,10 @@ export const VoucherMoreInfoValidation = (values) =>{
     errors.address_receiver = 'This field is required'
   }
 
+  if (values.kind === 'general' && (values.image_ids.length < 2)) {
+    errors.image_ids = 'Voucher must be have grester than 2 images'
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)

@@ -7,8 +7,8 @@ import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import CategoryFields from './CategoryFields';
 import {createVoucher} from '../../../actions/voucher';
 import { getCategories } from '../../../actions/category';
-// import { getRegions } from '../../../actions/region';
 import { addFlashMessage } from '../../../actions/message';
+import { createImage, deleteImage } from '../../../actions/image'
 import '../../../resources/newVoucher.scss';
 import { 
   StoreValidation, 
@@ -42,7 +42,8 @@ class NewVoucherPage extends Component {
         code: '',
         address_receiver: '',
         post_to_facebook: false,
-        image: null,
+        image_ids: [],
+        images: [],
         approved_regions_attributes: []
       },
       currentStep: 0,
@@ -218,6 +219,70 @@ class NewVoucherPage extends Component {
     });
   }
 // end
+// handle radioBtn change
+  handleRadioBtnChange = (value) => {
+    this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        post_to_facebook: value
+      }
+    });
+  }
+// end
+// Handle file field change
+  handleFileFieldChange = (files) => {
+    files.map(file => {
+      this.props.createImage(file)
+        .then(response => {
+          console.log(response)
+          this.setImageField(response.data.image)
+        })
+        .catch(error => {
+          console.log(error.response);
+        })
+    })
+  }
+
+  setImageField = (image) => {
+    console.log(image)
+    this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        image_ids: [ ...this.state.voucher.image_ids, image.id],
+        images: [...this.state.voucher.images, image]
+      }
+    });
+  }
+  handleDeleteFile = (value) =>{
+    this.props.deleteImage(value.id)
+      .then(response => {
+        this.deleteFile(value);
+      })
+      .catch(error => {
+        console.log(error.response);
+      })
+  }
+
+  deleteFile = (value) => {
+    var arrayImages = this.state.voucher.images, 
+      indexImage = arrayImages.indexOf(value);
+      arrayImages.splice(indexImage, 1);
+    var arrayImageIds = this.state.voucher.image_ids, 
+      indexImageId = arrayImageIds.indexOf(value.id);
+      arrayImageIds.splice(indexImageId, 1);
+
+    this.setState({
+      ...this.state,
+      voucher: {
+        ...this.state.voucher,
+        image_ids: arrayImageIds,
+        images: arrayImages
+      }
+    });
+  }
+// end
 // Handle category change
   handleCategoryChange = (value) => {
     this.setState({
@@ -233,6 +298,20 @@ class NewVoucherPage extends Component {
 // Handle render component when step change
   showStep = () => {
     switch(this.state.currentStep){
+      case -1:
+        return(
+          <VoucherMoreInfoFields
+            fields={this.state.voucher}
+            errors={this.state.voucherErrors}
+            handleChange={this.handleVoucherFieldsChange}
+            handleAddressChanged={this.handleVoucherAddressChanged}
+            handleSubmit={this.handleSubmit}
+            previousStep={this.previousStep}
+            handleFileFieldChange={this.handleFileFieldChange}
+            handleDeleteFile={this.handleDeleteFile}
+            handleRadioBtnChange={this.handleRadioBtnChange}
+          />
+        )
       case 0:
         return(
           <CategoryFields 
@@ -278,6 +357,8 @@ class NewVoucherPage extends Component {
             handleAddressChanged={this.handleVoucherAddressChanged}
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
+            handleFileFieldChange={this.handleFileFieldChange}
+            handleRadioBtnChange={this.handleRadioBtnChange}
           />
         )
       default:
@@ -308,5 +389,10 @@ const mapStateToProps = (state) => ({
   isRegionLoading: state.regions.isLoading
 })
 
-export default connect(mapStateToProps, 
-  {createVoucher, addFlashMessage, getCategories})(NewVoucherPage)
+export default connect(mapStateToProps, {
+    createVoucher, 
+    addFlashMessage, 
+    getCategories, 
+    createImage,
+    deleteImage
+})(NewVoucherPage)

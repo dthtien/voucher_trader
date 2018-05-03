@@ -1,12 +1,12 @@
 import * as VoucherActionType from '../actiontypes/voucher';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:6060/api/v1';
+import {apiLinkDev as API_URL} from '../config/apiLink';
 
-export const getVouchers = () => {
+export const getVouchers = (query = '') => {
   return (dispatch) => {
     dispatch({type: VoucherActionType.GET_VOUCHERS})
-    axios.get(`${API_URL}/vouchers`)
+    axios.get(`${API_URL}/vouchers?q=${query}`)
       .then(response => {
         dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
       })
@@ -22,7 +22,6 @@ export const createVoucher = (props) => {
       voucher: props.voucher,
       store: props.store
     }
-    console.log(params)
     return axios.post(`${API_URL}/vouchers`, params);
   }
 };

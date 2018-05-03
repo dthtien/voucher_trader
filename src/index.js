@@ -2,7 +2,7 @@ import 'bootstrap/scss/bootstrap.scss';
 import 'font-awesome/scss/font-awesome.scss'
 import 'mdbreact/dist/scss/mdb.scss';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import './resources/index.css';
+import './resources/index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';

@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import DatePickerField from './DatePickerField';
+import InputSwitch from './InputSwitch';
+import FileInput from './FileInput';
 import { Input } from 'mdbreact';
+
 class TextFieldGroup extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.oneOfType(
-      [PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]
+      [PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.bool, PropTypes.object]
     ),
     error: PropTypes.string,
     handleChange: PropTypes.func.isRequired,
@@ -28,6 +31,23 @@ class TextFieldGroup extends Component {
             name={props.name}
             label={props.label}
             handleChange={props.handleChange} />
+        );
+      case "radio":
+        return(
+          <InputSwitch 
+            label={props.label}
+            value={props.value}
+            name={props.name}
+            handleChange={props.handleChange}
+          />
+        )
+      case "file":
+        return (
+          <FileInput 
+            handleChange={props.handleChange}
+            handleDeleteFile={props.handleDeleteFile}
+            values={props.value}
+          />
         );
       default:
         return (

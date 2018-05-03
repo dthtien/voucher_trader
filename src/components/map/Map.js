@@ -93,8 +93,11 @@ MapContainer = GoogleApiWrapper({
   LoadingContainer: LoadingContainer 
 })(MapContainer)
 
-const mapStateToProps = (state) => ({
-  vouchers: state.vouchers.all,
-})
+const mapStateToProps = (state) => {
+  console.log('state', state);
+  return{
+    vouchers: state.vouchers.all,
+  }
+}
 
 export default connect(mapStateToProps, {getVouchers})(MapContainer);

@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
+import VoucherType from '../shared/VoucherType';
 
-const VoucherContent = (props) => {
-  return(
-    <div className="voucher-content">
-      <h4 className="font-weight-bold">{props.store.name.toTitlelize()}</h4>
-      <p className='text-danger font-weight-bold'>{props.price} VND</p>
-    </div>
-  );
+class VoucherContent extends Component {
+  render(){
+    const {voucher, store } = this.props;
+
+    return(
+      <div className="voucher-content">
+        <h5 className="font-weight-bold">
+          {voucher.name}
+          <VoucherType kind={voucher.kind}/>
+        </h5>
+        <p className="store-name">{store.name}</p>
+        <p className='text-danger font-weight-bold'>{voucher.price} VND</p>
+      </div>
+    );
+  }
 }
 export default VoucherContent;

@@ -3,7 +3,7 @@ import TextFieldGroup from '../../shared/TextFieldGroup';
 
 export default class VoucherInfoFields extends Component{
   render(){
-    const {errors, fields, handleChange, handleSubmit, previousStep, 
+    const {errors, fields, handleChange, handleSubmit, 
       handleDateFieldChange} 
       = this.props;
     return(

@@ -3,7 +3,9 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-
+.main{
+  margin-top: 5em;
+}
 .search-input{
   box-sizing: 'border-box';
   border: '1px solid transparent';
@@ -16,4 +18,12 @@ body {
   font-size: '14px';
   outline: 'none';
   text-overflow: 'ellipses';
+}
+.voucher-type{
+  font-size: 9px;
+  i{
+    font-size: 2em;
+  }
+}
+.page-footer{
 }

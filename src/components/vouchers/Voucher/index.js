@@ -14,10 +14,10 @@ export default class Voucher extends Component{
           to={`vouchers/${voucher.id}`}>
           <div className="row">
             <div className="col col-md-3">
-              <VoucherImage />
+              <VoucherImage images={voucher.images} />
             </div>
             <div className="col col-md-9">
-              <VoucherContent store={voucher.store} price={voucher.price}/>
+              <VoucherContent store={voucher.store} voucher={voucher}/>
               <VoucherFooter 
                 create_at={voucher.created_at} owner_name="Owner name" />
             </div>
