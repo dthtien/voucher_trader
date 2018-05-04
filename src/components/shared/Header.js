@@ -63,20 +63,17 @@ class Header extends Component {
         </NavItem>
         <NavItem>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle nav caret>{currentUser.email}</DropdownToggle>
+            <DropdownToggle nav caret>{currentUser.name}</DropdownToggle>
             <DropdownMenu>
+              <Link className="dropdown-item waves-effect waves-light" to={`/profile/${currentUser.id}`}>
+                <i className="fa fa-user-circle mr-2"></i>Profile
+              </Link>
               <a className="dropdown-item waves-effect waves-light" onClick={this.logout.bind(this)} href="/">
                 <i className="fa fa-sign-out mr-2"></i> Logout
               </a>
             </DropdownMenu>
           </Dropdown>
         </NavItem>
-        {
-          (currentUser && currentUser.id) &&
-          <NavItem>
-            <Link className="nav-link" to={`/profile/${currentUser.id}`}>Profile</Link>
-          </NavItem>
-        }
       </NavbarNav>
     );
     const guestLinks = (

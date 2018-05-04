@@ -36,6 +36,7 @@ const App = () => {
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>
             <Route path='/social' component={SocialButton}/>
+            <Route path='/profile/:id' component={ProfilePage}/>
           </Switch>
         </div>
         <Footer />
