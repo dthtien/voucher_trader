@@ -17,6 +17,10 @@ class Home extends Component {
     return (
       <div className="container" id="home">
         <div className="row">
+          <CategoryName
+            name="Tất cả"
+            image={HomeImage}
+          />
           <CategoryName 
             name="Ẩm Thực" 
             image={RestaurantImage}
@@ -26,7 +30,7 @@ class Home extends Component {
             image={SpaImage}
           />
           <CategoryName 
-            name="Thể thao giải trí"
+            name="Giải Trí và Thể Thao"
             image={SportImage}
           />
           <CategoryName 

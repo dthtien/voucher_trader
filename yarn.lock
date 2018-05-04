@@ -6517,6 +6517,12 @@ react-image-gallery@^0.8.7:
     prop-types "^15.5.8"
     react-swipeable "^4.0.0"
 
+react-infinite-scroller@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.1.4.tgz#176b1a9ca8fdff53eeb34f648c7b0d446459d61b"
+  dependencies:
+    prop-types "^15.5.8"
+
 react-input-autosize@^2.1.2:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.1.tgz#ec428fa15b1592994fb5f9aa15bb1eb6baf420f8"

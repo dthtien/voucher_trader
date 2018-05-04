@@ -6,9 +6,6 @@ import {login, loggedIn, facebookLogin} from '../../../actions/user';
 import { addFlashMessage } from '../../../actions/message';
 
 class LoginPage extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  }
   componentDidMount(){
     if (this.props.isAuthenticate) {
       this.props.addFlashMessage({
@@ -16,7 +13,7 @@ class LoginPage extends Component {
         text: 'You already had an account!'
       })
       
-      this.context.router.history.push('/');
+      this.props.history.goBack();
     }
   }
 

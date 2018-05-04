@@ -48,6 +48,7 @@ class IndexProfilePage extends Component {
       this.props.fetchUserProfile(match.params.id);
     }
   }
+  
   componentWillReceiveProps(nextProps) {
     if (
       typeof nextProps !== "undefined" &&

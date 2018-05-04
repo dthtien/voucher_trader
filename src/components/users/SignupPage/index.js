@@ -7,10 +7,6 @@ import { addFlashMessage } from '../../../actions/message';
 
 
 class SignupPage extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  }
-
   componentDidMount(){
     if (this.props.isAuthenticate) {
       this.props.addFlashMessage({
@@ -18,7 +14,7 @@ class SignupPage extends Component {
         text: 'You already had an account!'
       })
       
-      this.context.router.history.push('/');
+      this.props.history.goBack();
     }
   }
   render(){
