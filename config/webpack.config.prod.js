@@ -179,6 +179,10 @@ module.exports = {
                   use: [
                     {
                       loader: require.resolve('sass-loader'),
+                      options: {
+                        outputStyle: "expanded",
+                        sourceMap: true,
+                      },
                     },
                     {
                       loader: require.resolve('css-loader'),
