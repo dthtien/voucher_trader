@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { 
   Navbar, 
   NavbarBrand, 
@@ -63,8 +63,11 @@ class Header extends Component {
         </NavItem>
         <NavItem>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle nav caret>{currentUser.email}</DropdownToggle>
+            <DropdownToggle nav caret>{currentUser.name}</DropdownToggle>
             <DropdownMenu>
+              <Link className="dropdown-item waves-effect waves-light" to={`/profile/${currentUser.id}`}>
+                <i className="fa fa-user-circle mr-2"></i>Profile
+              </Link>
               <a className="dropdown-item waves-effect waves-light" onClick={this.logout.bind(this)} href="/">
                 <i className="fa fa-sign-out mr-2"></i> Logout
               </a>
