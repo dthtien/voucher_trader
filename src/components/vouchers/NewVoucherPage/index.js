@@ -7,7 +7,6 @@ import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import CategoryFields from './CategoryFields';
 import {createVoucher} from '../../../actions/voucher';
 import { getCategories } from '../../../actions/category';
-import { getRegions } from '../../../actions/region';
 import { addFlashMessage } from '../../../actions/message';
 import { createImage, deleteImage } from '../../../actions/image'
 import '../../../resources/newVoucher.scss';
@@ -394,7 +393,6 @@ export default connect(mapStateToProps, {
     createVoucher, 
     addFlashMessage, 
     getCategories, 
-    getRegions,
     createImage,
     deleteImage
-  })(NewVoucherPage)
+})(NewVoucherPage)

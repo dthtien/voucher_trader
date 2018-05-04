@@ -13,7 +13,9 @@ class StoreFields extends Component {
   }
 
   componentDidMount(){
-    this.props.getRegions()
+    if(typeof this.props.getRegions === 'function'){
+      this.props.getRegions()
+    }
   }
 
   static propType = {
