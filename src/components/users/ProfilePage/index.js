@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "../../../resources/profile.scss";
 import { connect } from "react-redux";
 import TextFieldGroup from "../../shared/TextFieldGroup";
-import { fetchUserProfile } from "../../../actions/user";
+import { fetchUserProfile, updateUserProfile } from "../../../actions/user";
+import SellerInfo from '../../vouchers/VoucherShow/SellerInfo';
 import { Container, Button, Modal, ModalBody, ModalHeader } from "mdbreact";
 import { hasKey } from "../../utils/utils";
 
@@ -11,11 +12,20 @@ class IndexProfilePage extends Component {
     isOpenModal: false,
     rating_note: "",
     dataUser: {},
-    initialTab: 0
+    initialTab: 0,
+    ratingValue : 3.5,
+    modal : {
+      isOpenModal: false,
+      type: ''
+    }
   };
-  toggle = () => {
+  toggle = ({type, ratingValue}) => {
     this.setState({
-      isOpenModal: !this.state.isOpenModal
+      modal : {
+        isOpenModal: !this.state.modal.isOpenModal,
+        type,
+        ratingValue : ratingValue || 3.5
+      }
     });
   };
   handleChangeTab = ({initialTab}) =>{
@@ -35,11 +45,7 @@ class IndexProfilePage extends Component {
     });
   }
   componentDidMount() {
-    if (
-      typeof this.props.currentUser === "undefined" ||
-      !this.props.currentUser ||
-      Object.keys(this.props.currentUser).length < 1
-    ) {
+    if (!hasKey(this.props.currentUser)){
       this.props.history.push("/login");
       return;
     }
@@ -57,6 +63,21 @@ class IndexProfilePage extends Component {
       this.setState({ dataUser: nextProps.dataUser });
     }
   }
+  _onSubmitHandler = () => {
+    const { dataUser } = this.state;
+    if(!hasKey(dataUser)) return;
+    const user = {...dataUser.user};
+    console.log('user', user);
+    if(!user.phone_number || !user.name || !user.address ){
+      alert("Dữ liệu thông tin chưa đầy đủ !");
+    }
+    // return;
+    this.props.updateUserProfile(user.id,{
+      phone_number : user.phone_number,
+      address : user.address,
+      name : user.name,
+    });
+  } 
 
   render() {
     const { dataUser } = this.state;
@@ -68,59 +89,94 @@ class IndexProfilePage extends Component {
           </div>
         </div>
       );
-    const { initialTab } = this.state;
+    const { initialTab, modal } = this.state;
     const { user } = dataUser;
     const { vouchers } = dataUser;
+    const { id } = this.props.currentUser;
+    const isViewOnly =  (id) === user.id ? false : true; 
     return (
       <div className="container-profile">
         <Container>
-          <Modal isOpen={this.state.isOpenModal} toggle={this.toggle}>
-            <ModalHeader toggle={this.toggle}>Cập nhật tài khoản</ModalHeader>
+          <Modal isOpen={modal.isOpenModal} toggle={()=>{
+           this.toggle({type : ''});
+          }}>
+            <ModalHeader toggle={()=>{ this.toggle({type : ''}) }}>
+            {
+              modal.type === 'rating' 
+              ? `Đánh giá của bạn !`
+              : (modal.type === 'edit_profile')
+              ? 'Cập nhật tài khoản' : null
+            }
+            </ModalHeader>
             <ModalBody>
-              <h3>Thông tin tài khoản</h3>
-              <TextFieldGroup
-                type="text"
-                name="name"
-                value={user.name || ""}
-                handleChange={e => {
-                  this.handleChange({name : 'name', value: e.target.value});
-                }}
-                label="Tên"
-              />
-              <TextFieldGroup
-                type="text"
-                name="phone_number"
-                value={user.phone_number || ""}
-                handleChange={e => {
-                  this.handleChange({name : 'phone_number', value: e.target.value});
-                }}
-                label="Số điện thoại"
-              />
-              <TextFieldGroup
-                type="text"
-                name="email"
-                value={user.email || ""}
-                handleChange={e => {
-                  this.handleChange({name : 'email', value: e.target.value});
-                }}
-                label="Email"
-              />
-              <TextFieldGroup
-                type="text"
-                name="address"
-                value={user.address || ""}
-                handleChange={e => {
-                  this.handleChange({name : 'address', value: e.target.value});
-                }}
-                label="Địa chỉ"
-              />
+              {
+                modal.type === 'rating' 
+                ? <h3>Bạn đã đánh giá {this.state.ratingValue} sao !</h3>
+                : (modal.type === 'edit_profile')
+                ? <h3>Thông tin tài khoản</h3> : null
+              }
+              {
+                (modal.type === 'edit_profile') 
+                ?
+                <div>
+                  <TextFieldGroup
+                    type="text"
+                    name="name"
+                    value={user.name || ""}
+                    handleChange={e => {
+                      this.handleChange({name : 'name', value: e.target.value});
+                    }}
+                    label="Tên"
+                  />
+                  <TextFieldGroup
+                    type="text"
+                    name="phone_number"
+                    value={user.phone_number || ""}
+                    handleChange={e => {
+                      this.handleChange({name : 'phone_number', value: e.target.value});
+                    }}
+                    label="Số điện thoại"
+                  />
+                  <TextFieldGroup
+                    type="text"
+                    name="email"
+                    value={user.email || ""}
+                    handleChange={e => {
+                      this.handleChange({name : 'email', value: e.target.value});
+                    }}
+                    label="Email"
+                  />
+                  <TextFieldGroup
+                    type="text"
+                    name="address"
+                    value={user.address || ""}
+                    handleChange={e => {
+                      this.handleChange({name : 'address', value: e.target.value});
+                    }}
+                    label="Địa chỉ"
+                  />
+                </div> : 
+                (modal.type === 'rating') ?
+                <div>
+                  <TextFieldGroup 
+                    type='text'
+                    name='rating_note'
+                    value={this.state.rating_note}
+                    handleChange={(e) =>{
+                      const rating_note = e.target.value;
+                      this.setState({ rating_note });
+                    }}
+                    label="Ý kiến đánh giá"
+                  />
+                </div> : null  
+              }
             </ModalBody>
             <div>
-              <Button color="danger" onClick={this.toggle}>
+              <Button color="danger" onClick={()=>{this.toggle({type : ''})}}>
                 Hủy bỏ
               </Button>
               <Button color="success" onClick={()=>{
-                console.log('datausser', this.state.dataUser)
+                this._onSubmitHandler();
               }}>Cập nhật</Button>
             </div>
           </Modal>
@@ -140,11 +196,27 @@ class IndexProfilePage extends Component {
                 alt=""
               />
             </div>
-            <div className="container-edit-profile">
-              <div className="button-edit-profile" onClick={this.toggle}>
-                <i className="material-icons">create</i>
+            { !isViewOnly && 
+              <SellerInfo 
+                onRating={(value)=>{
+                    this.toggle({ type : 'rating',ratingValue : value });
+                }}
+                readonly={!isViewOnly}
+              />
+            }
+            {
+              !isViewOnly &&
+              <div className="container-edit-profile">
+                <div className="button-edit-profile" 
+                onClick={()=>{
+                    this.toggle({ type : 'edit_profile', ratingValue : 3.5 });
+                  }
+                }
+                >
+                  <i className="material-icons">create</i>
+                </div>
               </div>
-            </div>
+            }
             <h3 className="text-title">{user.name || ""}</h3>
             <div className="list-icon-provice">
               <span className="text-middle">Đã cung cấp</span>
@@ -220,12 +292,14 @@ class IndexProfilePage extends Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.users.currentUser,
-    dataUser: state.users.dataUser
+    dataUser: state.users.dataUser,
+    errorUser: state.users.error,
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUserProfile: id => dispatch(fetchUserProfile(id))
+    fetchUserProfile: id => dispatch(fetchUserProfile(id)),
+    updateUserProfile: (id,data) => dispatch(updateUserProfile(id,data)),
   };
 };
 
