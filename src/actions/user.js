@@ -115,7 +115,6 @@ export const updateUserProfile = (id,data) => {
     axios
       .patch(`${API_URL}/users/${id}`, {user : data})
       .then(response => {
-        console.log('res', response.data)
         dispatch(updateUserProfileSuccess());
       })
       .catch(error => {

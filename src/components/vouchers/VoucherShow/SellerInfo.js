@@ -8,7 +8,7 @@ class SellerInfo extends Component {
     seller: PropTypes.object,
   };
   state = {
-    initialRating : 3.5
+    initialRating : this.props.initialRating || 3.5
   }
   render() {
     return (

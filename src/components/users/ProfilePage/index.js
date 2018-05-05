@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import TextFieldGroup from "../../shared/TextFieldGroup";
 import { fetchUserProfile, updateUserProfile } from "../../../actions/user";
 import SellerInfo from '../../vouchers/VoucherShow/SellerInfo';
-import { Container, Button, Modal, ModalBody, ModalHeader } from "mdbreact";
+import { Container, Button, Modal, ModalBody, ModalHeader, Badge } from "mdbreact";
 import { hasKey } from "../../utils/utils";
 
 class IndexProfilePage extends Component {
@@ -62,12 +62,14 @@ class IndexProfilePage extends Component {
     ) {
       this.setState({ dataUser: nextProps.dataUser });
     }
+    if(typeof nextProps.resultUpdate !== 'undefined'){
+      this.setState({...this.state, resultUpdate : nextProps.resultUpdate});
+    }
   }
   _onSubmitHandler = () => {
     const { dataUser } = this.state;
     if(!hasKey(dataUser)) return;
     const user = {...dataUser.user};
-    console.log('user', user);
     if(!user.phone_number || !user.name || !user.address ){
       alert("Dữ liệu thông tin chưa đầy đủ !");
     }
@@ -109,6 +111,13 @@ class IndexProfilePage extends Component {
             }
             </ModalHeader>
             <ModalBody>
+              {
+                (this.state.resultUpdate === 'success' && modal.type === 'edit_profile') 
+                ? <Badge badgeColor="success">Cập nhật thông tin thành công</Badge>
+                : (this.state.resultUpdate === 'error' && modal.type === 'edit_profile')
+                ? <Badge badgeColor="danger">Cập nhật thông tin thất bại !</Badge>
+                : null   
+              }
               {
                 modal.type === 'rating' 
                 ? <h3>Bạn đã đánh giá {this.state.ratingValue} sao !</h3>
@@ -196,14 +205,10 @@ class IndexProfilePage extends Component {
                 alt=""
               />
             </div>
-            { !isViewOnly && 
-              <SellerInfo 
-                onRating={(value)=>{
-                    this.toggle({ type : 'rating',ratingValue : value });
-                }}
-                readonly={!isViewOnly}
-              />
-            }
+            <SellerInfo 
+              initialRating={1}
+              readonly={true}
+            />
             {
               !isViewOnly &&
               <div className="container-edit-profile">
@@ -293,7 +298,7 @@ const mapStateToProps = state => {
   return {
     currentUser: state.users.currentUser,
     dataUser: state.users.dataUser,
-    errorUser: state.users.error,
+    resultUpdate: state.users.resultUpdate,
   };
 };
 const mapDispatchToProps = dispatch => {
