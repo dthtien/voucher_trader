@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ImageSlider from './ImageSlider';
 import VoucherShowContent from './VoucherShowContent';
 import StoreContent from './StoreContent';
 import SellerInfo from './SellerInfo';
 import { getVoucher, deleteVoucher } from '../../../actions/voucher';
 import { rating } from '../../../actions/user';
+import ImageSlider from '../../shared/ImageSlider';
 import isEmpty from 'lodash/isEmpty';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import { Container, Button, Modal, ModalBody, ModalHeader } from 'mdbreact';

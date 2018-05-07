@@ -4,7 +4,7 @@ body {
   font-family: sans-serif;
 }
 .main{
-  margin-top: 5em;
+  margin-top: 4em;
 }
 .search-input{
   box-sizing: 'border-box';
@@ -29,4 +29,16 @@ body {
 }
 .socialButton{
   
+}
+.logo{
+  border-radius: 5px;
+  border: 1px solid #dedede;
+  padding: 2px;
+  .logo-voucher{
+    color: #ffa900;
+  }
+}
+.upload-btn{
+  border-radius: 5px;
+  border: 1px solid #ffa900;
 }

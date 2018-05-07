@@ -1,4 +1,9 @@
 #home{
+  .home-category-text{
+    margin: 1.5em 0 1em 0;
+    font-size: 38px;
+    font-weight: 500;
+  }
   .img-category{
     opacity: 0.9;
   }
@@ -9,5 +14,59 @@
     color: #fff;
     text-shadow: rgba(0, 0, 0, 0.2) !important;
     font-size: 1.2em;
+  }
+  .full {
+    padding-top: 3em !important;
+    padding: 1em !important;
+    margin: 0 auto !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+
+    .banner-text{
+      margin-top: 5em;
+
+      h2, h5{
+        margin-top: 1em;
+      }
+
+      h2{
+        font-size: 40px;
+        line-height: 50px;
+        font-weight: 600;
+        color: #fff;
+        margin: 0 0 8px;
+      }
+
+      h5{
+        font-size: 22px;
+        line-height: 30px;
+        font-weight: 400;
+        color: #fff;
+        margin: 0 0 35px;
+        display: block;
+      }
+    }
+  }
+  .home-search{
+    margin-top: 2em;
+    margin-bottom: 7em;    
+  }
+  .overlay{
+    position: relative;
+    z-index: 1;
+    &:before {
+      position: absolute;
+      content: "";
+      z-index: -1;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+    }
   }
 }
