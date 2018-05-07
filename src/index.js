@@ -32,7 +32,7 @@ const store = createStore(
 );
 
 if (localStorage.accessToken) {
-  setAuthorizationToken(localStorage.accessToken)
+  setAuthorizationToken(localStorage.accessToken);
   store.dispatch(loggedIn(localStorage.accessToken));
 }
 

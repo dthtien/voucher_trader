@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import '../../../resources/voucherShow.scss'
 import ImageSlider from './ImageSlider';
 import VoucherShowContent from './VoucherShowContent';
 import StoreContent from './StoreContent';
@@ -11,6 +10,7 @@ import { rating } from '../../../actions/user';
 import isEmpty from 'lodash/isEmpty';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import { Container, Button, Modal, ModalBody, ModalHeader } from 'mdbreact';
+import '../../../resources/voucherShow.scss'
 
 
 
@@ -18,22 +18,25 @@ class VoucherShow extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
+
   state = {
     modal: false,
     rating_note: '',
     ratingValue : null,
   }
+
   componentWillMount(){
     const id = this.props.match.params.id;
     this.props.getVoucher(id);
   };
+
   toggle = () => {
     this.setState({
       modal: !this.state.modal
     });
   }
   renderVoucherContent = () => {
-    const {voucher, loading} = this.props;
+    const {voucher, loading, match} = this.props;
     if (loading || isEmpty(voucher)) {
       return (<h4>Loading...</h4>);
     } else {
@@ -45,6 +48,7 @@ class VoucherShow extends Component {
           </div>
           <div className="col col-md-7">
             <VoucherShowContent voucher={voucher}/>
+
             <SellerInfo onRating={(value)=>{
               this.setState({ ratingValue : value , modal : true });
             }}/>
@@ -75,13 +79,7 @@ class VoucherShow extends Component {
       );
     }
   }
-
-  deleteVoucher = () => {
-    const id = this.props.match.params.id;
-    this.props.deleteVoucher(id, () => {
-      this.context.router.history.push('/')
-    });
-  }
+  
   _onRatingHandler = (obj) =>{
     const { ratingValue, rating_note } = this.state;
     const { match } = this.props;
@@ -131,5 +129,5 @@ export default connect(mapStateToProps,
   {
     getVoucher: getVoucher, 
     deleteVoucher: deleteVoucher,
-    rating : rating
+    rating: rating
   })(VoucherShow);
