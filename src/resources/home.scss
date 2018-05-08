@@ -1,4 +1,8 @@
 #home{
+  .category-detail{
+    margin-bottom: 1em;
+  }
+  
   .home-category-text{
     margin: 1.5em 0 1em 0;
     font-size: 38px;
@@ -6,6 +10,7 @@
   }
   .img-category{
     opacity: 0.9;
+    min-height: 174px;
   }
   .category-text{
     position: absolute;
