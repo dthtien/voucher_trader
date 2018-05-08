@@ -13,7 +13,10 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import setAuthorizationToken from './config/setAuthorizationToken';
 import { loggedIn } from './actions/user';
 import App from './containers/App';
+import vi from 'react-intl/locale-data/vi'
+import { IntlProvider, addLocaleData } from 'react-intl'
 
+addLocaleData(vi);
 injectTapEventPlugin();
 
 String.prototype.capitalize = function() {
@@ -38,7 +41,9 @@ if (localStorage.accessToken) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <IntlProvider locale={'vi'}>
+      <App />
+    </IntlProvider>
   </Provider>, 
   document.getElementById('root'));
 registerServiceWorker();
