@@ -1,26 +1,56 @@
 .vouchers{
-  margin-top: 4.5em;
+  margin-top: 4em;
+
   .voucher-detail{
-    margin-bottom: 5px;
-    border-bottom: 1px solid lightgrey;
-    .voucher-image {
-      img{
-        width: 80%;
-        height: auto;
-      }
-    }
+    height: 320px !important;
+    padding: 29px 25px;
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+    border: 1px solid #ececec;
+    margin-right: 30px;
+    margin-bottom: 30px !important;
     
     .voucher-content{
     }
 
     .voucher-footer{
-      margin-top: 2em;
-      width: 80%;
-
       .owner-voucher{
-        pull: right !important;
       }
     }
   }
+  
+  .detail{
+    .header{
+      overflow: hidden;
+      margin: 0 0 23px;
+      .voucher-image {
+        img{
+          width: 106px;
+          float: left;
+          margin: 0 28px 0 0;
+        }
+      }
+    }
+  }
+  .voucher-name{
+    font-size: 17px;
+    font-weight: 500;
+    color: #101010;
+  }
+}
+.vouchers-banner{
+  min-height: 250px;
 
+  .holder {
+    margin-top: 4em;
+  }
+
+  h1{
+    display: inline-block;
+    color: #fff;
+    font-size: 46px;
+    line-height: 58px;
+    font-weight: 900;
+    margin: 0;
+  }
 }

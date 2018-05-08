@@ -14,13 +14,13 @@ export default class VoucherImage extends Component{
       return(
         <img 
           src={defaultImage} 
-          className="img-thumbnail" 
+          className="img-responsive" 
           alt="Cho Voucher"/>
       );
     } else {
       return(
         <img src={`http://localhost:6060${images[0].url_medium}`}
-          className="img-thumbnail" 
+          className="img-responsive" 
           alt="Cho Voucher"/>
       );
     }

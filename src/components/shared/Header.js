@@ -58,8 +58,8 @@ class Header extends Component {
     const userLinks = (
       <NavbarNav right>
         <NavItem>
-          <NavLink className="nav-link" to="/vouchers/new">
-            Create voucher</NavLink>
+          <NavLink className="nav-link upload-btn" to="/vouchers/new">
+           Đăng Mã Gỉam gía</NavLink>
         </NavItem>
         <NavItem>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -90,14 +90,18 @@ class Header extends Component {
     return(
       <Navbar color="indigo" dark expand="md" scrolling color="red" fixed="top">
         <NavbarBrand href="/">
-          <strong>Chợ voucher</strong>
+          <div className='logo'>
+            <span className='logo-cho'>Chợ</span>
+            <span className='logo-voucher'>Voucher</span>
+          </div>
         </NavbarBrand>
         { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-        <Collapse isOpen = { this.state.collapse } navbar>
+        <Collapse cisopen={ this.state.collapse.toString() } navbar>
           { isAuthenticate ? userLinks : guestLinks}
         </Collapse>
       </Navbar>
     );
+  
   }
 }
 
