@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import { FormattedDate } from 'react-intl';
-import Moment from 'react-moment';
-
 
 class VoucherContent extends Component {
   render(){
