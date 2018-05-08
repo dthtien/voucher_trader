@@ -15,6 +15,24 @@ import FashionImage from '../../resources/images/fashions.jpg';
 import HomeImage from '../../resources/images/home.jpg';
 
 class Home extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      searchText: ''
+    }
+  }
+
+  handleTextChange = (e) => {
+    this.setState({
+      searchText: e.target.value
+    })
+  }
+
+  handleSearchSubmit = () => {
+    this.props.history.push(`/vouchers?q=${this.state.searchText}`)
+  }
+
   render() {
     return (
       <div id="home">
@@ -32,14 +50,18 @@ class Home extends Component {
             </div>
             <div className="col-sm-12">
               <div className=" container home-search">
-                <SearchForm />
+                <SearchForm 
+                  onSearch={this.handleSearchSubmit}
+                  searchText = {this.state.searchText}
+                  handleTextChange={this.handleTextChange}
+                />
               </div>
             </div>
           </div>
         </div>
         <div className="container">
           <h4 className="text-center home-category-text">Danh mục</h4>
-          <div className="row clearfix">
+          <div className="row">
             <CategoryName
               name="Tất cả"
               image={HomeImage}

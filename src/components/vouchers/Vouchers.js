@@ -8,6 +8,7 @@ import { hasKey } from "../utils/utils";
 import SearchForm from '../shared/SearchForm';
 import Spinner from '../shared/Spinner';
 import InfiniteScroll from 'react-infinite-scroller';
+import queryString from 'query-string';
 
 
 class Vouchers extends Component {
@@ -25,17 +26,16 @@ class Vouchers extends Component {
   }
 
   componentDidMount(){
-    const query = this.props.location.search ? this.props.location.search.match(/^\?cat=(.+)$/)[1] : "";
+    const query = queryString.parse(this.props.location.search)
 
-    if (decodeURIComponent(query) === 'Tất cả') {
-      this.props.getVouchers();
+    if (decodeURIComponent(query.cat) === 'Tất cả') {
+      this.props.getVouchers({cat: '', q: query.q});
     } else{
       this.setState({
-        ...this.state,
-        cat: query
+        query
       })
 
-      this.props.getVouchers({cat: query});
+      this.props.getVouchers(query);
     }
   };
 
@@ -109,18 +109,16 @@ class Vouchers extends Component {
         return <Voucher key={index} voucher={voucher} />;
       });
       return(
-        <div className="voucher-list">
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.handleLoadMore.bind(this)}
-            hasMore={this.state.hasMore}
-            loader={
-              <Spinner key={1} />
-            }
-          >
-            {vouchersList}
-          </InfiniteScroll>
-        </div>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.handleLoadMore.bind(this)}
+          hasMore={this.state.hasMore}
+          loader={
+            <Spinner key={1} />
+          }
+          className="row">
+          {vouchersList}
+        </InfiniteScroll>
       );
     }
   }
@@ -128,16 +126,25 @@ class Vouchers extends Component {
   render() {
     return (
       <div className="vouchers">
-        <div className="row">
-          <div className="col col-md-8 offset-md-2">
-            <SearchForm 
-              onSearch={this.handleSearchSubmit} 
-              searchText={this.state.q}
-              handleTextChange={this.handleTextChange}
-            />
-            <div className="mt-1">
-              {this.renderVoucherList()}
+        <div className="vouchers-banner overlay full" style={{
+            backgroundImage: `url('http://htmlbeans.com/html/coupon/images/img30.jpg')`,
+          }} >
+          <div className="container holder">
+            <div className="row">
+              <div className='col col-xs-12'>
+                <h1>Danh sách mã giảm gía</h1>
+              </div>
             </div>
+          </div>
+        </div>
+        <div className="container">
+          <SearchForm 
+            onSearch={this.handleSearchSubmit} 
+            searchText={this.state.q}
+            handleTextChange={this.handleTextChange}
+          />
+          <div className="mt-1">
+            {this.renderVoucherList()}
           </div>
         </div>
       </div>

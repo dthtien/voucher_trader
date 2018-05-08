@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import VoucherType from '../shared/VoucherType';
+import Moment from 'react-moment';
+
 
 class VoucherContent extends Component {
   render(){
@@ -7,12 +8,14 @@ class VoucherContent extends Component {
 
     return(
       <div className="voucher-content">
-        <h6 className="font-weight-bold">
+        <h6 className="voucher-name">
           {voucher.name}
-          <VoucherType kind={voucher.kind}/>
         </h6>
-        <p className="store-name">{store.name}</p>
-        <p className='text-danger font-weight-bold'>{voucher.price} VND</p>
+        <p className="store-name text-success">{store.name}</p>
+        <a className="text-danger">
+          Ngày hết hạn: 
+          <Moment format=" DD-MM-YYYY">{voucher.date_end}</Moment>
+        </a>
       </div>
     );
   }
