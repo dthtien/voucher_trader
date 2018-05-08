@@ -107,3 +107,33 @@ export const fetchUserProfile = id => {
       });
   };
 };
+/* update Profile */
+export const updateUserProfileStart = () => {
+  return {
+    type: UserActionType.UPDATE_USER_PROFILE_START
+  };
+};
+export const updateUserProfileError = () => {
+  return {
+    type: UserActionType.UPDATE_USER_PROFILE_ERROR
+  };
+};
+export const updateUserProfileSuccess = () => {
+  return {
+    type: UserActionType.UPDATE_USER_PROFILE_SUCCESS,
+  };
+};
+export const updateUserProfile = (id,data) => {
+  return dispatch => {
+    dispatch(updateUserProfileStart());
+    axios
+      .patch(`${API_URL}/users/${id}`, {user : data})
+      .then(response => {
+        dispatch(updateUserProfileSuccess());
+      })
+      .catch(error => {
+        console.log("failed", error);
+        dispatch(updateUserProfileError());
+      });
+  };
+};

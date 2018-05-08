@@ -6,7 +6,9 @@ import SlideBar from '../shared/SlideBar';
 import '../../resources/vouchers.scss';
 import { hasKey } from "../utils/utils";
 import SearchForm from '../shared/SearchForm';
+import Spinner from '../shared/Spinner';
 import InfiniteScroll from 'react-infinite-scroller';
+import queryString from 'query-string';
 
 
 class Vouchers extends Component {
@@ -18,22 +20,22 @@ class Vouchers extends Component {
       q: '',
       page: 1,
       totalPage: null,
-      vouchers: []
+      vouchers: [],
+      hasMore: true
     }
   }
 
-  componentWillMount(){
-    const query = this.props.location.search ? this.props.location.search.match(/^\?cat=(.+)$/)[1] : "";
+  componentDidMount(){
+    const query = queryString.parse(this.props.location.search)
 
-    if (decodeURIComponent(query) === 'Tất cả') {
-      this.props.getVouchers();
+    if (decodeURIComponent(query.cat) === 'Tất cả') {
+      this.props.getVouchers({cat: '', q: query.q});
     } else{
       this.setState({
-        ...this.state,
-        cat: query
+        query
       })
 
-      this.props.getVouchers({cat: query});
+      this.props.getVouchers(query);
     }
   };
 
@@ -44,14 +46,22 @@ class Vouchers extends Component {
       hasKey(nextProps.vouchers)
     ) {
       const vouchers = [...this.state.vouchers, ...nextProps.vouchers];
+      console.log(this.state.page);
+      if (this.state.page === 2) {
+        this.setState({ 
+          ...this.state,
+          vouchers: nextProps.vouchers,
+        });
+      } else {
+        if (nextProps.totalVouchers !== this.state.vouchers.length) {
+          this.setState({ 
+            ...this.state,
+            vouchers: vouchers,
+            totalPage: Math.round(nextProps.totalVouchers / 25)
+          });
+        }
+      }
 
-      console.log(vouchers);
-
-      this.setState({ 
-        ...this.state,
-        vouchers: vouchers,
-        totalPage: Math.round(nextProps.totalVouchers / 25)
-      });
     }
   }
 
@@ -73,37 +83,42 @@ class Vouchers extends Component {
   }
 
   handleLoadMore = (page) => {
-    if (page <= this.state.totalPage) {
+    if (this.state.page <= this.state.totalPage-1) {
       this.setState({
         ...this.state,
-        page: page
+        page: this.state.page + 1
       })
 
-      console.log(this.state);
-
       this.props.getVouchers(this.state);
+    } else{
+      this.setState({
+        ...this.state,
+        hasMore: false
+      })
     }
   }
 
   renderVoucherList = () => {
     if (this.state.vouchers.length === 0) {
-      return (<li>Loading..</li>);
+      return (
+        <Spinner key={0} />
+       );
     } else {
-      console.log(this.state.vouchers);
-      const vouchersList = this.state.vouchers.map(voucher => {
-        return <Voucher key={voucher.id} voucher={voucher} />;
+      console.log('renderVoucher => ', this.state.vouchers)
+      const vouchersList = this.state.vouchers.map((voucher, index) => {
+        return <Voucher key={index} voucher={voucher} />;
       });
       return(
-        <div className="voucher-list">
-          <InfiniteScroll
-            pageStart={1}
-            loadMore={this.handleLoadMore}
-            hasMore={true}
-            loader={<div className="loader" key={0}>Loading ...</div>}
-          >
-            {vouchersList}
-          </InfiniteScroll>
-        </div>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.handleLoadMore.bind(this)}
+          hasMore={this.state.hasMore}
+          loader={
+            <Spinner key={1} />
+          }
+          className="row">
+          {vouchersList}
+        </InfiniteScroll>
       );
     }
   }
@@ -111,16 +126,25 @@ class Vouchers extends Component {
   render() {
     return (
       <div className="vouchers">
-        <div className="row">
-          <div className="col col-md-8 offset-md-2">
-            <SearchForm 
-              onSearch={this.handleSearchSubmit} 
-              searchText={this.state.q}
-              handleTextChange={this.handleTextChange}
-            />
-            <div className="mt-1">
-              {this.renderVoucherList()}
+        <div className="vouchers-banner overlay full" style={{
+            backgroundImage: `url('http://htmlbeans.com/html/coupon/images/img30.jpg')`,
+          }} >
+          <div className="container holder">
+            <div className="row">
+              <div className='col col-xs-12'>
+                <h1>Danh sách mã giảm gía</h1>
+              </div>
             </div>
+          </div>
+        </div>
+        <div className="container">
+          <SearchForm 
+            onSearch={this.handleSearchSubmit} 
+            searchText={this.state.q}
+            handleTextChange={this.handleTextChange}
+          />
+          <div className="mt-1">
+            {this.renderVoucherList()}
           </div>
         </div>
       </div>

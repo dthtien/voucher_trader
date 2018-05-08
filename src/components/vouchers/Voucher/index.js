@@ -3,26 +3,42 @@ import { Link } from 'react-router-dom';
 import VoucherImage from './VoucherImage';
 import VoucherContent from './VoucherContent';
 import VoucherFooter from './VoucherFooter';
+import VoucherType from '../shared/VoucherType';
+import { FormattedNumber } from 'react-intl';
 
 
 export default class Voucher extends Component{
   render(){
     const {voucher} = this.props
     return(
-      <div className="voucher-detail mt-1">
-        <Link 
-          to={`/vouchers/${voucher.id}`}>
-          <div className="row">
-            <div className="col col-md-3">
+      <div className="col col-md-4 col-sm-6">
+        <div className="voucher-detail mt-1">
+          <div className="detail">
+            <div className="header">
               <VoucherImage images={voucher.images} />
+              <VoucherType kind={voucher.kind}/>
+              <p className='text-danger font-weight-bold text-center'>
+                <FormattedNumber 
+                  value={voucher.price} 
+                  style="currency" currency="VND"/>
+              </p>
             </div>
-            <div className="col col-md-9">
+            <div className="col col-md-12">
               <VoucherContent store={voucher.store} voucher={voucher}/>
               <VoucherFooter 
-                create_at={voucher.created_at} owner_name="Owner name" />
+                date_end={voucher.date_end} 
+                owner_name="Owner name"
+                seller={voucher.seller} />
+            </div>
+            <div className='text-center'>
+              <Link 
+                to={`/vouchers/${voucher.id}`}
+                className="btn red">
+                Xem chi tiết
+              </Link>
             </div>
           </div>
-        </Link>
+        </div>
       </div>
     );
   }

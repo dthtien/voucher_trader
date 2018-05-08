@@ -8,7 +8,7 @@ class SellerInfo extends Component {
     seller: PropTypes.object,
   };
   state = {
-    initialRating : 3.5
+    initialRating : this.props.initialRating || 3.5
   }
   render() {
     return (
@@ -18,6 +18,7 @@ class SellerInfo extends Component {
           emptySymbol="fa fa-star-o fa-2x"
           fullSymbol="fa fa-star fa-2x"
           fractions={2}
+          readonly={this.props.readonly}
           onChange={(value) =>{
             this.setState({initialRating : value});
             if(typeof this.props.onRating === 'function'){
@@ -25,7 +26,7 @@ class SellerInfo extends Component {
             }
           }}
         />
-        <p className="font-weight-bold">Name</p>
+        <p className="font-weight-bold">Đánh giá : {this.state.initialRating} sao</p>
       </div>
     );
   }

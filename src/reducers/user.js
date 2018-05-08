@@ -37,6 +37,26 @@ export default function User(state = initialState, action){
         isLoading : false,
         dataUser : action.dataUser || {}
       }
+    case UserActionType.UPDATE_USER_PROFILE_START:
+      return {
+        ...state,
+        isLoading : true,
+        error : null,
+      }
+    case UserActionType.UPDATE_USER_PROFILE_ERROR:
+      return {
+        ...state,
+        isLoading : false,
+        error : true,
+        resultUpdate : 'error'
+      }
+    case UserActionType.UPDATE_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        error : null,
+        isLoading : false,
+        resultUpdate : 'success'
+      }
     default:
       return state;
   }

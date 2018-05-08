@@ -5,16 +5,18 @@ import { Link } from 'react-router-dom';
 const CategoryName = (props) => {
   const {image, name, classEmbed} = props
   return(
-    <div className="col col-md-3">
-      <Link to={`vouchers?cat=${name}`}>
-        <img 
-          src={image} 
-          alt="Cho Voucher"
-          className='img-thumbnail img-category'/>
-        <div className={`${classEmbed} category-text`}>
-          {name}
-        </div>
-      </Link>
+    <div className="col col-sm-6 col-xs-6 col-md-3">
+      <div className='category-detail'>
+        <Link to={`vouchers?cat=${name}`}>
+          <img 
+            src={image} 
+            alt="Cho Voucher"
+            className='img-thumbnail img-category'/>
+          <div className={`category-text`}>
+            {name}
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }
