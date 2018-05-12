@@ -18,38 +18,48 @@ export const login = userData => {
 };
 
 export const logout = () => {
-  return dispatch => {
-    axios
-      .delete(`${API_URL}/users/logout`)
-      .then(response => {
-        localStorage.removeItem("accessToken");
-        setAuthorizationToken(false);
-        dispatch(loggedIn());
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-};
+  return (dispatch) => {
+    axios.delete(`${API_URL}/users/logout`);
+    localStorage.removeItem('accessToken');
+    setAuthorizationToken(false);
+    dispatch(loggedIn());
+  }
+}
 
 export const loggedIn = accessToken => {
   if (localStorage.accessToken !== accessToken) {
     localStorage.setItem("accessToken", accessToken);
   }
   setAuthorizationToken(accessToken);
-  const user = jwt.decode(accessToken);
+  console.log(accessToken);
+
+  const user = jwt.decode(accessToken)
+
   return {
     type: UserActionType.LOGGED_IN,
-    user,
-    accessToken
-  };
-};
+    user
+  }
+}
+
+export const facebookLogin = (data) => {
+  return(dispatch) => {
+    return axios.post(`${API_URL}/users/facebook_signup`, {user: data})
+      .then(response => {
+        dispatch(loggedIn(response.data.access_token));
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  }
+}
+
 export const rate = data => {
   return {
     type: UserActionType.RATING,
     data
   };
 };
+
 export const rating = data => {
   return dispatch => {
     axios
@@ -63,22 +73,26 @@ export const rating = data => {
       });
   };
 };
+
 export const fetchUserProfileStart = () => {
   return {
     type: UserActionType.FETCH_USER_PROFILE_START
   };
 };
+
 export const fetchUserProfileError = () => {
   return {
     type: UserActionType.FETCH_USER_PROFILE_ERROR
   };
 };
+
 export const fetchUserProfileSuccess = ({dataUser}) => {
   return {
     type: UserActionType.FETCH_USER_PROFILE_SUCCESS,
     dataUser
   };
 };
+
 export const fetchUserProfile = id => {
   return dispatch => {
     dispatch(fetchUserProfileStart());

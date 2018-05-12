@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TextFieldGroup from '../../shared/TextFieldGroup';
+import { FormattedNumber } from 'react-intl';
 
 export default class VoucherInfoFields extends Component{
   render(){
@@ -29,6 +30,10 @@ export default class VoucherInfoFields extends Component{
                 handleChange={handleChange}
                 error={errors.price}
               />
+              <FormattedNumber 
+                value={fields.price} 
+                style="currency" 
+                currency="VND"/>
 
               <TextFieldGroup
                 name='date_start'

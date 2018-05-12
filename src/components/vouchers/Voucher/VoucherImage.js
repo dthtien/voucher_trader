@@ -9,19 +9,18 @@ export default class VoucherImage extends Component{
 
   renderImage = () =>{
     const {images} = this.props;
-    console.log(images);
     
     if (images.length === 0) {
       return(
         <img 
           src={defaultImage} 
-          className="img-thumbnail" 
+          className="img-responsive" 
           alt="Cho Voucher"/>
       );
     } else {
       return(
         <img src={`http://localhost:6060${images[0].url_medium}`}
-          className="img-thumbnail" 
+          className="img-responsive" 
           alt="Cho Voucher"/>
       );
     }

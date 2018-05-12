@@ -1,4 +1,4 @@
-export const  CITIES = [
+export const CITIES = [
   {
     "region_id": 1,
     "name": "Hà Nội",

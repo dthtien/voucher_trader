@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import '../../resources/home.scss';
+import CategoryName from './CategoryName';
+import ImageSlider from '../shared/ImageSlider';
+import SearchForm from '../shared/SearchForm';
+
 import RestaurantImage from '../../resources/images/restaurant.jpg';
 import SpaImage from '../../resources/images/spa.jpg';
 import SportImage from '../../resources/images/sports.jpg';
@@ -12,63 +15,95 @@ import FashionImage from '../../resources/images/fashions.jpg';
 import HomeImage from '../../resources/images/home.jpg';
 
 class Home extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      searchText: ''
+    }
+  }
+
+  handleTextChange = (e) => {
+    this.setState({
+      searchText: e.target.value
+    })
+  }
+
+  handleSearchSubmit = () => {
+    this.props.history.push(`/vouchers?q=${this.state.searchText}`)
+  }
+
   render() {
     return (
-      <div className="container" id="home">
-        <div className="row">
-          <div className="col col-md-3">
-            <img src={RestaurantImage} className="img-thumbnail img-category"/>
-            <div className="category-text">
-              Ảm thực 
+      <div id="home">
+        <div className = "full overlay white-text text-center" 
+          style={{
+            backgroundImage: `url('http://htmlbeans.com/html/coupon/images/img29.jpg')`,
+          }} 
+          >
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="banner-text">
+                <h2>Tìm mã giảm gía và deals rẻ</h2>
+                <h5>Hơn 3000+ của hàng có tại đây</h5>
+              </div>
+            </div>
+            <div className="col-sm-12">
+              <div className=" container home-search">
+                <SearchForm 
+                  onSearch={this.handleSearchSubmit}
+                  searchText = {this.state.searchText}
+                  handleTextChange={this.handleTextChange}
+                />
+              </div>
             </div>
           </div>
-          <div className="col col-md-3">
-            <img src={SpaImage} className="img-thumbnail img-category"/>
-            <div className="category-text">
-              Làm đẹp và đời sông
-            </div>
-          </div>
-          <div className="col col-md-3">
-            <img src={SportImage} className="img-thumbnail img-category"/>
-            <div className="category-text">
-              Thể thao giải trí
-            </div>
-          </div>
-          <div className="col col-md-3">
-            <img src={TravelImage} className="img-thumbnail img-category"/>
-            <div className="category-text">
-              Du lịch
-            </div>
-          </div>
-          <div className="col col-md-3">
-            <img src={AccessoriesImage} className="img-thumbnail img-category"/>
-            <div className="category-text text-muted">
-              Phụ Kiện- Thiết bị số
-            </div>
-          </div>
-          <div className="col col-md-3">
-            <img src={MomImage} className="img-thumbnail img-category"/>
-            <div className="category-text text-muted">
-              Mẹ & Bé
-            </div>
-          </div>
-          <div className="col col-md-3">
-            <img src={FoodImage} className="img-thumbnail img-category"/>
-            <div className="category-text">
-              Thực Phẩm
-            </div>
-          </div>
-          <div className="col col-md-3">
-            <img src={FashionImage} className="img-thumbnail img-category"/>
-            <div className="category-text">
-              Thời Trang & Phụ Kiện
-            </div>
-          </div>
-          <div className="col col-md-3">
-            <img src={HomeImage} className="img-thumbnail img-category"/>
-            <div className="category-text">
-              Nhà Cửa & Đời Sống
-            </div>
+        </div>
+        <div className="container">
+          <h4 className="text-center home-category-text">Danh mục</h4>
+          <div className="row">
+            <CategoryName
+              name="Tất cả"
+              image={HomeImage}
+            />
+            <CategoryName 
+              name="Ẩm Thực" 
+              image={RestaurantImage}
+            />
+            <CategoryName 
+              name="Làm đẹp và đời sông"
+              image={SpaImage}
+            />
+            <CategoryName 
+              name="Giải Trí và Thể Thao"
+              image={SportImage}
+            />
+            <CategoryName 
+              name="Du lịch"
+              image={TravelImage}
+            />
+            <CategoryName 
+              name="Phụ Kiện- Thiết bị số"
+              image={AccessoriesImage}
+              classEmbed="text-muted"
+            />
+            <CategoryName 
+              name="Mẹ và Bé"
+              image={MomImage}
+              classEmbed="text-muted"
+            />
+            <CategoryName 
+              name="Thực Phẩm"
+              image={FoodImage}
+            />
+            <CategoryName
+              name="Thời Trang và Phụ Kiện"
+              image={FashionImage}
+            />
+            <CategoryName
+              name="Nhà Cửa và Đời Sống"
+              image={HomeImage}
+            />
           </div>
         </div>
       </div>

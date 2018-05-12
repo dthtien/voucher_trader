@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Moment from 'react-moment';
+import { FormattedDate, FormattedNumber } from 'react-intl';
 import VoucherType from '../shared/VoucherType';
 
 class VoucherShowContent extends Component {
@@ -17,17 +17,34 @@ class VoucherShowContent extends Component {
           {voucher.name}
           <VoucherType kind={voucher.kind}/>
         </h3>
-        <p className="text-danger">{voucher.price} VND</p>
+        <p className="text-danger">
+          <FormattedNumber 
+            value={voucher.price} 
+            style="currency" 
+            currency="VND"/>
+        </p>
         <blockquote>
           {voucher.kind !== 'e' && <p><strong>Địa chỉ nhận: </strong>{voucher.address_receiver}</p>}
           <p>
             <strong>Thời gian sử dụng: </strong>
             <span className="mr-1">
-              <Moment format='DD/MM/YYYY'>{voucher.date_start}</Moment>
+              <FormattedDate
+                value={voucher.date_start}
+                className='ml-2'
+                year='numeric'
+                month='long'
+                day='2-digit'
+              />
             </span>
-            -
+            <span> đến </span>
             <span className="ml-1">
-              <Moment format='DD/MM/YYYY'>{voucher.date_end}</Moment>
+              <FormattedDate
+                value={voucher.date_end}
+                className='ml-2'
+                year='numeric'
+                month='long'
+                day='2-digit'
+              />
             </span>
           </p>
           <p>

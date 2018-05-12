@@ -24,27 +24,29 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        collapse: false,
-        isWideEnough: false,
-        dropdownOpen: false
+      collapse: false,
+      isWideEnough: false,
+      dropdownOpen: false
     };
+
     this.onClick = this.onClick.bind(this);
     this.toggle = this.toggle.bind(this);
     }
 
     onClick(){
       this.setState({
-          collapse: !this.state.collapse,
+        collapse: !this.state.collapse,
       });
     }
 
     toggle() {
       this.setState({
-          dropdownOpen: !this.state.dropdownOpen
+        dropdownOpen: !this.state.dropdownOpen
       });
     }
 
   logout = (e) => {
+    // e.preventDefault();
     this.props.logout();
   }
 
@@ -56,25 +58,22 @@ class Header extends Component {
     const userLinks = (
       <NavbarNav right>
         <NavItem>
-          <NavLink className="nav-link" to="/vouchers/new">
-            Create voucher</NavLink>
+          <NavLink className="nav-link upload-btn" to="/vouchers/new">
+           Đăng Mã Gỉam gía</NavLink>
         </NavItem>
         <NavItem>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle nav caret>{currentUser.email}</DropdownToggle>
+            <DropdownToggle nav caret>{currentUser.name}</DropdownToggle>
             <DropdownMenu>
+              <Link className="dropdown-item waves-effect waves-light" to={`/profile/${currentUser.id}`}>
+                <i className="fa fa-user-circle mr-2"></i>Profile
+              </Link>
               <a className="dropdown-item waves-effect waves-light" onClick={this.logout.bind(this)} href="/">
                 <i className="fa fa-sign-out mr-2"></i> Logout
               </a>
             </DropdownMenu>
           </Dropdown>
         </NavItem>
-        {
-          (currentUser && currentUser.id) &&
-          <NavItem>
-            <Link className="nav-link" to={`/profile/${currentUser.id}`}>Profile</Link>
-          </NavItem>
-        }
       </NavbarNav>
     );
     const guestLinks = (
@@ -91,14 +90,18 @@ class Header extends Component {
     return(
       <Navbar color="indigo" dark expand="md" scrolling color="red" fixed="top">
         <NavbarBrand href="/">
-          <strong>Chợ voucher</strong>
+          <div className='logo'>
+            <span className='logo-cho'>Chợ</span>
+            <span className='logo-voucher'>Voucher</span>
+          </div>
         </NavbarBrand>
         { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-        <Collapse isOpen = { this.state.collapse } navbar>
+        <Collapse cisopen={ this.state.collapse.toString() } navbar>
           { isAuthenticate ? userLinks : guestLinks}
         </Collapse>
       </Navbar>
     );
+  
   }
 }
 

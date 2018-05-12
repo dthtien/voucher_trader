@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import { signupValidation } from '../../../validates';
+import SocialButton from '../SocialButton';
 
 export default class SignupForm extends Component {
   constructor(props){
@@ -24,7 +25,6 @@ export default class SignupForm extends Component {
     addFlashMessage: PropTypes.func.isRequired,
     loggedIn: PropTypes.func.isRequired
   };
-
 
 
   handleChange = (e) => {
@@ -76,6 +76,11 @@ export default class SignupForm extends Component {
     }
   }
 
+  handleFacebookResonse = (response) => {
+    this.props.facebookLogin(response);
+    this.context.router.history.goBack();
+  }
+
   render(){
     const error = this.state.error
 
@@ -108,7 +113,12 @@ export default class SignupForm extends Component {
             handleChange={this.handleChange}
             label="Password confirmation"
           />
-          <button disabled={this.state.isLoading} className='btn btn-primary'>Signup </button>
+
+          <SocialButton facebookLogin={this.handleFacebookResonse} />
+          
+          <div className='text-center'>
+            <button disabled={this.state.isLoading} className='btn btn-primary'>Signup </button>
+          </div>
 
         </form>
       </div>

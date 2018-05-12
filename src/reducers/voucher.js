@@ -6,6 +6,7 @@ const initialState ={
   },
   store: {
   },
+  totalVoucher: 0,
   loading: true
 }
 
@@ -13,7 +14,13 @@ export default function Voucher(state = initialState, action){
   switch(action.type){
     case VoucherActionType.GET_VOUCHERS:
       if (typeof action.payload !== 'undefined') {
-        return {...state, all: action.payload.data.vouchers, loading: false};
+        const data = action.payload.data
+        return {
+          ...state, 
+          all: data.vouchers, 
+          totalVouchers: data.total_vouchers,
+          loading: false,
+        };
       } else {
         return {...state, loading: true};
       }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import VoucherType from '../shared/VoucherType';
+import { FormattedDate } from 'react-intl';
 
 class VoucherContent extends Component {
   render(){
@@ -7,12 +7,20 @@ class VoucherContent extends Component {
 
     return(
       <div className="voucher-content">
-        <h5 className="font-weight-bold">
+        <h6 className="voucher-name">
           {voucher.name}
-          <VoucherType kind={voucher.kind}/>
-        </h5>
-        <p className="store-name">{store.name}</p>
-        <p className='text-danger font-weight-bold'>{voucher.price} VND</p>
+        </h6>
+        <p className="store-name text-success">{store.name}</p>
+        <a className="text-danger">
+          Hết hạn ngày : 
+          <FormattedDate
+            value={voucher.date_end}
+            className='ml-2'
+            year='numeric'
+            month='long'
+            day='2-digit'
+          />
+        </a>
       </div>
     );
   }
