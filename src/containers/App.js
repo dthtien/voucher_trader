@@ -18,6 +18,7 @@ import MapCotainer from '../components/map/MapContainer';
 import LoginPage from '../components/users/LoginPage';
 import Home from '../components/Home';
 import SocialButton from '../components/users/SocialButton';
+import Cart from '../components/Cart';
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
             <Route path='/vouchers' component={MapCotainer}/>
             <Route path='/social' component={SocialButton}/>
             <Route path='/profile/:id' component={ProfilePage}/>
+            <Route path='/cart' component={Cart}/>
           </Switch>
         </div>
         <Footer />
