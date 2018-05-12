@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import Moment from 'react-moment';
-
+import { FormattedDate } from 'react-intl';
 
 class VoucherContent extends Component {
   render(){
@@ -13,8 +12,14 @@ class VoucherContent extends Component {
         </h6>
         <p className="store-name text-success">{store.name}</p>
         <a className="text-danger">
-          Ngày hết hạn: 
-          <Moment format=" DD-MM-YYYY">{voucher.date_end}</Moment>
+          Hết hạn ngày : 
+          <FormattedDate
+            value={voucher.date_end}
+            className='ml-2'
+            year='numeric'
+            month='long'
+            day='2-digit'
+          />
         </a>
       </div>
     );

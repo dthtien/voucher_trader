@@ -8,7 +8,7 @@ import { hasKey } from "../utils/utils";
 import SearchForm from '../shared/SearchForm';
 import Spinner from '../shared/Spinner';
 import InfiniteScroll from 'react-infinite-scroller';
-import queryString from 'query-string';
+import qs from 'querystringify';
 
 
 class Vouchers extends Component {
@@ -26,7 +26,8 @@ class Vouchers extends Component {
   }
 
   componentDidMount(){
-    const query = queryString.parse(this.props.location.search)
+    const query = qs.parse(this.props.location.search)
+    console.log(query);
 
     if (decodeURIComponent(query.cat) === 'Tất cả') {
       this.props.getVouchers({cat: '', q: query.q});
@@ -46,7 +47,6 @@ class Vouchers extends Component {
       hasKey(nextProps.vouchers)
     ) {
       const vouchers = [...this.state.vouchers, ...nextProps.vouchers];
-      console.log(this.state.page);
       if (this.state.page === 2) {
         this.setState({ 
           ...this.state,
@@ -104,7 +104,6 @@ class Vouchers extends Component {
         <Spinner key={0} />
        );
     } else {
-      console.log('renderVoucher => ', this.state.vouchers)
       const vouchersList = this.state.vouchers.map((voucher, index) => {
         return <Voucher key={index} voucher={voucher} />;
       });

@@ -4,6 +4,7 @@ import VoucherImage from './VoucherImage';
 import VoucherContent from './VoucherContent';
 import VoucherFooter from './VoucherFooter';
 import VoucherType from '../shared/VoucherType';
+import { FormattedNumber } from 'react-intl';
 
 
 export default class Voucher extends Component{
@@ -17,7 +18,9 @@ export default class Voucher extends Component{
               <VoucherImage images={voucher.images} />
               <VoucherType kind={voucher.kind}/>
               <p className='text-danger font-weight-bold text-center'>
-                {voucher.price} VND
+                <FormattedNumber 
+                  value={voucher.price} 
+                  style="currency" currency="VND"/>
               </p>
             </div>
             <div className="col col-md-12">
