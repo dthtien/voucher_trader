@@ -19,7 +19,7 @@ export default class VoucherImage extends Component{
       );
     } else {
       return(
-        <img src={`http://localhost:6060${images[0].url_medium}`}
+        <img src={images[0].url_medium}
           className="img-responsive" 
           alt="Cho Voucher"/>
       );

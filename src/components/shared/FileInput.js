@@ -23,7 +23,7 @@ class FileInput extends Component {
               <i className="material-icons">clear</i>
             </a>
             <img 
-              src={`http://localhost:6060${value.url_medium}`} alt="cho-voucher"
+              src={value.url_medium} alt="cho-voucher"
               className="img-thumbnail"
             />
           </div>
