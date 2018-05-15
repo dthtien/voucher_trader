@@ -25,8 +25,8 @@ class ImageSlider extends Component {
     if (this.props.images) {
       return this.props.images.map(image => {
         return{
-          original: `http://localhost:6060${image.url_origin}`,
-          thumbnail: `http://localhost:6060${image.url_medium}`
+          original: image.url_origin,
+          thumbnail: image.url_medium
         }
       });
     } else{
