@@ -71,26 +71,29 @@ class Home extends Component {
               image={RestaurantImage}
             />
             <CategoryName 
-              name="Làm đẹp và đời sông"
-              image={SpaImage}
+              name="Du Lịch"
+              image={TravelImage}
             />
             <CategoryName 
               name="Giải Trí và Thể Thao"
               image={SportImage}
             />
             <CategoryName 
-              name="Du lịch"
-              image={TravelImage}
+              name="Spa và Làm đẹp"
+              image={SpaImage}
+            />
+
+            <CategoryName 
+              name="Sức Khỏe và Sắc Đẹp"
+              image={SpaImage}
             />
             <CategoryName 
-              name="Phụ Kiện- Thiết bị số"
+              name="Phụ Kiện - Thiết bị số"
               image={AccessoriesImage}
-              classEmbed="text-muted"
             />
             <CategoryName 
               name="Mẹ và Bé"
               image={MomImage}
-              classEmbed="text-muted"
             />
             <CategoryName 
               name="Thực Phẩm"
@@ -103,6 +106,10 @@ class Home extends Component {
             <CategoryName
               name="Nhà Cửa và Đời Sống"
               image={HomeImage}
+            />
+            <CategoryName 
+              name="Khác"
+              image={AccessoriesImage}
             />
           </div>
         </div>
