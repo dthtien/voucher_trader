@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const CategoryName = (props) => {
-  const {image, name, classEmbed} = props
+  const {image, name} = props
   return(
     <div className="col col-sm-6 col-xs-6 col-md-3">
       <div className='category-detail'>
@@ -24,11 +24,6 @@ const CategoryName = (props) => {
 CategoryName.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  classEmbed: PropTypes.string.isRequired
-}
-
-CategoryName.defaultProps = {
-  classEmbed: ""
 }
 
 export default CategoryName;
