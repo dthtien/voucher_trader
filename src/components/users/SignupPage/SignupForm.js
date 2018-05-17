@@ -8,10 +8,14 @@ export default class SignupForm extends Component {
   constructor(props){
     super(props);
     this.state = {
+      phone_number: '',
+      name: '',
+      address: '',
       email: '',
       password: '',
       password_confirmation: '',
       error: {},
+      date_of_birth: {},
       isLoading: false
     }
   }
@@ -46,6 +50,17 @@ export default class SignupForm extends Component {
 
     return isValid;
   }
+
+  // Handle date fields change
+  handleDateFieldChange = (value, field) => {
+    console.log(value, field);
+
+    this.setState({
+      ...this.state,
+      [field]: value
+    });
+  }
+// end
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -87,22 +102,52 @@ export default class SignupForm extends Component {
     return(
       <div className="container">
         <form onSubmit={this.handleSubmit.bind(this)}>
+          <div className='row'>
+            <div className='col col-sm-12 col-md-6'>
+              <TextFieldGroup 
+                type='text'
+                name='name'
+                value={this.state.name}
+                error={error.name}
+                handleChange={this.handleChange}
+                label="Tên"
+              />              
+            </div>
+            <div className='col col-sm-12 col-md-6'>
+              <TextFieldGroup 
+                type='text'
+                name='email'
+                value={this.state.email}
+                error={error.email}
+                handleChange={this.handleChange}
+                label="Email"
+              />
+            </div>
+          </div>
           <TextFieldGroup 
-            type='text'
-            name='email'
-            value={this.state.email}
-            error={error.email}
+            type='number'
+            name='phone_number'
+            value={this.state.phone_number}
+            error={error.phone_number}
             handleChange={this.handleChange}
-            label="email"
+            label="Số điện thoại"
           />
 
+          <TextFieldGroup
+            name='date_of_birth'
+            error={error.date_of_birth}
+            type='datepicker'
+            label="Ngày sinh"
+            value={this.state.date_of_birth}
+            handleChange={this.handleDateFieldChange}
+          />
           <TextFieldGroup 
             type='password'
             name='password'
             value={this.state.password}
             error={error.password}
             handleChange={this.handleChange}
-            label="password"
+            label="Mật khẩu"
           />
           
           <TextFieldGroup 
@@ -111,7 +156,7 @@ export default class SignupForm extends Component {
             value={this.state.password_confirmation}
             error={error.password_confirmation}
             handleChange={this.handleChange}
-            label="Password confirmation"
+            label="Nhập lại mật khẩu"
           />
 
           <SocialButton facebookLogin={this.handleFacebookResonse} />

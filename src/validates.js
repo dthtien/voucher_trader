@@ -101,6 +101,14 @@ export const signupValidation = values => {
     errors.password = "This field is required"
   }
 
+  if (Validator.isEmpty(values.name)) {
+    errors.name = "This field is required"
+  }
+
+  if (JSON.stringify(values.date_of_birth) === JSON.stringify({})) {
+    errors.date_of_birth = "This field is required"
+  }
+
   if (!Validator.isEmail(values.email)) {
     errors.email = 'Email is invalid'
   }

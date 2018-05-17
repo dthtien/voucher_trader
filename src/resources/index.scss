@@ -107,3 +107,11 @@ body {
 .bg-red{
   background-color: #f34636 !important;
 }
+.datepicker-wrapper{
+  label{
+    color: #757575 !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    transition: 0.2s ease-out;
+  }
+}
