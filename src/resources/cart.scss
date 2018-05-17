@@ -1,3 +1,6 @@
+ul li{
+  list-style: none;
+}
 .card.cart-container hr {
   box-sizing: content-box;
   height: 0;
@@ -76,10 +79,6 @@ input.js-cart-line-product-quantity.form-control:focus {
   box-shadow: none;
 }
 
-.bootstrap-touchspin .input-group-btn-vertical > .btn {
-  /*padding: 10px 10px 11px;*/
-}
-
 .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
   border-radius: 0;
 }
@@ -155,7 +154,7 @@ a.label.continue-shopping i.fa.fa-angle-left {
 
 a.label.continue-shopping:hover {
   color: #fff;
-  background-color: #aa6949;
+  background-color: #f44336;
 }
 .cart-summary-line{
   display: flex;
@@ -187,15 +186,49 @@ a.label.continue-shopping:hover {
 .card.cart-summary hr {
   margin: 0;
 }
-#block-reassurance li {
-  border-bottom: 1px solid rgba(0,0,0,.1);
-}
-#block-reassurance li .block-reassurance-item {
-  padding: 1rem 1.5rem;
-}
 
-#block-reassurance img {
-  opacity: .7;
-  width: 1.5625rem;
-  margin-right: .625rem;
+button.btn-increase-product-quantity.bootstrap-touchspin-up {
+  border-radius: 4px 0 0 4px;
+  border: 1px solid #dfdfdf;
+  background: #fff;
+  padding: 0 10px;
+}
+input.product-quantity.form-control {
+  border: 0;
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
+  padding: 0;
+  width: 28px;
+  font-size: 13px;
+  text-align: center;
+}
+button.btn-decrease-product-quantity.bootstrap-touchspin-down{
+  border-radius: 0 4px 4px 0;
+  border: 1px solid #dfdfdf;
+  background: #fff;
+  padding: 0 10px;
+}
+input.product-quantity.form-control:focus{
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+button{
+  cursor: pointer;
+}
+.add-to-cart{
+  border: none;
+  color: #fff;
+  white-space: nowrap;
+  cursor: pointer;
+  vertical-align: top;
+  font-size: 13px;
+  padding: 0 15px;
+  line-height: 40px;
+  border-radius: 5px;
+  background: #ff3945;
+  font-weight: 400;
+  letter-spacing: .5px;
+  background-size: 26px;
+  display: inline-block;
+  text-align: center;
 }

@@ -15,6 +15,7 @@ import { loggedIn } from './actions/user';
 import App from './containers/App';
 import vi from 'react-intl/locale-data/vi'
 import { IntlProvider, addLocaleData } from 'react-intl'
+import { fetchCart } from './actions/cart';
 
 addLocaleData(vi);
 injectTapEventPlugin();
@@ -38,6 +39,7 @@ if (localStorage.accessToken) {
   setAuthorizationToken(localStorage.accessToken);
   store.dispatch(loggedIn(localStorage.accessToken));
 }
+store.dispatch(fetchCart());
 
 ReactDOM.render(
   <Provider store={store}>

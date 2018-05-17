@@ -1,5 +1,6 @@
 export const LOGGED_IN = 'user/LOGGED_IN';
 export const RATING = 'user/RATING';
+export const RATING_ERROR = 'user/RATING_ERROR';
 export const FETCH_USER_PROFILE_START = 'user/FETCH_USER_PROFILE_START';
 export const FETCH_USER_PROFILE_ERROR = 'user/FETCH_USER_PROFILE_ERROR';
 export const FETCH_USER_PROFILE_SUCCESS = 'user/FETCH_USER_PROFILE_SUCCESS';

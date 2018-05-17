@@ -63,6 +63,7 @@ export default class LoginForm extends Component {
           });
 
           this.props.loggedIn(response.data.access_token);
+          this.props.fetchCart();
           this.context.router.history.goBack();
         })
         .catch(error => {

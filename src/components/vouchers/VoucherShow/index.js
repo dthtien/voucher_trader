@@ -6,9 +6,11 @@ import StoreContent from './StoreContent';
 import SellerInfo from './SellerInfo';
 import { getVoucher, deleteVoucher } from '../../../actions/voucher';
 import { rating } from '../../../actions/user';
+import { addCartItem } from '../../../actions/cart';
 import ImageSlider from '../../shared/ImageSlider';
 import isEmpty from 'lodash/isEmpty';
 import TextFieldGroup from '../../shared/TextFieldGroup';
+import CartItemForVoucher from '../../Cart/CartItemForVoucher';
 import { Container, Button, Modal, ModalBody, ModalHeader } from 'mdbreact';
 import '../../../resources/voucherShow.scss'
 
@@ -20,7 +22,10 @@ class VoucherShow extends Component {
   };
 
   state = {
-    modal: false,
+    modal: {
+      isOpen : false,
+      type : '',
+    },
     rating_note: '',
     ratingValue : null,
   }
@@ -30,16 +35,23 @@ class VoucherShow extends Component {
     this.props.getVoucher(id);
   };
 
-  toggle = () => {
+  toggle = (obj) => {
+    const type = obj.type || '';
+    const messageModal = obj.messageModal || '';
     this.setState({
-      modal: !this.state.modal
+      modal: {
+        type : type || '',
+        isOpen : !this.state.modal.isOpen,
+      },
+      messageModal: this.state.modal.isOpen ? '' : messageModal
     });
   }
   renderVoucherContent = () => {
-    const {voucher, loading, match} = this.props;
+    const {voucher, loading } = this.props;
     if (loading || isEmpty(voucher)) {
       return (<h4>Loading...</h4>);
     } else {
+      const { modal } = this.state;
       return (
         <div className="row">
           <div className="col col-md-5">
@@ -48,30 +60,49 @@ class VoucherShow extends Component {
           </div>
           <div className="col col-md-7">
             <VoucherShowContent voucher={voucher}/>
-
             <SellerInfo onRating={(value)=>{
-              this.setState({ ratingValue : value , modal : true });
+              this.setState({ ratingValue : value , modal : { isOpen: true, type : 'rate' } });
             }}/>
+            <CartItemForVoucher productQuantity={1} onAddItemToCart= {this._onAddCart}/>
           </div>
           <Container>
-            <Modal isOpen={this.state.modal} toggle={this.toggle}>
-              <ModalHeader toggle={this.toggle}>Đánh giá của bạn</ModalHeader>
+            <Modal isOpen={modal.isOpen} toggle={this.toggle}>
+              <ModalHeader toggle={this.toggle}>
+               {
+                 modal.type === 'rate' 
+                 ? 'Đánh giá của bạn'
+                 : modal.type === 'notice'
+                 ? 'Thông báo' : null 
+               }
+                
+              </ModalHeader>
               <ModalBody>
-                <h3>Bạn đã đánh giá {this.state.ratingValue} sao !</h3>
-                <TextFieldGroup 
-                  type='text'
-                  name='rating_note'
-                  value={this.state.rating_note}
-                  handleChange={(e) =>{
-                    const rating_note = e.target.value;
-                    this.setState({ rating_note });
-                  }}
-                  label="Ý kiến đánh giá"
-                />
+                {
+                  this.state.messageModal && 
+                  <h3 style={{color: 'red'}}>{this.state.messageModal}</h3>
+                }
+                {  modal.type === 'rate' &&
+                  <div>
+                    <h3>Bạn đã đánh giá {this.state.ratingValue} sao !</h3>
+                    <TextFieldGroup 
+                      type='text'
+                      name='rating_note'
+                      value={this.state.rating_note}
+                      handleChange={(e) =>{
+                        const rating_note = e.target.value;
+                        this.setState({ rating_note });
+                      }}
+                      label="Ý kiến đánh giá"
+                    />
+                  </div>
+                }
               </ModalBody>
               <div>
-                <Button color="danger" onClick={this.toggle}>Hủy bỏ</Button>{' '}
-                <Button color="success" onClick={this._onRatingHandler}>Đánh giá</Button>
+                <Button color="danger" onClick={this.toggle}>Đóng</Button>
+                {
+                  modal.type === 'rate' &&
+                  <Button color="success" onClick={this._onRatingHandler}>Đánh giá</Button>
+                }
               </div>
             </Modal>
           </Container>
@@ -79,7 +110,6 @@ class VoucherShow extends Component {
       );
     }
   }
-  
   _onRatingHandler = (obj) =>{
     const { ratingValue, rating_note } = this.state;
     const { match } = this.props;
@@ -100,13 +130,40 @@ class VoucherShow extends Component {
       alert('Vui lòng nhập ý kiến');
       return;
     }
-    this.setState({
-      rating_note: '',
-      ratingValue: 3.5,
-      modal: false,
+    // this.setState({
+    //   rating_note: '',
+    //   ratingValue: 3.5,
+    //   modal: false,
+    // });
+    this.props.rating(params).then(result =>{
+      if(result.error){
+        this.setState({
+          ...this.state,
+          messageModal: 'Đã có lỗi xảy ra !' 
+        })
+        return;
+      }
+      this.setState({
+        rating_note: '',
+        ratingValue: 3.5,
+        modal: false,
+      });
     });
-    this.props.rating(params);
 
+  }
+  _onAddCart = ({quantity}) => {
+    const { voucher, user } = this.props;
+    const cartItem = {
+      ...voucher,
+      quantity,
+    };
+    this.props.addCartItem(user,cartItem).then(result => {
+      if(result.cartItem){
+       this.toggle({type: 'notice', messageModal: 'Thêm giỏ hàng thành công'});
+       return;
+      } 
+       this.toggle({type: 'notice', messageModal: 'Thêm giỏ hàng thất bại'});
+    });
   }
 
   render(){
@@ -122,6 +179,7 @@ const mapStateToProps = state => {
   return{
    loading: state.vouchers.loading,
    voucher: state.vouchers.voucher,
+   user: state.users.currentUser
   } 
 };
 
@@ -129,5 +187,6 @@ export default connect(mapStateToProps,
   {
     getVoucher: getVoucher, 
     deleteVoucher: deleteVoucher,
-    rating: rating
+    rating: rating,
+    addCartItem : addCartItem
   })(VoucherShow);
