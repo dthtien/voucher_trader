@@ -88,14 +88,32 @@ export const StoreValidation = (values) => {
   }; 
 }
 
+export const loginValidation = values => {
+  let errors = {};
+  
+  if (Validator.isEmpty(values.email)) {
+    errors.email = "This field is required";
+  }
+
+  if (!Validator.isEmail(values.email)) {
+    errors.email = 'Email is invalid'
+  }
+
+  if (Validator.isEmpty(values.password)) {
+    errors.password = "This field is required"
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  };
+}
+
 
 
 export const signupValidation = values => {
   let errors = {};
 
-  if (Validator.isEmpty(values.email)) {
-    errors.email = "This field is required"
-  }
 
   if (Validator.isEmpty(values.password)) {
     errors.password = "This field is required"

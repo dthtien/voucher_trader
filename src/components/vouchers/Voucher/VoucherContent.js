@@ -11,7 +11,7 @@ class VoucherContent extends Component {
           {voucher.name}
         </h6>
         <p className="store-name text-success">{store.name}</p>
-        <a className="text-danger">
+        <a className="text-dange expire-date">
           Hết hạn ngày : 
           <FormattedDate
             value={voucher.date_end}

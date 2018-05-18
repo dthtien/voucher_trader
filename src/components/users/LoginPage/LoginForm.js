@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
-import { signupValidation } from '../../../validates';
+import { loginValidation } from '../../../validates';
 import SocialButton from '../SocialButton';
 
 export default class LoginForm extends Component {
@@ -38,7 +38,7 @@ export default class LoginForm extends Component {
   }
 
   isValid = () => {
-    const {errors, isValid } = signupValidation(this.state);
+    const {errors, isValid } = loginValidation(this.state);
     if (!isValid) {
       this.setState({ error: errors });
     }
@@ -63,6 +63,7 @@ export default class LoginForm extends Component {
           });
 
           this.props.loggedIn(response.data.access_token);
+          this.props.fetchCart();
           this.context.router.history.goBack();
         })
         .catch(error => {

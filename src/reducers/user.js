@@ -17,7 +17,13 @@ export default function User(state = initialState, action){
     case UserActionType.RATING:
       return {
         ...state,
+        ratingError: false,
       }
+    case UserActionType.RATING_ERROR:
+    return {
+      ...state,
+      ratingError: true,
+    }
     case UserActionType.FETCH_USER_PROFILE_START:
       return {
         ...state,

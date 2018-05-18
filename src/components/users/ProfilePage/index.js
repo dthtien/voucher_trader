@@ -19,31 +19,6 @@ class IndexProfilePage extends Component {
       type: ''
     }
   };
-  toggle = ({type, ratingValue}) => {
-    this.setState({
-      modal : {
-        isOpenModal: !this.state.modal.isOpenModal,
-        type,
-        ratingValue : ratingValue || 3.5
-      }
-    });
-  };
-  handleChangeTab = ({initialTab}) =>{
-    this.setState({initialTab});
-  }
-  handleChange = ({name, value}) =>{
-    const dataUser = {...this.state.dataUser};
-    const user = {...dataUser.user};
-    if(name && typeof user[name] !== 'undefined'){
-      user[name] = value;
-    }
-    this.setState({
-      dataUser : {
-        ...dataUser,
-        user
-      }
-    });
-  }
   componentDidMount() {
     if (!hasKey(this.props.currentUser)){
       this.props.history.push("/login");
@@ -79,6 +54,31 @@ class IndexProfilePage extends Component {
       phone_number : user.phone_number,
       address : user.address,
       name : user.name,
+    });
+  }
+  toggle = ({type, ratingValue}) => {
+    this.setState({
+      modal : {
+        isOpenModal: !this.state.modal.isOpenModal,
+        type,
+        ratingValue : ratingValue || 3.5
+      }
+    });
+  };
+  handleChangeTab = ({initialTab}) =>{
+    this.setState({initialTab});
+  }
+  handleChange = ({name, value}) =>{
+    const dataUser = {...this.state.dataUser};
+    const user = {...dataUser.user};
+    if(name && typeof user[name] !== 'undefined'){
+      user[name] = value;
+    }
+    this.setState({
+      dataUser : {
+        ...dataUser,
+        user
+      }
     });
   } 
 
@@ -264,6 +264,16 @@ class IndexProfilePage extends Component {
                   }}
                 >
                   Đã bán (0)
+                </div>
+                <div
+                  className={`item-header-content-bottom ${
+                    initialTab === 2 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    this.handleChangeTab({ initialTab: 2 });
+                  }}
+                >
+                  Đã mua (0)
                 </div>
               </div>
               <div className="content-bottom">

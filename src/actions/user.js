@@ -4,6 +4,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 
 import { apiLinkDev as API_URL } from "../config/apiLink";
+import { removeCartListItem } from "./cart";
 
 export const signup = userData => {
   return dispatch => {
@@ -22,6 +23,7 @@ export const logout = () => {
     axios.delete(`${API_URL}/users/logout`);
     localStorage.removeItem('accessToken');
     setAuthorizationToken(false);
+    removeCartListItem();
     dispatch(loggedIn());
   }
 }
@@ -59,18 +61,25 @@ export const rate = data => {
     data
   };
 };
+export const rateError = error => {
+  return {
+    type: UserActionType.RATING_ERROR,
+    error
+  };
+};
 
 export const rating = data => {
   return dispatch => {
-    axios
+    return new Promise (res => {
+      axios
       .post(`${API_URL}/feedbacks`, { feedback: data })
       .then(response => {
-        console.log("respond data", data);
-        dispatch(rate(data));
+        return res(dispatch(rate(data)));
       })
       .catch(error => {
-        console.log("failed", error);
+       return res(dispatch(rateError(error.message)));
       });
+    })
   };
 };
 

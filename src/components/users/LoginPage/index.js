@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LoginForm from './LoginForm';
 import {login, loggedIn, facebookLogin} from '../../../actions/user';
 import { addFlashMessage } from '../../../actions/message';
+import { fetchCart } from '../../../actions/cart';
 
 class LoginPage extends Component {
   componentDidMount(){
@@ -26,6 +27,7 @@ class LoginPage extends Component {
           <LoginForm 
             login={this.props.login}
             loggedIn={this.props.loggedIn}
+            fetchCart={this.props.fetchCart}
             addFlashMessage={this.props.addFlashMessage}
             facebookLogin={this.props.facebookLogin}
           />
@@ -40,5 +42,5 @@ const mapStateToProps = (state) =>({
 })
 
 export default connect (mapStateToProps, 
-  {login, loggedIn, addFlashMessage, facebookLogin})
+  {login, loggedIn, addFlashMessage, facebookLogin , fetchCart})
 (LoginPage)

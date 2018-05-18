@@ -60,7 +60,7 @@ class Home extends Component {
           </div>
         </div>
         <div className="container">
-          <h4 className="text-center home-category-text">Danh mục</h4>
+          <h4 className="text-center home-category-text"><span>Danh mục</span></h4>
           <div className="row">
             <CategoryName
               name="Tất cả"

@@ -28,8 +28,10 @@ export default class VoucherImage extends Component{
 
   render(){
     return(
-      <div className="voucher-image mb-2">
-        {this.renderImage()}
+      <div className="voucher-image col-md-6 col-lg-6 col-sm-6 pl-0">
+        <div className="container-img-voucher">
+          {this.renderImage()}
+        </div>
       </div>
     );
   }
