@@ -17,8 +17,8 @@ import Footer from '../components/Footer';
 import MapCotainer from '../components/map/MapContainer';
 import LoginPage from '../components/users/LoginPage';
 import Home from '../components/Home';
-import SocialButton from '../components/users/SocialButton';
 import Cart from '../components/Cart';
+import VerifyOtpPage from '../components/users/VerifyOtpPage';
 
 const App = () => {
   return (
@@ -34,9 +34,9 @@ const App = () => {
             <Route path='/vouchers/:id' component={VoucherShow} />
             <Route path='/messages' component={Message}/>
             <Route path='/signup' component={SignupPage}/>
+            <Route path='/verify' component={VerifyOtpPage}/>
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>
-            <Route path='/social' component={SocialButton}/>
             <Route path='/profile/:id' component={ProfilePage}/>
             <Route path='/cart' component={Cart}/>
           </Switch>

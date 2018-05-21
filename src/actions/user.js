@@ -146,3 +146,9 @@ export const updateUserProfile = (id,data) => {
       });
   };
 };
+
+export const verify = (data) => {
+  return dispatch => {
+    return axios.post(`${API_URL}/users/verify`, data)
+  }
+}

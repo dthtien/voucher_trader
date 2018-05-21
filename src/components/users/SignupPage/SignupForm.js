@@ -57,6 +57,10 @@ export default class SignupForm extends Component {
 
     this.setState({
       ...this.state,
+      error: {
+        ...this.state.error,
+        [field]: ''
+      },
       [field]: value
     });
   }
@@ -80,7 +84,7 @@ export default class SignupForm extends Component {
 
           this.props.loggedIn(response.data.access_token);
 
-          this.context.router.history.push('/');
+          this.context.router.history.push('/verify');
         })
         .catch(error => {
           this.setState({

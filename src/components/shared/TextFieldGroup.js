@@ -13,7 +13,7 @@ class TextFieldGroup extends Component {
     value: PropTypes.oneOfType(
       [PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.bool, PropTypes.object]
     ),
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     handleChange: PropTypes.func.isRequired,
   }
   
