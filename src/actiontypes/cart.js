@@ -4,3 +4,7 @@ export const FETCH_CART_ERROR = 'cart/FETCH_CART_ERROR';
 export const ADD_CART_ITEM_START = 'cart/ADD_CART_ITEM_START';
 export const ADD_CART_ITEM_SUCCESS = 'cart/ADD_CART_ITEM_SUCCESS';
 export const ADD_CART_ITEM_ERROR = 'cart/ADD_CART_ITEM_ERROR';
+
+export const UNIFY_CART_START = 'cart/UNIFY_CART_START';
+export const UNIFY_CART_ERROR = 'cart/UNIFY_CART_ERROR';
+export const UNIFY_CART_SUCCESS = 'cart/UNIFY_CART_SUCCESS';

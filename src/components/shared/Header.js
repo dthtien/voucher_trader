@@ -14,7 +14,6 @@ import {
   DropdownMenu
 } from 'mdbreact';
 import {logout} from '../../actions/user';
-import { stat } from 'fs';
 
 class Header extends Component {
   static propTypes = {
@@ -28,7 +27,7 @@ class Header extends Component {
       collapse: false,
       isWideEnough: false,
       dropdownOpen: false,
-      total_cart_item : props.total_cart_item,
+      total_cart_item : props.total_cart_item || 0,
     };
 
     this.onClick = this.onClick.bind(this);
@@ -74,7 +73,7 @@ class Header extends Component {
           <NavLink className="nav-link " to="/cart">
             <i className="fa fa-shopping-cart"></i>
             <span>Giỏ hàng</span>
-            <span className="number-item-of-cart">{this.state.total_cart_item || 0}</span>
+            <span className="number-item-of-cart">{typeof this.state.total_cart_item === 'number' ? this.state.total_cart_item  : 0}</span>
           </NavLink>
         </NavItem>
         <NavItem>
@@ -104,7 +103,7 @@ class Header extends Component {
           <NavLink className="nav-link " to="/cart">
             <i className="fa fa-shopping-cart"></i>
             <span>Giỏ hàng</span>
-            <span className="number-item-of-cart">{this.state.total_cart_item || 0}</span>
+            <span className="number-item-of-cart">{typeof this.state.total_cart_item === 'number' ? this.state.total_cart_item  : 0}</span>
           </NavLink>
         </NavItem>
       </NavbarNav>

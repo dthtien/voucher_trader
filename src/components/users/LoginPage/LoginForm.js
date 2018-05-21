@@ -63,15 +63,23 @@ export default class LoginForm extends Component {
           });
 
           this.props.loggedIn(response.data.access_token);
-          this.props.fetchCart();
-          this.context.router.history.goBack();
         })
         .catch(error => {
-          console.log(error.response);
+          console.log(error);
           this.setState({
             error: error.response.data, 
             isLoading: false
           });
+          return;
+        }).then(() => {
+          if(localStorage.getItem('cart_id')){
+            this.props.unifyCart().then(result => {
+              console.log("Unify cart", result)
+            });
+          } else {
+            this.props.fetchCart();
+          }
+          this.context.router.history.goBack();
         })
     }
   }

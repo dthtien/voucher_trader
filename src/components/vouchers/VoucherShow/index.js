@@ -36,8 +36,8 @@ class VoucherShow extends Component {
   };
 
   toggle = (obj) => {
-    const type = obj.type || '';
-    const messageModal = obj.messageModal || '';
+    const type = typeof obj === 'object'  && obj.type ?  obj.type : '';
+    const messageModal = typeof obj === 'object'  && obj.messageModal ?  obj.messageModal : '';
     this.setState({
       modal: {
         type : type || '',
