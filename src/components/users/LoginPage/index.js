@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'; 
 import LoginForm from './LoginForm';
 import {login, loggedIn, facebookLogin} from '../../../actions/user';
-import { fetchCart } from '../../../actions/cart';
 import { toast } from 'react-toastify';
+import { fetchCart, unifyCart } from '../../../actions/cart';
 
 class LoginPage extends Component {
   componentDidMount(){
@@ -26,6 +26,7 @@ class LoginPage extends Component {
             fetchCart={this.props.fetchCart}
             addFlashMessage={this.props.addFlashMessage}
             facebookLogin={this.props.facebookLogin}
+            unifyCart={this.props.unifyCart}
           />
         </div>
       </div> 
@@ -38,5 +39,6 @@ const mapStateToProps = (state) =>({
 })
 
 export default connect (mapStateToProps, 
-  {login, loggedIn, facebookLogin , fetchCart})
+
+  { login, loggedIn, facebookLogin , fetchCart , unifyCart })
 (LoginPage)

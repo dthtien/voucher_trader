@@ -1,17 +1,27 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { isEmpty } from 'lodash';
 import CartItem from '../components/Cart/CartItem';
 import { connect } from 'react-redux';
 import '../resources/cart.scss'
-import { fetchCart } from '../actions/cart';
+import Spinner from './shared/Spinner';
+import { fetchCart, updateCartItem, deleteCartItem } from '../actions/cart';
+import { Container, Modal, ModalBody, ModalHeader   } from 'mdbreact';
 
 class Cart extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        totalPrice : this._onCalcTotalPrice(props.list_cart_item),
-        list_cart_item : props.list_cart_item || [],
+        totalPrice : this._onCalcTotalPrice(props.list_cart_item) || 0,
+        list_cart_item : [],
+        modal : {
+          isOpen : false,
+          message : '',
+          error: null,
+        }
       };
+    }
+    componentDidMount(){
+      this.props.fetchCart();
     }
     componentWillReceiveProps(nextProps) {
       if(nextProps !== this.props && nextProps.list_cart_item !== this.props.list_cart_item && !isEmpty(nextProps.list_cart_item)){
@@ -22,8 +32,14 @@ class Cart extends Component {
       }
     }
     _onChange = (obj) => {
-      const list_cart_item = [...this.state.list_cart_item];
+      const list_cart_item = JSON.parse(JSON.stringify(...[this.state.list_cart_item]));
       const cartValue = list_cart_item[obj.index];
+      this.setState((prevState) => (
+        { 
+          ...prevState, 
+          modal : this.toggle({ isOpen: true, message : 'Thao tác đang được thực hiện', error: null })
+        }
+      ));
       if(obj.type === 'press_input'){
         cartValue.quantity = (+obj.value);
       } else if(obj.type === 'press_button_increase'){
@@ -32,7 +48,31 @@ class Cart extends Component {
         cartValue.quantity -= 1;
       }
       const totalPrice = this._onCalcTotalPrice(list_cart_item);
-      this.setState({list_cart_item, totalPrice});
+      let isError = false;
+      if(cartValue.quantity > cartValue.voucher.quantity){
+        this.setState((prevState) => (
+          { 
+            ...prevState, 
+            modal : this.toggle({ isOpen: true, message : 'Số lượng quá số lượng voucher hiện có', error: true })
+          }
+        ));
+        isError = true;
+        return;
+      }
+      if(!isEmpty(cartValue) && cartValue.id && !isError){
+        this.props.updateCartItem(cartValue.id,cartValue.quantity,list_cart_item, this.props.user).then(result => {
+          if(result.type === 'cart/FETCH_CART_SUCCESS'){
+            this.setState({ list_cart_item, totalPrice, modal : this.toggle({isOpen: false , message : ''}) });
+            return;
+          }
+          this.setState((prevState) => (
+            { 
+              ...prevState, 
+              modal : this.toggle({ isOpen: true, message : result.error || 'Đã có lỗi xảy ra', error: true })
+            }
+          ));
+        });
+      }
     };
     _onCalcTotalPrice = (list_cart_item) => {
       if(!list_cart_item || isEmpty(list_cart_item)) return 0;
@@ -42,16 +82,68 @@ class Cart extends Component {
       }, 0);
     }
     _onRemoveCartItem = ({index}) => {
-      const list_cart_item = [...this.state.list_cart_item];
-      list_cart_item.splice(index, 1);
+      this.setState((prevState) => (
+        { 
+          ...prevState, 
+          modal : this.toggle({ isOpen: true, message : 'Thao tác đang được thực hiện', error: null })
+        }
+      ));
+      const list_cart_item = JSON.parse(JSON.stringify(...[this.state.list_cart_item]));
       const totalPrice = this._onCalcTotalPrice(list_cart_item);
-      this.setState({list_cart_item, totalPrice});
+      const item = {...list_cart_item[index]} || {};
+      list_cart_item.splice(index, 1);
+      if(!isEmpty(item) && item.id){
+        this.props.deleteCartItem(item.id, list_cart_item, this.props.user).then(result => {
+          if(result.type === 'cart/FETCH_CART_SUCCESS'){
+            this.setState({ list_cart_item, totalPrice, modal : this.toggle({isOpen: false , message : '', error: true}) });
+            return;
+          }
+          this.setState((prevState) => (
+            { 
+              ...prevState, 
+              modal : this.toggle({ isOpen: true, message : 'Đã có lỗi xảy ra', error: true })
+            }
+          ));
+        });
+        
+      }
     }
-
+    toggle = ({isOpen, message, error}) => {
+      return {
+        isOpen : isOpen || false,
+        message : message || '',
+        error: error
+      }
+    }
+    hideModal = () => {
+      this.setState((prevState) => (
+        { 
+          ...prevState, 
+          modal : this.toggle({ isOpen: false, message : '', error: null })
+        }
+      ));
+    }
     render() {
-      const { totalPrice , listCartItem,list_cart_item } = this.state;
+      const { totalPrice, list_cart_item, modal } = this.state;
       return (
         <div className="container mt-4 mb-4">
+          <Container>
+            <Modal isOpen={modal.isOpen} >
+            {
+              modal.error === true &&
+              <ModalHeader toggle={this.hideModal}>
+                Thông báo
+              </ModalHeader>
+            }
+              <ModalBody>
+                {
+                  modal.error !== true &&
+                  <Spinner blue big />
+                }
+                <h3 className="text-danger text-center">{modal.message}</h3>
+              </ModalBody>
+            </Modal>
+          </Container>
           <div className="row">
             <div className="col-lg-12 col-xl-12 col-sm-12">
               <div className="card cart-container">
@@ -129,12 +221,15 @@ class Cart extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    list_cart_item: state.cart.list_cart_item
+    list_cart_item: state.cart.list_cart_item,
+    user: state.users.currentUser,
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCart : () => dispatch(fetchCart()) 
+    fetchCart : () => dispatch(fetchCart()), 
+    deleteCartItem: (id,list_cart_item, user) => dispatch(deleteCartItem(id,list_cart_item, user)), 
+    updateCartItem: (id,quantity,list_cart_item, user) => dispatch(updateCartItem(id,quantity,list_cart_item, user)), 
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

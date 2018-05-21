@@ -5,7 +5,7 @@ const CategoryName = props => {
   const { image, name } = props;
   
   return (
-    <div className="col-lg-3 col-md-3 col-sm-6">
+    <div className="col-lg-3 col-md-4 col-sm-6">
       <div className="category-home">
         <div className="container-image-category-home">
           <Link to={`vouchers?cat=${name}`} className="img-category-home" style={{backgroundImage : `url(${image})`}} />

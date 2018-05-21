@@ -10,7 +10,6 @@ class VoucherShowContent extends Component {
 
   render() {
     const { voucher } = this.props
-    console.log(voucher);
     return (
       <div className="voucher-show-content">
         <h3 className="text-center">
