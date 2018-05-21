@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import { loginValidation } from '../../../validates';
 import SocialButton from '../SocialButton';
+import {toast} from 'react-toastify'
 
 export default class LoginForm extends Component {
   constructor(props){
@@ -21,7 +22,6 @@ export default class LoginForm extends Component {
 
   static propTypes = {
     login: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
     loggedIn: PropTypes.func.isRequired
   };
 
@@ -57,11 +57,7 @@ export default class LoginForm extends Component {
 
       this.props.login(this.state)
         .then( response => {
-          this.props.addFlashMessage({
-            type: 'success',
-            text: response.data.message
-          });
-
+          toast.success('Đăng nhập thành công');
           this.props.loggedIn(response.data.access_token);
           this.props.fetchCart();
           this.context.router.history.goBack();

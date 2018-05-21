@@ -26,7 +26,6 @@ export default class SignupForm extends Component {
 
   static propTypes = {
     signup: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
     loggedIn: PropTypes.func.isRequired
   };
 

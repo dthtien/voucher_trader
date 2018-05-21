@@ -95,6 +95,11 @@ class Header extends Component {
     const guestLinks = (
       <NavbarNav right>
         <NavItem>
+          <NavLink className="nav-link upload-btn" to="/vouchers/new">
+            Đăng mã giảm giá
+          </NavLink>
+        </NavItem>
+        <NavItem>
           <NavLink className="nav-link" to="/login">Login</NavLink>
         </NavItem>
         <NavItem>

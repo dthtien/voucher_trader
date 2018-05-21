@@ -33,7 +33,6 @@ export const loggedIn = accessToken => {
     localStorage.setItem("accessToken", accessToken);
   }
   setAuthorizationToken(accessToken);
-  console.log(accessToken);
 
   const user = jwt.decode(accessToken)
 

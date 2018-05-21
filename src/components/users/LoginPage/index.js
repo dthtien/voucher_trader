@@ -3,17 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'; 
 import LoginForm from './LoginForm';
 import {login, loggedIn, facebookLogin} from '../../../actions/user';
-import { addFlashMessage } from '../../../actions/message';
 import { fetchCart } from '../../../actions/cart';
+import { toast } from 'react-toastify';
 
 class LoginPage extends Component {
   componentDidMount(){
     if (this.props.isAuthenticate) {
-      this.props.addFlashMessage({
-        type: 'error',
-        text: 'You already had an account!'
-      })
-      
+      toast.warning("Bạn đã có tài khoản");
       this.props.history.goBack();
     }
   }
@@ -42,5 +38,5 @@ const mapStateToProps = (state) =>({
 })
 
 export default connect (mapStateToProps, 
-  {login, loggedIn, addFlashMessage, facebookLogin , fetchCart})
+  {login, loggedIn, facebookLogin , fetchCart})
 (LoginPage)
