@@ -19,6 +19,7 @@ import LoginPage from '../components/users/LoginPage';
 import Home from '../components/Home';
 import Cart from '../components/Cart';
 import VerifyOtpPage from '../components/users/VerifyOtpPage';
+import CheckoutPage from '../components/CheckoutPage';
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>
             <Route path='/profile/:id' component={ProfilePage}/>
+            <Route path='/checkout' component={CheckoutPage}/>
             <Route path='/cart' component={Cart}/>
           </Switch>
         </div>
