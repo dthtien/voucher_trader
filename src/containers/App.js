@@ -19,7 +19,8 @@ import LoginPage from '../components/users/LoginPage';
 import Home from '../components/Home';
 import Cart from '../components/Cart';
 import VerifyOtpPage from '../components/users/VerifyOtpPage';
-import CheckoutPage from '../components/CheckoutPage';
+import CheckoutPage from '../components/checkouts/CheckoutPage';
+import CheckoutResultPage from '../components/checkouts/CheckoutResultPage';
 
 const App = () => {
   return (
@@ -32,6 +33,8 @@ const App = () => {
             <Route exact path='/' component={Home} />
             <Route exact path='/vouchers' component={Vouchers}/>
             <Route exact path='/vouchers/new' component={NewVoucherPage} />
+            <Route exact path='/checkout' component={CheckoutPage}/>
+            <Route path='/checkout/result' component={CheckoutResultPage}/>
             <Route path='/vouchers/:id' component={VoucherShow} />
             <Route path='/messages' component={Message}/>
             <Route path='/signup' component={SignupPage}/>
@@ -39,7 +42,6 @@ const App = () => {
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>
             <Route path='/profile/:id' component={ProfilePage}/>
-            <Route path='/checkout' component={CheckoutPage}/>
             <Route path='/cart' component={Cart}/>
           </Switch>
         </div>
