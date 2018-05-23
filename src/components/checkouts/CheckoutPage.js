@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import dateFormat from 'dateformat';
 import querystring from 'qs';
 import md5 from 'md5';
@@ -37,9 +37,9 @@ class CheckoutPage extends Component {
     vnp_Params['vnp_OrderType'] = orderType;
     vnp_Params['vnp_ReturnUrl'] = vnpayReturnUrl;
 
-    vnp_Params = this.sortObject(vnp_Params);
+    vnp_Params = sortObject(vnp_Params);
     console.log(vnp_Params);
-    console.log(this.sortObject(vnp_Params));
+    console.log(sortObject(vnp_Params));
 
     var signData =  vnpayHashSecret + querystring.stringify(vnp_Params, { encode: false})
 

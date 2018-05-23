@@ -42,7 +42,7 @@ class NewVoucherPage extends Component {
         price: '',
         code: '',
         address_receiver: '',
-        post_to_facebook: false,
+        post_to_facebook: true,
         image_ids: [],
         images: [],
         approved_regions_attributes: []

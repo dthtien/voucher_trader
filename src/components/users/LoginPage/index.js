@@ -1,5 +1,4 @@
 import React, { Component }from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux'; 
 import LoginForm from './LoginForm';
 import {login, loggedIn, facebookLogin} from '../../../actions/user';
@@ -39,6 +38,4 @@ const mapStateToProps = (state) =>({
 })
 
 export default connect (mapStateToProps, 
-
-  { login, loggedIn, facebookLogin , fetchCart , unifyCart })
-(LoginPage)
+  { login, loggedIn, facebookLogin , fetchCart , unifyCart })(LoginPage);

@@ -5,21 +5,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class InputSwitch extends Component {
   onToggle = (e, value) => {
-    console.log(value)
+
     this.props.handleChange(value)
   }
   
   render() {
     const props = this.props;
-    console.log(props)
     return (
       <MuiThemeProvider>
         <Toggle
           name={props.name}
-          value={props.value}
-          onToggle={this.onToggle}
+          value={this.value}
+          onToggle={this.onToggle.bind(this)}
           label={props.label}
-          defaultToggled={props.value}
+          defaultToggled={props.value === 'true'}
         />
       </MuiThemeProvider>
     );

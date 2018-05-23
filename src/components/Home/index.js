@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../resources/home.scss';
 import CategoryName from './CategoryName';
-import ImageSlider from '../shared/ImageSlider';
 import SearchForm from '../shared/SearchForm';
 
 import RestaurantImage from '../../resources/images/restaurant.jpg';

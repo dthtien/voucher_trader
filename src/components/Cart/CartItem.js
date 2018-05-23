@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import '../../resources/cart.scss'
+import { FormattedNumber } from 'react-intl';
 
 class CartItem extends Component {
   render() {
@@ -19,7 +20,13 @@ class CartItem extends Component {
             </div>
 
             <div className="product-line-info">
-              <span className="value">{price}</span>
+              <span className="value">
+                <FormattedNumber 
+                  value={price}
+                  style='currency' 
+                  currency='VND'
+                />
+              </span>
             </div>
           </div>
 
@@ -75,7 +82,12 @@ class CartItem extends Component {
                   </div>
                   <div className="col-md-6 col-xs-2 price">
                     <span className="product-price">
-                      <strong>{(+price) * (+quantity) }</strong>
+                      <strong>
+                        <FormattedNumber 
+                          value={(+price) * (+quantity) }
+                          style='currency' currency='VND'
+                        />
+                      </strong>
                     </span>
                   </div>
                 </div>

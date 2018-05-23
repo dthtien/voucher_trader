@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { isEmpty } from 'lodash';
 import CartItem from '../components/Cart/CartItem';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import '../resources/cart.scss'
 import Spinner from './shared/Spinner';
 import { fetchCart, updateCartItem, deleteCartItem } from '../actions/cart';
 import { Container, Modal, ModalBody, ModalHeader   } from 'mdbreact';
+import { FormattedNumber } from 'react-intl';
 
 class Cart extends Component {
     constructor(props) {
@@ -178,11 +180,13 @@ class Cart extends Component {
                 </div>
               </div>
             </div>
+
             <div className="col-lg-12 col-xl-12 col-sm-12 mt-4 mb-4">
               <a className="label continue-shopping" href="/">
                 <i className="fa fa-angle-left"></i>Continue shopping
               </a>
             </div>
+
             <div className="cart-grid-right col-xs-12 col-lg-12">
               <div className="card cart-summary">
                 <div className="cart-detailed-totals">
@@ -195,20 +199,28 @@ class Cart extends Component {
                   <div className="card-block">
                     <div className="cart-summary-line cart-total">
                       <span className="label">Total (tax excl.)</span>
-                      <span className="value">{totalPrice}</span>
+
+                      <span className="value">
+                        <FormattedNumber 
+                          value={totalPrice}
+                          style='currency' 
+                          currency='VND'
+                        />
+                      </span>
                     </div>
                 
                     <div className="cart-summary-line">
                       <small className="label">Taxes</small>
-                      <small className="value">$0.00</small>
+                      <small className="value">0.00 VND</small>
                     </div>
                   </div>
                   <hr />
                 </div>
                 <div className="checkout cart-detailed-actions card-block">
                   <div className="text-center">
-                    <a href="" className="btn btn-primary">Checkout</a>
-              
+                    <Link to="/shipping" className="btn btn-primary">
+                      Checkout
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -21,6 +21,7 @@ import Cart from '../components/Cart';
 import VerifyOtpPage from '../components/users/VerifyOtpPage';
 import CheckoutPage from '../components/checkouts/CheckoutPage';
 import CheckoutResultPage from '../components/checkouts/CheckoutResultPage';
+import ShippingPage from '../components/ShippingPage';
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
             <Route exact path='/vouchers' component={Vouchers}/>
             <Route exact path='/vouchers/new' component={NewVoucherPage} />
             <Route exact path='/checkout' component={CheckoutPage}/>
+            <Route path='/shipping' component={ShippingPage}/>
             <Route path='/checkout/result' component={CheckoutResultPage}/>
             <Route path='/vouchers/:id' component={VoucherShow} />
             <Route path='/messages' component={Message}/>

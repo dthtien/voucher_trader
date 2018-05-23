@@ -18,7 +18,6 @@ export default class VoucherMoreInfoFields extends Component{
       return(
         <div>
           <PlacesWithStandaloneSearchBox
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvbIGzAY0F_RoyTwx2NEy5l_pykbxcYZk&v=3.exp&libraries=geometry,drawing,places"
             loadingElement={<div style={{ height: `100%` }}/>}
             name='address_receiver'
             label='Địa chỉ nhận:'
