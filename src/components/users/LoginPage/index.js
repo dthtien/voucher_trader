@@ -6,9 +6,9 @@ import { toast } from 'react-toastify';
 import { fetchCart, unifyCart } from '../../../actions/cart';
 
 class LoginPage extends Component {
-  componentDidMount(){
-    if (this.props.isAuthenticate) {
-      toast.warning("Bạn đã có tài khoản");
+  componentWillReceiveProps(nextProps){
+    if (nextProps.isAuthenticate) {
+      toast.warning('Bạn đã có tài khoản');      
       this.props.history.goBack();
     }
   }

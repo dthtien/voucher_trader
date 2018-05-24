@@ -18,7 +18,7 @@ export default class InputSwitch extends Component {
           value={this.value}
           onToggle={this.onToggle.bind(this)}
           label={props.label}
-          defaultToggled={props.value === 'true'}
+          defaultToggled={false}
         />
       </MuiThemeProvider>
     );

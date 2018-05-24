@@ -29,7 +29,6 @@ class CartItem extends Component {
               </span>
             </div>
           </div>
-
           <div className="product-line-grid-right product-line-actions col-md-5 col-xs-12">
             <div className="row">
               <div className="col-xs-4 hidden-md-up" />

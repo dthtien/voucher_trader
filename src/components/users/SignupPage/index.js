@@ -5,12 +5,13 @@ import { signup, loggedIn, facebookLogin} from '../../../actions/user';
 import {toast} from 'react-toastify';
 
 class SignupPage extends Component {
-  componentDidMount(){
-    if (this.props.isAuthenticate) {
+  componentWillReceiveProps(nextProps){
+    if (nextProps.isAuthenticate) {
       toast.warning('Bạn đã có tài khoản');      
       this.props.history.goBack();
     }
   }
+  
   render(){
     return(
       <div className='row'>

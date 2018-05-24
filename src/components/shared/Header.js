@@ -21,6 +21,10 @@ class Header extends Component {
     logout: PropTypes.func.isRequired
   }
 
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +37,7 @@ class Header extends Component {
     this.onClick = this.onClick.bind(this);
     this.toggle = this.toggle.bind(this);
     }
+
     componentWillReceiveProps(nextProps) {
       if(typeof this.props.total_cart_item !== nextProps.total_cart_item && typeof nextProps.total_cart_item !== 'undefined'){
         this.setState((prevState) => (
@@ -54,10 +59,10 @@ class Header extends Component {
     }
 
   logout = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     this.props.logout();
   }
-  
+
   render(){
     const { isAuthenticate, currentUser } = this.props.users;
     const userLinks = (

@@ -147,3 +147,9 @@ export const verify = (data) => {
     return axios.post(`${API_URL}/users/verify`, data)
   }
 }
+
+export const updatePhoneNumber = (data) => {
+  return dispatch => {
+    return axios.post(`${API_URL}/users/update_phone_number`, data)
+  }
+}
