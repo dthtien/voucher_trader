@@ -33,7 +33,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log('env', process.env.REACT_APP_TOKEN)
     return (
       <div id="home">
         <div className = "full overlay white-text text-center" 

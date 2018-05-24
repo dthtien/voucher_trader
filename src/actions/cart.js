@@ -110,7 +110,7 @@ export const deleteCartItem = (id, list_cart_item, user) => {
     } */
     return new Promise((resolve, reject) => {
       axios
-        .delete(`${API_URL}cart_items/${id}`)
+        .delete(`${API_URL}/cart_items/${id}`)
         .then(response => {
           resolve(
             dispatch(fetchCartSuccess(list_cart_item, total_cart_item || []))
@@ -135,7 +135,7 @@ export const updateCartItem = (id, quantity, list_cart_item, user) => {
     } */
     return new Promise((resolve, reject) => {
       axios
-        .patch(`${API_URL}cart_items/${id}`, { cart_item: { quantity } })
+        .patch(`${API_URL}/cart_items/${id}`, { cart_item: { quantity } })
         .then(response => {
           resolve(
             dispatch(fetchCartSuccess(list_cart_item, total_cart_item || []))
@@ -184,9 +184,9 @@ export const fetchCart = (user = localStorage.getItem("accessToken"), id) => {
     const cart_id = localStorage.getItem("cart_id");
     let URL = "";
     if (user === null && cart_id !== null) {
-      URL = `carts/${cart_id}`;
+      URL = `/carts/${cart_id}`;
     } else if (user) {
-      URL = `users/current_cart`;
+      URL = `/users/current_cart`;
     }
     if (!URL) return;
     return axios

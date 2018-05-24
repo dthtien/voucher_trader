@@ -54,12 +54,10 @@ class Header extends Component {
     }
 
   logout = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     this.props.logout();
   }
-
-
-
+  
   render(){
     const { isAuthenticate, currentUser } = this.props.users;
     const userLinks = (
