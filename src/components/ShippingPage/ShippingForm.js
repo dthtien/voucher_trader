@@ -44,7 +44,7 @@ class ShippingForm extends Component {
 
   render() {
     return (
-      <div className='container mt-5'>
+      <div className='shipping-form'>
         <form onSubmit={this.handleSubmit}>
           <TextFieldGroup 
             name='direct_contact'

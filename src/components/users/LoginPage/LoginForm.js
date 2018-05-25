@@ -60,14 +60,7 @@ export default class LoginForm extends Component {
           toast.success('Đăng nhập thành công');
           this.props.loggedIn(response.data.access_token);
         })
-        .catch(error => {
-          console.log(error);
-          this.setState({
-            error: error.response.data, 
-            isLoading: false
-          });
-          return;
-        }).then(() => {
+        .then(() => {
           if(localStorage.getItem('cart_id')){
             this.props.unifyCart().then(result => {
               console.log("Unify cart", result)
@@ -76,6 +69,14 @@ export default class LoginForm extends Component {
             this.props.fetchCart();
           }
           this.context.router.history.goBack();
+        })
+        .catch(error => {
+          console.log(error);
+          this.setState({
+            error: error.response.data, 
+            isLoading: false
+          });
+          return;
         })
     }
   }
