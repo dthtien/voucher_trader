@@ -28,6 +28,7 @@ class ShippingPage extends Component {
             quantity={cart.quantity || 0}
             name={cart.voucher.name || ''}
             images={!isEmpty(cart.voucher.images) ? cart.voucher.images[0] : {}}
+            isReadOnly={true}
           />
         );
       });
@@ -36,7 +37,6 @@ class ShippingPage extends Component {
     }
   }
   render() {
-    console.log("props",this.props.list_cart_item);
     return (
       <div className='container mt-5'>
         <div className="row">

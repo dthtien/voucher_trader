@@ -153,3 +153,9 @@ export const updatePhoneNumber = (data) => {
     return axios.post(`${API_URL}/users/update_phone_number`, data)
   }
 }
+
+export const fetchVoucherBoughts = (id) => {
+  return dispatch => {
+    return axios.get(`${API_URL}/users/${id}/voucher_boughts`);
+  }
+}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../../../resources/profile.scss";
 import { connect } from "react-redux";
 import TextFieldGroup from "../../shared/TextFieldGroup";
-import { fetchUserProfile, updateUserProfile } from "../../../actions/user";
+import { fetchUserProfile, updateUserProfile, fetchVoucherBoughts } from "../../../actions/user";
 import SellerInfo from '../../vouchers/VoucherShow/SellerInfo';
 import { Container, Button, Modal, ModalBody, ModalHeader, Badge } from "mdbreact";
 import { hasKey } from "../../utils/utils";
@@ -14,6 +14,7 @@ class IndexProfilePage extends Component {
     dataUser: {},
     initialTab: 0,
     ratingValue : 3.5,
+    voucher_boughts: [],
     modal : {
       isOpenModal: false,
       type: ''
@@ -66,7 +67,21 @@ class IndexProfilePage extends Component {
     });
   };
   handleChangeTab = ({initialTab}) =>{
+    if(initialTab === 2){
+      const { match } = this.props;
+      let voucher_boughts = [];
+      this.props.fetchVoucherBoughts(match.params.id).then(result => {
+        if(result.data && result.data.vouchers){
+          voucher_boughts = result.data.vouchers;
+          console.log(voucher_boughts)
+          this.setState({initialTab, voucher_boughts});
+          return;
+        }
+      });
+      
+    }
     this.setState({initialTab});
+    
   }
   handleChange = ({name, value}) =>{
     const dataUser = {...this.state.dataUser};
@@ -92,7 +107,7 @@ class IndexProfilePage extends Component {
           </div>
         </div>
       );
-    const { initialTab, modal } = this.state;
+    const { initialTab, modal, voucher_boughts } = this.state;
     const { user } = dataUser;
     const { vouchers } = dataUser;
     const { id } = this.props.currentUser;
@@ -277,7 +292,8 @@ class IndexProfilePage extends Component {
                 </div>
               </div>
               <div className="content-bottom">
-                {hasKey(vouchers) ? (
+                {(hasKey(vouchers) && initialTab === 0) ? 
+                (
                   vouchers.map((voucher, index) => (
                     <div key={"voucher" + index}>
                       <div>Điều kiện : {voucher.approved_condition || ""}</div>
@@ -288,7 +304,21 @@ class IndexProfilePage extends Component {
                       <div>Giá : {voucher.price || ""}</div>
                     </div>
                   ))
-                ) : (
+                ) 
+                : (hasKey(voucher_boughts) && initialTab === 2) ? 
+                (
+                  voucher_boughts.map((voucher, index) => (
+                    <div style={{padding: 5, borderBottom: '1px soild'}} key={"voucher" + index}>
+                      <div style={{fontWeight: 'bold'}}>Tên : {voucher.name || ""}</div>
+                      <div>Ngày tạo : {voucher.date_start || ""}</div>
+                      <div>Ngày hết hạn : {voucher.date_end || ""}</div>
+                      <div>Số lượng : {voucher.quantity || ""}</div>
+                      <div>Giá : {voucher.price || ""}</div>
+                    </div>
+                  ))
+                ) 
+                :
+                (
                   <div className="empty-data">
                     <h3>
                       Bạn chưa có tin đăng cá nhân nào đang bán thử đăng bán
@@ -316,6 +346,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchUserProfile: id => dispatch(fetchUserProfile(id)),
     updateUserProfile: (id,data) => dispatch(updateUserProfile(id,data)),
+    fetchVoucherBoughts: (id) => dispatch(fetchVoucherBoughts(id)),
   };
 };
 
