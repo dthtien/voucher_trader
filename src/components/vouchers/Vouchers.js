@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getVouchers } from '../../actions/voucher';
 import Voucher from './Voucher';
-import SlideBar from '../shared/SlideBar';
 import '../../resources/vouchers.scss';
 import { hasKey } from "../utils/utils";
 import SearchForm from '../shared/SearchForm';

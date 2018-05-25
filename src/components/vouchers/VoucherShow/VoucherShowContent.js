@@ -10,13 +10,16 @@ class VoucherShowContent extends Component {
 
   render() {
     const { voucher } = this.props
-    console.log(voucher);
     return (
       <div className="voucher-show-content">
-        <h3 className="text-center">
-          {voucher.name}
-          <VoucherType kind={voucher.kind}/>
-        </h3>
+        <div className="text-left row">
+          <div className="col-6">
+            <h3>{voucher.name}</h3>  
+          </div>
+          <div className="col-6">
+            <VoucherType kind={voucher.kind}/>
+          </div>
+        </div>
         <p className="text-danger">
           <FormattedNumber 
             value={voucher.price} 

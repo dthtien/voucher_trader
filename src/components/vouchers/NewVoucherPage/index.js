@@ -7,9 +7,10 @@ import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import CategoryFields from './CategoryFields';
 import {createVoucher} from '../../../actions/voucher';
 import { getCategories } from '../../../actions/category';
-import { addFlashMessage } from '../../../actions/message';
+import { toast } from 'react-toastify';
 import { createImage, deleteImage } from '../../../actions/image'
 import '../../../resources/newVoucher.scss';
+
 import { 
   StoreValidation, 
   VoucherValidation, 
@@ -41,7 +42,7 @@ class NewVoucherPage extends Component {
         price: '',
         code: '',
         address_receiver: '',
-        post_to_facebook: false,
+        post_to_facebook: true,
         image_ids: [],
         images: [],
         approved_regions_attributes: []
@@ -58,12 +59,15 @@ class NewVoucherPage extends Component {
   };
 
   componentDidMount(){
-    if (!this.props.users.isAuthenticate) {
-      this.props.addFlashMessage({
-        type: 'error',
-        text: 'You have to login first'
-      })
+    const {isAuthenticate, currentUser} = this.props.users
+    if (!isAuthenticate) {
+      toast.error("You have to login first")
       this.context.router.history.push('/login');
+    }
+
+    if (isAuthenticate && !currentUser.active) {
+      toast.error('You have to verify your account first'); 
+      this.context.router.history.push('/verify');
     }
   }
 
@@ -390,8 +394,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    createVoucher, 
-    addFlashMessage, 
+    createVoucher,
     getCategories, 
     createImage,
     deleteImage

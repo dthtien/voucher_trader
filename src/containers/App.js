@@ -17,8 +17,12 @@ import Footer from '../components/Footer';
 import MapCotainer from '../components/map/MapContainer';
 import LoginPage from '../components/users/LoginPage';
 import Home from '../components/Home';
-import SocialButton from '../components/users/SocialButton';
 import Cart from '../components/Cart';
+import VerifyOtpPage from '../components/users/VerifyOtpPage';
+import UpdatePhoneNumberPage from '../components/users/UpdatePhoneNumberPage';
+import CheckoutPage from '../components/checkouts/CheckoutPage';
+import CheckoutResultPage from '../components/checkouts/CheckoutResultPage';
+import ShippingPage from '../components/ShippingPage';
 
 const App = () => {
   return (
@@ -31,12 +35,19 @@ const App = () => {
             <Route exact path='/' component={Home} />
             <Route exact path='/vouchers' component={Vouchers}/>
             <Route exact path='/vouchers/new' component={NewVoucherPage} />
+            <Route exact path='/checkout' component={CheckoutPage}/>
+            <Route path='/shipping' component={ShippingPage}/>
+            <Route path='/checkout/result' component={CheckoutResultPage}/>
             <Route path='/vouchers/:id' component={VoucherShow} />
             <Route path='/messages' component={Message}/>
             <Route path='/signup' component={SignupPage}/>
+            <Route path='/verify' component={VerifyOtpPage}/>
+            <Route 
+              path='/users/update_phone_number' 
+              component={UpdatePhoneNumberPage}
+            />
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>
-            <Route path='/social' component={SocialButton}/>
             <Route path='/profile/:id' component={ProfilePage}/>
             <Route path='/cart' component={Cart}/>
           </Switch>

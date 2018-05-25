@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import SignupForm from './SignupForm';
 import { connect } from 'react-redux';
 import { signup, loggedIn, facebookLogin} from '../../../actions/user';
-import { addFlashMessage } from '../../../actions/message';
-
+import {toast} from 'react-toastify';
 
 class SignupPage extends Component {
-  componentDidMount(){
-    if (this.props.isAuthenticate) {
-      this.props.addFlashMessage({
-        type: 'error',
-        text: 'You already had an account!'
-      })
-      
+  componentWillReceiveProps(nextProps){
+    if (nextProps.isAuthenticate) {
+      toast.warning('Bạn đã có tài khoản');      
       this.props.history.goBack();
     }
   }
+  
   render(){
     return(
       <div className='row'>
@@ -40,7 +35,6 @@ const mapStateToProps = (state) =>({
 
 export default connect(mapStateToProps, {
   signup: signup,
-  addFlashMessage: addFlashMessage,
   loggedIn: loggedIn,
   facebookLogin
 })(SignupPage);

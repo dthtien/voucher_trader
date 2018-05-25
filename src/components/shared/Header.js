@@ -14,7 +14,6 @@ import {
   DropdownMenu
 } from 'mdbreact';
 import {logout} from '../../actions/user';
-import { stat } from 'fs';
 
 class Header extends Component {
   static propTypes = {
@@ -22,18 +21,23 @@ class Header extends Component {
     logout: PropTypes.func.isRequired
   }
 
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       collapse: false,
       isWideEnough: false,
       dropdownOpen: false,
-      total_cart_item : props.total_cart_item,
+      total_cart_item : props.total_cart_item || 0,
     };
 
     this.onClick = this.onClick.bind(this);
     this.toggle = this.toggle.bind(this);
     }
+
     componentWillReceiveProps(nextProps) {
       if(typeof this.props.total_cart_item !== nextProps.total_cart_item && typeof nextProps.total_cart_item !== 'undefined'){
         this.setState((prevState) => (
@@ -59,8 +63,6 @@ class Header extends Component {
     this.props.logout();
   }
 
-
-
   render(){
     const { isAuthenticate, currentUser } = this.props.users;
     const userLinks = (
@@ -74,7 +76,7 @@ class Header extends Component {
           <NavLink className="nav-link " to="/cart">
             <i className="fa fa-shopping-cart"></i>
             <span>Giỏ hàng</span>
-            <span className="number-item-of-cart">{this.state.total_cart_item || 0}</span>
+            <span className="number-item-of-cart">{typeof this.state.total_cart_item === 'number' ? this.state.total_cart_item  : 0}</span>
           </NavLink>
         </NavItem>
         <NavItem>
@@ -95,6 +97,11 @@ class Header extends Component {
     const guestLinks = (
       <NavbarNav right>
         <NavItem>
+          <NavLink className="nav-link upload-btn" to="/vouchers/new">
+            Đăng mã giảm giá
+          </NavLink>
+        </NavItem>
+        <NavItem>
           <NavLink className="nav-link" to="/login">Login</NavLink>
         </NavItem>
         <NavItem>
@@ -104,7 +111,7 @@ class Header extends Component {
           <NavLink className="nav-link " to="/cart">
             <i className="fa fa-shopping-cart"></i>
             <span>Giỏ hàng</span>
-            <span className="number-item-of-cart">{this.state.total_cart_item || 0}</span>
+            <span className="number-item-of-cart">{typeof this.state.total_cart_item === 'number' ? this.state.total_cart_item  : 0}</span>
           </NavLink>
         </NavItem>
       </NavbarNav>

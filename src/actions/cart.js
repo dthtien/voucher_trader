@@ -18,12 +18,12 @@ export const updateVoucherCart = (list_cart_item, cartItem) => {
     }
     return item;
   });
-  const foundItem = newListCart.findIndex((item) => {
+  const foundItem = newListCart.findIndex(item => {
     return cartItem.id === item.id;
   });
-  if(foundItem === -1) {
+  if (foundItem === -1) {
     newListCart.push(cartItem);
-  };
+  }
   return newListCart;
 };
 
@@ -31,12 +31,12 @@ export const removeCartListItem = () => {
   localStorage.removeItem("list_cart_item");
 };
 
-export const totalQuantityCartItemInCart = (list_cart_item) => {
-  if( !list_cart_item || isEmpty(list_cart_item)) return 0;
+export const totalQuantityCartItemInCart = list_cart_item => {
+  if (!list_cart_item || isEmpty(list_cart_item)) return 0;
   return list_cart_item.reduce((accumulator, currentValue) => {
-    return accumulator + (+currentValue.quantity);
-  },0);
-}
+    return accumulator + +currentValue.quantity;
+  }, 0);
+};
 
 const addCartToLocalStorage = cartItem => {
   let list_cart_item = [];
@@ -71,34 +71,84 @@ const addCartItemSuccess = cartItem => {
 export const addCartItem = (user, cartItem) => {
   return dispatch => {
     dispatch(addCartItemStart());
-    const cart_id = localStorage.getItem('cart_id') ? localStorage.getItem('cart_id') : null;
+    const cart_id = localStorage.getItem("cart_id")
+      ? localStorage.getItem("cart_id")
+      : null;
     const params = {
-      cart_item : {
+      cart_item: {
         voucher_id: cartItem.id,
-        quantity: cartItem.quantity,
+        quantity: cartItem.quantity
       },
       cart_id
     };
-    if(!cart_id) delete params[cart_id];
-    console.log("cart_id => ", params);
+    if (!cart_id) delete params[cart_id];
     return new Promise(res => {
       axios
         .post(`${API_URL}/cart_items`, params)
         .then(response => {
           addCartToLocalStorage(cartItem);
-          localStorage.setItem('cart_id', response.data.cart_id);
+          localStorage.setItem("cart_id", response.data.cart_id);
           res(dispatch(addCartItemSuccess(cartItem)));
         })
         .catch(error => {
           console.log(error.response);
           res(dispatch(addCartItemError(error.response)));
-        })
+        });
     });
   };
 };
-export const updateListCart = (list_cart_item) => {
-  
+
+export const deleteCartItem = (id, list_cart_item, user) => {
+  return dispatch => {
+    const total_cart_item = totalQuantityCartItemInCart(list_cart_item);
+    /*  if (!user || isEmpty(user)) {
+      return new Promise(resolve => {
+        resolve(
+          dispatch(fetchCartSuccess(list_cart_item, total_cart_item || []))
+        );
+      });
+    } */
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(`${API_URL}/cart_items/${id}`)
+        .then(response => {
+          resolve(
+            dispatch(fetchCartSuccess(list_cart_item, total_cart_item || []))
+          );
+        })
+        .catch(error => {
+          resolve(dispatch(fetchCartError(error)));
+        });
+    });
+  };
 };
+
+export const updateCartItem = (id, quantity, list_cart_item, user) => {
+  return dispatch => {
+    const total_cart_item = totalQuantityCartItemInCart(list_cart_item);
+    /* if (!user || isEmpty(user)) {
+      return new Promise(resolve => {
+        resolve(
+          dispatch(fetchCartSuccess(list_cart_item, total_cart_item || []))
+        );
+      });
+    } */
+    return new Promise((resolve, reject) => {
+      axios
+        .patch(`${API_URL}/cart_items/${id}`, { cart_item: { quantity } })
+        .then(response => {
+          resolve(
+            dispatch(fetchCartSuccess(list_cart_item, total_cart_item || []))
+          );
+        })
+        .catch(error => {
+          resolve(dispatch(fetchCartError(error.response.data.message)));
+        });
+    });
+  };
+};
+
+export const updateListCart = list_cart_item => {};
 /* fetch cart */
 const fetchCartStart = () => {
   return {
@@ -118,39 +168,84 @@ const fetchCartSuccess = (list_cart_item, total_cart_item) => {
     total_cart_item
   };
 };
-const getCartFromLocalStorate = () => {
+/* const getCartFromLocalStorate = () => {
   return localStorage.getItem("list_cart_item")
     ? JSON.parse(localStorage.getItem("list_cart_item"))
     : [];
-};
-const fetchCartFromLocal = () => {
+}; */
+/* const fetchCartFromLocal = () => {
   const list_cart_item = getCartFromLocalStorate();
-  const total_cart_item =totalQuantityCartItemInCart(list_cart_item) ;
+  const total_cart_item = totalQuantityCartItemInCart(list_cart_item);
   return fetchCartSuccess(list_cart_item, total_cart_item);
-};
+}; */
 export const fetchCart = (user = localStorage.getItem("accessToken"), id) => {
-  // if (!user || isEmpty(user)) {
-  //   return fetchCartFromLocal();
-  // }
   return dispatch => {
     dispatch(fetchCartStart());
     const cart_id = localStorage.getItem("cart_id");
-    const URL = ((!user || isEmpty(user)) && cart_id) ? `/carts/${cart_id}` : '/users/current_cart'; 
+    let URL = "";
+    if (user === null && cart_id !== null) {
+      URL = `/carts/${cart_id}`;
+    } else if (user) {
+      URL = `/users/current_cart`;
+    }
+    if (!URL) return;
     return axios
       .get(`${API_URL}` + URL)
       .then(response => {
         const { data } = response;
         const { cart } = data;
-        console.log('response users/current_cart', cart.cart_items)
-         const total_cart_item = totalQuantityCartItemInCart(cart.cart_items);
-         if(typeof cart.cart_items !== 'undefined' && !isEmpty(cart.cart_items)){
-           localStorage.setItem('list_cart_item',  JSON.stringify(cart.cart_items));
-         }
-        dispatch(fetchCartSuccess(cart.cart_items , total_cart_item || []));
+        const total_cart_item = totalQuantityCartItemInCart(cart.cart_items);
+        if (
+          typeof cart.cart_items !== "undefined" &&
+          !isEmpty(cart.cart_items)
+        ) {
+          localStorage.setItem(
+            "list_cart_item",
+            JSON.stringify(cart.cart_items)
+          )
+
+          localStorage.setItem("cart_id", cart.id);
+        }
+        dispatch(fetchCartSuccess(cart.cart_items, total_cart_item || []));
       })
       .catch(error => {
         console.log(error.response);
         dispatch(fetchCartError(error.response));
       });
+  };
+};
+
+export const unifyCart = () => {
+  return dispatch => {
+    dispatch(fetchCartStart());
+    const cart_id = localStorage.getItem("cart_id");
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`${API_URL}carts/${cart_id}/unify`)
+        .then(response => {
+          const { data } = response;
+          const { cart } = data;
+          const total_cart_item = totalQuantityCartItemInCart(cart.cart_items);
+          if (
+            typeof cart.cart_items !== "undefined" &&
+            !isEmpty(cart.cart_items)
+          ) {
+            localStorage.setItem(
+              "list_cart_item",
+              JSON.stringify(cart.cart_items)
+            );
+          }
+          if (!isEmpty(cart) && cart.id) {
+            localStorage.setItem("cart_id", JSON.stringify(cart.id));
+          }
+          resolve(
+            dispatch(fetchCartSuccess(cart.cart_items, total_cart_item || []))
+          );
+        })
+        .catch(error => {
+          console.log("unifyCartError", error);
+          reject(dispatch(fetchCartError(error)));
+        });
+    });
   };
 };

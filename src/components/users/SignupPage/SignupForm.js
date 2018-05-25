@@ -26,7 +26,6 @@ export default class SignupForm extends Component {
 
   static propTypes = {
     signup: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
     loggedIn: PropTypes.func.isRequired
   };
 
@@ -57,6 +56,10 @@ export default class SignupForm extends Component {
 
     this.setState({
       ...this.state,
+      error: {
+        ...this.state.error,
+        [field]: ''
+      },
       [field]: value
     });
   }
@@ -80,7 +83,7 @@ export default class SignupForm extends Component {
 
           this.props.loggedIn(response.data.access_token);
 
-          this.context.router.history.push('/');
+          this.context.router.history.push('/verify');
         })
         .catch(error => {
           this.setState({
@@ -93,7 +96,7 @@ export default class SignupForm extends Component {
 
   handleFacebookResonse = (response) => {
     this.props.facebookLogin(response);
-    this.context.router.history.goBack();
+    this.context.router.history.push('/users/update_phone_number');
   }
 
   render(){

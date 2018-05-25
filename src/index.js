@@ -19,6 +19,7 @@ import { fetchCart } from './actions/cart';
 
 addLocaleData(vi);
 injectTapEventPlugin();
+require('dotenv').config()
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -39,6 +40,7 @@ if (localStorage.accessToken) {
   setAuthorizationToken(localStorage.accessToken);
   store.dispatch(loggedIn(localStorage.accessToken));
 }
+
 store.dispatch(fetchCart());
 
 ReactDOM.render(

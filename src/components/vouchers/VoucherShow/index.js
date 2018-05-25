@@ -27,7 +27,7 @@ class VoucherShow extends Component {
       type : '',
     },
     rating_note: '',
-    ratingValue : null,
+    ratingValue : 3.5,
   }
 
   componentWillMount(){
@@ -36,8 +36,8 @@ class VoucherShow extends Component {
   };
 
   toggle = (obj) => {
-    const type = obj.type || '';
-    const messageModal = obj.messageModal || '';
+    const type = typeof obj === 'object'  && obj.type ?  obj.type : '';
+    const messageModal = typeof obj === 'object'  && obj.messageModal ?  obj.messageModal : '';
     this.setState({
       modal: {
         type : type || '',
@@ -54,13 +54,13 @@ class VoucherShow extends Component {
       const { modal } = this.state;
       return (
         <div className="row">
-          <div className="col col-md-5">
+          <div className="col-lg-5 col-md-5 col-sm-12">
             <ImageSlider images={voucher.images} />
             <StoreContent store={voucher.store} />
           </div>
-          <div className="col col-md-7">
+          <div className="col-lg-7 col-md-7 col-sm-12">
             <VoucherShowContent voucher={voucher}/>
-            <SellerInfo onRating={(value)=>{
+            <SellerInfo initialRating={this.state.ratingValue} onRating={(value)=>{
               this.setState({ ratingValue : value , modal : { isOpen: true, type : 'rate' } });
             }}/>
             <CartItemForVoucher productQuantity={1} onAddItemToCart= {this._onAddCart}/>
@@ -139,6 +139,7 @@ class VoucherShow extends Component {
       if(result.error){
         this.setState({
           ...this.state,
+          ratingValue : 3.5,
           messageModal: 'Đã có lỗi xảy ra !' 
         })
         return;

@@ -123,6 +123,10 @@ export const signupValidation = values => {
     errors.name = "This field is required"
   }
 
+   if (Validator.isEmpty(values.phone_number)) {
+    errors.phone_number = "This field is required"
+  }
+
   if (JSON.stringify(values.date_of_birth) === JSON.stringify({})) {
     errors.date_of_birth = "This field is required"
   }
