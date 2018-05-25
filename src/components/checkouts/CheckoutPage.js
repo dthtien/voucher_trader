@@ -38,17 +38,14 @@ class CheckoutPage extends Component {
     vnp_Params['vnp_ReturnUrl'] = vnpayReturnUrl;
 
     vnp_Params = sortObject(vnp_Params);
-    console.log(vnp_Params);
-    console.log(sortObject(vnp_Params));
-
     var signData =  vnpayHashSecret + querystring.stringify(vnp_Params, { encode: false})
 
     var secureHash = md5(signData);
     vnp_Params['vnp_SecureHash'] = secureHash;
     vnp_Params['vnp_SecureHashType'] = 'MD5';
     vnpayUrl += '?' + querystring.stringify(vnp_Params, { encode: true });
-
-    console.log(vnpayUrl);
+    
+    window.location.assign(vnpayUrl);
   }
 
   render() {

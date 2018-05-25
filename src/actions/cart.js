@@ -202,7 +202,9 @@ export const fetchCart = (user = localStorage.getItem("accessToken"), id) => {
           localStorage.setItem(
             "list_cart_item",
             JSON.stringify(cart.cart_items)
-          );
+          )
+
+          localStorage.setItem("cart_id", cart.id);
         }
         dispatch(fetchCartSuccess(cart.cart_items, total_cart_item || []));
       })

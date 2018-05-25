@@ -6,6 +6,7 @@ import CartItem from '../Cart/CartItem';
 import { toast } from 'react-toastify';
 import Spinner from '../shared/Spinner';
 import isEmpty from 'lodash/isEmpty';
+import { createShipping } from '../../actions/shippings';
 
 class ShippingPage extends Component {
   componentDidMount(){
@@ -47,7 +48,9 @@ class ShippingPage extends Component {
             </div>
           </div>
           <div className="col-sm-12 col-md-4">
-            <ShippingForm />
+            <ShippingForm
+              createShipping={this.props.createShipping}
+            />
           </div>
         </div>
       </div>   
@@ -61,4 +64,4 @@ const mapStateToProps = (state) => ({
   list_cart_item: state.cart.list_cart_item
 })
 
-export default connect(mapStateToProps, {fetchCart})(ShippingPage);
+export default connect(mapStateToProps, {fetchCart, createShipping})(ShippingPage);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PlacesWithStandaloneSearchBox from '../shared/PlacesWithStandaloneSearchBox';
 import TextFieldGroup from '../shared/TextFieldGroup';
-
+ 
 class ShippingForm extends Component {
   constructor(props){
     super(props);
@@ -17,6 +17,12 @@ class ShippingForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const params = {
+      shipping: this.state,
+      cart_id: localStorage.getItem("cart_id")
+    }
+
+    this.props.createShipping(params)
     console.log(e);
   }
   
