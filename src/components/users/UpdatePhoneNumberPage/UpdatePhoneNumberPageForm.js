@@ -9,7 +9,8 @@ class UpdatePhoneNumberPageForm extends Component {
     console.log('props', this.props);
 
     this.state = {
-      phone_number: ''
+      phone_number: '',
+      error: ""
     }
   }
   static contextTypes = {
@@ -35,6 +36,10 @@ class UpdatePhoneNumberPageForm extends Component {
       this.context.router.history.push('/verify');
     })
     .catch(error => {
+      this.setState({
+        ...this.state,
+        error: error.response.data.message
+      })
       console.log(error.response)
     })
   }
@@ -43,6 +48,10 @@ class UpdatePhoneNumberPageForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
+        {
+          this.state.error !== '' && 
+          <p className="text-danger">{this.state.error}</p>
+        }
         <TextFieldGroup 
           type='text'
           name='phone_number'

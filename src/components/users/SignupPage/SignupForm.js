@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import { signupValidation } from '../../../validates';
 import SocialButton from '../SocialButton';
+import {toast} from 'react-toastify'
 
 export default class SignupForm extends Component {
   constructor(props){
@@ -76,13 +77,8 @@ export default class SignupForm extends Component {
 
       this.props.signup(this.state)
         .then( response => {
-          this.props.addFlashMessage({
-            type: 'success',
-            text: response.data.message
-          });
-
+          toast.success('Đăng ký thành công! Mời bạn xác nhận số điện thoai');
           this.props.loggedIn(response.data.access_token);
-
           this.context.router.history.push('/verify');
         })
         .catch(error => {
