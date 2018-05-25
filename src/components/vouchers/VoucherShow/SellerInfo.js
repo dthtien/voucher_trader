@@ -10,6 +10,11 @@ class SellerInfo extends Component {
   state = {
     initialRating : this.props.initialRating || 3.5
   }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.initialRating){
+      this.setState({ initialRating : nextProps.initialRating });
+    }
+  }
   render() {
     return (
       <div className="seller-infor mt-3 text-warning">
