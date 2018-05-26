@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { toast } from "react-toastify";
 import PlacesWithStandaloneSearchBox from '../shared/PlacesWithStandaloneSearchBox';
 import TextFieldGroup from '../shared/TextFieldGroup';
-
 class ShippingForm extends Component {
   constructor(props){
     super(props);
@@ -17,6 +17,28 @@ class ShippingForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const params = {
+      shipping: this.state,
+      cart_id: localStorage.getItem("cart_id")
+    }
+    const { shipping_address, direct_contact } = this.state;
+    if(!direct_contact && !shipping_address){
+      toast.warn("Bạn chưa nhập địa chỉ nhận !");
+      return;
+    }
+    this.props.createShipping(params).then((result) => {
+      console.log("result => ", result);
+      const { data } = result;
+      if(data && data.status === 'success'){
+        if(!direct_contact){
+          this.props.history.push('/checkout');
+          return;
+        }
+        this.props.history.push('/checkout/result');
+      }
+    }).catch(error => {
+      console.log("error => ", error)
+    })
     console.log(e);
   }
   

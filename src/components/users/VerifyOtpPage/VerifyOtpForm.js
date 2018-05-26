@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
+import {toast} from 'react-toastify';
 
 class VerifyOtpForm extends Component {
   constructor(props){
@@ -10,7 +11,7 @@ class VerifyOtpForm extends Component {
 
     this.state = {
       otp: '',
-      phone_number: props.phoneNumber
+      error: ''
     }
   }
   static contextTypes = {
@@ -31,12 +32,15 @@ class VerifyOtpForm extends Component {
     e.preventDefault()
     this.props.verify(this.state)
     .then(response => {
-      console.log(response);
+      toast.success("Xác minh thành công!")
       this.props.loggedIn(response.data.access_token);
       this.context.router.history.push('/');
     })
     .catch(error => {
-      console.log(error.response)
+      this.setState({
+        ...this.state,
+        error: error.response.data.message
+      })
     })
   }
 
@@ -44,6 +48,10 @@ class VerifyOtpForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
+        {
+          this.state.error !== '' && 
+          <p className="text-danger">{this.state.error}</p>
+        }
         <TextFieldGroup 
           type='text'
           name='otp'
