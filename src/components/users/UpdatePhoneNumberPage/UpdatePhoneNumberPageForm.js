@@ -19,10 +19,7 @@ class UpdatePhoneNumberPageForm extends Component {
 
   handleChange = (e) => {
     this.setState({ 
-      error: {
-        ...this.state.error,
-        [e.target.name]: ''
-      },
+      error: '',
       [e.target.name]: e.target.value,
     });
   }
@@ -40,6 +37,7 @@ class UpdatePhoneNumberPageForm extends Component {
         ...this.state,
         error: error.response.data.message
       })
+      
       console.log(error.response)
     })
   }
@@ -48,10 +46,8 @@ class UpdatePhoneNumberPageForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        {
-          this.state.error !== '' && 
-          <p className="text-danger">{this.state.error}</p>
-        }
+        <p className="text-danger">{this.state.error}</p>
+
         <TextFieldGroup 
           type='text'
           name='phone_number'

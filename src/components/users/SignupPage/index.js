@@ -5,8 +5,12 @@ import { signup, loggedIn, facebookLogin} from '../../../actions/user';
 import {toast} from 'react-toastify';
 
 class SignupPage extends Component {
-  componentDidMountProps(nextProps){
-    if (nextProps.isAuthenticate) {
+  componentDidMount(){
+    this.handleWhenLoggedIn(this.props);
+  }
+
+  handleWhenLoggedIn = (data) => {
+    if (data.isAuthenticate) {
       toast.warning('Bạn đã có tài khoản');      
       this.props.history.goBack();
     }

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import querystring from 'querystringify';
+import ContactTable from './ContactTable';
 import {connect} from 'react-redux';
 import qs from 'qs';
 import md5 from 'md5';
 import isEmpty from 'lodash/isEmpty';
 import { toast } from 'react-toastify';
 import {sortObject} from '../utils/utils';
-import { fetchCart } from '../../actions/cart.js'
+import { fetchCart, getCartSellerInfo} from '../../actions/cart.js'
 import {createPayment} from '../../actions/payments';
+import '../../resources/checkout.scss';
 
 class CheckoutResultPage extends Component {
   constructor(props){
@@ -15,7 +18,8 @@ class CheckoutResultPage extends Component {
 
     this.state = {
       cart_id: localStorage.getItem("cart_id") || null,
-      checkoutResult: ''
+      checkoutResult: '',
+      status : null,
     }
   }
   componentDidMount(){
@@ -31,7 +35,18 @@ class CheckoutResultPage extends Component {
       toast.error("Không tìm thấy trang");
       this.props.history.push('/');
     } else {
-      this.handleVnpayResponse(response);
+      if (response.cart_id) {
+
+        this.setState({
+          checkoutResult: "Thanh toán thành công",
+          status: 'success'
+        });
+
+        this.props.getCartSellerInfo(response.cart_id);
+
+      } else {
+        this.handleVnpayResponse(response);
+      }
     }
   }
 
@@ -60,23 +75,27 @@ class CheckoutResultPage extends Component {
           payment: Object.assign({},response),
           secure_hash: secureHash
         }
-        console.log(params);
+
         this.props.createPayment(params)
         .then(response => {
+
+          localStorage.removeItem("cart_id");
+          localStorage.removeItem("list_cart_item");
+          
           this.setState({
-            checkoutResult: "Thanh toán thành công"
-          })
+            checkoutResult: "Thanh toán thành công",
+            status: 'success'
+          });
         })
         .catch(error => {
           this.setState({
-            checkoutResult: "Thanh toán thất bại"
+            checkoutResult: "Thanh toán thất bại",
+            status: 'error'
           });
         })
-
       } else {
-        this.setState({
-          checkoutResult: "Thanh toán thành công"
-        });
+        toast.error("Đã có lỗi xảy ra mời bạn chọn lại phương thức thanh toán");
+        this.props.history.push('/checkout');
       }
     } else {
       toast.error("Không tìm thấy trang")
@@ -84,10 +103,35 @@ class CheckoutResultPage extends Component {
     }
   }
   render() {
+    const { checkoutResult, status } = this.state;
+    const color = {color : 
+                    status === 'success' 
+                    ? '#28a745' 
+                    : status === 'error' 
+                    ? '#dc3545'
+                    : {} 
+                  };
+    const sellers_info = this.props.cart.sellers_info || null;
     return (
-      <div className="container text-center">
-        <h1>Checkout result page</h1>
-        <p>{this.state.checkoutResult}</p>
+      <div className="container text-center checkout-result-page" style={{marginTop: 130}}>
+        <h4 className="title-checkout-result-page">Thanh toán đơn hàng</h4>
+        <p className="result-checkout-result-page" style={color}>
+          { status === 'success'
+            ? <i className="fa fa-check-circle" style={color}></i>
+            : status === 'error'
+            ? <i className="fa fa-exclamation-triangle" style={color}></i>
+            : null
+          }
+          {checkoutResult}
+        </p>
+        <a className="link-to-homepage btn red" href='/'>
+          Trở về trang chủ
+        </a>
+        {
+          !isEmpty(sellers_info)
+          &&
+          <ContactTable sellers_info={sellers_info} />
+        }
       </div>
     );
   }
@@ -98,5 +142,6 @@ const mapStateToProps = (state) => ({
   isAuthenticate: state.users.isAuthenticate,
   currentUser: state.users.currentUser, 
 })
-export default connect(mapStateToProps, {fetchCart, createPayment})
+export default connect(mapStateToProps, 
+  {fetchCart, createPayment, getCartSellerInfo})
 (CheckoutResultPage);

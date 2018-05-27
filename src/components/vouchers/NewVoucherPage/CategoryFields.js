@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import CategoryItem from './CategoryItem';
 import '../../../resources/categories.scss'
 
@@ -22,16 +22,19 @@ class CategoryFields extends Component {
 
   render() {
     return (
-      <div className='col-md-4 offset-md-4'>
-        <div className="btn-group-vertical categories">
-          <h4 className="font-weight-bold mb-3">
-            Mời bạn chọn danh mục</h4>
-            {this.props.isLoading ? 
-              <h3>Loading..</h3> :
-              this.renderCategoriesList()
-            }
+      <Fragment>
+        <div className="col-12 col-md-12 text-center">
+          <h4 className="title-category-voucher"> Mời bạn chọn danh mục</h4>
         </div>
-      </div>
+        <div className='col-md-6 offset-md-3 mt-2 mb-2'>
+          <div className="btn-group-vertical categories">
+              {this.props.isLoading ? 
+                <h3>Loading..</h3> :
+                this.renderCategoriesList()
+              }
+          </div>
+        </div>
+      </Fragment>
     );
   }
 }

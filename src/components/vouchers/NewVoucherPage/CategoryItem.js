@@ -33,7 +33,7 @@ class CategoryItem extends Component {
   render() {
     const props = this.props
     return (
-      <a className="btn" onClick={this.onClick.bind(this)}>
+      <a className="btn btn-category-voucher" onClick={this.onClick.bind(this)}>
         {this.renderCategoryIcon()}
         <span>{props.name}</span>
           {props.id === props.categoryID ? 

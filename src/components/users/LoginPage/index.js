@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux'; 
+import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import {login, loggedIn, facebookLogin} from '../../../actions/user';
 import { toast } from 'react-toastify';
@@ -7,12 +8,19 @@ import { fetchCart, unifyCart } from '../../../actions/cart';
 
 class LoginPage extends Component {
   componentWillReceiveProps(nextProps){
-    if (nextProps.isAuthenticate) {
+    this.handleWhenLoggedIn(nextProps);
+  }
+
+  componentDidMount(){
+    this.handleWhenLoggedIn(this.props);
+  }
+
+  handleWhenLoggedIn = (data) => {
+    if (data.isAuthenticate) {
       toast.warning('Bạn đã có tài khoản');      
       this.props.history.goBack();
     }
   }
-
   render(){
     return(
       <div className='row'>

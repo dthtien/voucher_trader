@@ -1,0 +1,104 @@
+.container-page-checkout {
+  margin-top: 110px;
+  margin-bottom: 30px;
+  .top-shipping {
+    .total-product {
+      display: inline-block;
+      .text-title-shipping {
+        line-height: 40px;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #666;
+        font-weight: bold;
+      }
+    }
+  }
+  .cart-overview.js-cart {
+    background-color: #f4f4f4;
+    .cart-items {
+      padding: 0;
+    }
+  }
+  .shipping-form {
+    background-color: #f4f4f4;
+    padding: 15px;
+  }
+  .info-checkout-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  h4.title-page {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .header-content-bottom {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #bbb;
+  }
+  .item-header-content-bottom {
+    font-weight: 600;
+    height: 100%;
+    padding: 15px 30px;
+    border-bottom: 3px solid transparent;
+    text-transform: uppercase;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .item-header-content-bottom.active {
+    border-bottom: 3px solid #ddaf3d;
+  }
+  .text-title-shipping {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .content-bottom {
+    background-color: #f4f4f4;
+    padding: 10px;
+  }
+  .btn-place-order-wrap{
+    margin-top: 20px;
+    padding: 15px 0;
+  }
+  .btn-checkout-now{
+    width: 288px;
+    height: 48px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 46px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #f57224;
+    border-color: transparent;
+    cursor: pointer;
+    border-radius: 2px;
+    text-align: center;
+  }
+}
+
+.checkout-result-page{
+  h4.title-checkout-result-page{
+    margin: 1.5em 0 0.625em 0;
+    font-size: 38px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+    z-index: 10;
+  }
+  p.result-checkout-result-page{
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    i.fa {
+      margin-right: 10px;
+      font-size: 40px;
+    }
+  }
+}

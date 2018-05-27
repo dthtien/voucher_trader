@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { toast } from "react-toastify";
 import PlacesWithStandaloneSearchBox from '../shared/PlacesWithStandaloneSearchBox';
 import TextFieldGroup from '../shared/TextFieldGroup';
- 
+
 class ShippingForm extends Component {
   constructor(props){
     super(props);
@@ -15,15 +16,44 @@ class ShippingForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+    if (nextProps.shipping.shippingEmpty === false) {
+      const shipping = nextProps.shipping.shipping
+      this.props.history.push('/checkout');
+    }
+
+
+  }
   handleSubmit = (e) => {
     e.preventDefault();
+
     const params = {
       shipping: this.state,
       cart_id: localStorage.getItem("cart_id")
     }
 
-    this.props.createShipping(params)
-    console.log(e);
+    const { shipping_address, direct_contact } = this.state;
+    if(!direct_contact && !shipping_address){
+      toast.warn("Bạn chưa nhập địa chỉ nhận !");
+      return;
+    }
+
+    this.props.createShipping(params).then((result) => {
+      console.log("result => ", result);
+      const { data } = result;
+      if(data && data.status === 'success'){
+        if(!direct_contact){
+          this.props.history.push('/checkout');
+          return;
+        }
+
+        localStorage.removeItem("cart_id");
+        localStorage.removeItem("list_cart_item");
+        this.props.history.push(`/checkout/result?cart_id=${params.cart_id}`);
+      }
+    }).catch(error => {
+      console.log("error => ", error)
+    })
   }
   
   handleAddressChanged = (text) => {
@@ -50,7 +80,7 @@ class ShippingForm extends Component {
 
   render() {
     return (
-      <div className='container mt-5'>
+      <div className='shipping-form'>
         <form onSubmit={this.handleSubmit}>
           <TextFieldGroup 
             name='direct_contact'
