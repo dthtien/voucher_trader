@@ -1,25 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ShippingForm from "./ShippingForm";
-import { fetchCart } from "../../actions/cart";
+import { fetchCart, removeCartListItem } from "../../actions/cart";
 import CartItem from "../Cart/CartItem";
 import { toast } from "react-toastify";
 import Spinner from "../shared/Spinner";
 import isEmpty from "lodash/isEmpty";
 import "../../resources/shipping.scss";
-import { createShipping } from '../../actions/shippings';
+import { createShipping, getShipping} from '../../actions/shippings';
 import { FormattedNumber } from 'react-intl';
 
 
 class ShippingPage extends Component {
   componentDidMount() {
     if (this.props.isAuthenticate) {
-      this.props.fetchCart();
+      const cart_id = localStorage.getItem("cart_id");
+      if (cart_id) {
+        this.props.getShipping(cart_id);
+      } else{
+        toast.warning("Không tìm thấy trang");
+        this.props.history.push("/");
+      }
     } else {
       toast.error("Bạn phải đăng nhập trước");
       this.props.history.push("/login");
     }
   }
+
   renderCartItem = () => {
     const { list_cart_item } = this.props;
     if (list_cart_item.length > 0) {
@@ -39,6 +46,7 @@ class ShippingPage extends Component {
       return <Spinner />;
     }
   };
+
   handleCaclulate = () => {
     const { list_cart_item } = this.props;
     const obj = {
@@ -86,6 +94,8 @@ class ShippingPage extends Component {
               <ShippingForm
                 createShipping={this.props.createShipping}
                 history={this.props.history}
+                removeCartListItem={this.props.removeCartListItem}
+                shipping={this.props.shipping}
               />
             </div>
           </div>
@@ -98,6 +108,10 @@ class ShippingPage extends Component {
 const mapStateToProps = state => ({
   user: state.users.currentUser,
   isAuthenticate: state.users.isAuthenticate,
-  list_cart_item: state.cart.list_cart_item
+  list_cart_item: state.cart.list_cart_item,
+  shipping: state.shipping
 });
-export default connect(mapStateToProps, {fetchCart, createShipping})(ShippingPage);
+export default connect(
+  mapStateToProps, 
+  {createShipping, removeCartListItem, getShipping})
+(ShippingPage);

@@ -5,7 +5,6 @@ import UpdatePhoneNumberPageForm from './UpdatePhoneNumberPageForm';
 
 class UpdatePhoneNumberPage extends Component {
   componentDidMount(){
-    console.log();
     if (!this.props.isAuthenticate) {
       this.props.history.push('/login')
     }

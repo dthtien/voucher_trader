@@ -5,7 +5,7 @@ import querystring from "qs";
 import md5 from "md5";
 import { sortObject } from "../utils/utils";
 import "../../resources/shipping.scss";
-import { fetchCart, updateCartPaymentType } from "../../actions/cart";
+import { updateCartPaymentType } from "../../actions/cart";
 import { toast } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import "../../resources/checkout.scss";
@@ -21,7 +21,14 @@ class CheckoutPage extends Component {
       toast.error("Bạn phải đăng nhập trước");
       this.props.history.push("/login");
     }
+
+    const cart_id = localStorage.getItem("cart_id");
+
+    if (!cart_id) {
+      this.props.history.push("/");
+    }
   }
+
   handleCaclulate = () => {
     const { list_cart_item } = this.props;
     const obj = {
@@ -38,8 +45,9 @@ class CheckoutPage extends Component {
   };
   getCheckoutLink = (e = null) => {
     // e.preventDefault();
-
+    const infoListCart = this.handleCaclulate();
     const ENV = process.env;
+
     var vnpayUrl = ENV.REACT_APP_VNPAY_URL;
     var vnpayReturnUrl = ENV.REACT_APP_VNPAY_RETURN_URL;
     var vnpayTmnCode = ENV.REACT_APP_VNPAY_TMNCODE;
@@ -48,7 +56,7 @@ class CheckoutPage extends Component {
 
     var createDate = dateFormat(date, "yyyymmddHHmmss");
     var orderId = dateFormat(date, "HHmmss");
-    var amount = "10000";
+    var amount = infoListCart.price;
     var orderInfo = "this is order infor";
     var orderType = "topup";
     var locale = "vn";
@@ -76,6 +84,7 @@ class CheckoutPage extends Component {
     vnp_Params["vnp_SecureHash"] = secureHash;
     vnp_Params["vnp_SecureHashType"] = "MD5";
     vnpayUrl += "?" + querystring.stringify(vnp_Params, { encode: true });
+
     window.location.assign(vnpayUrl);
   };
   handleChangeTab = ({initialTab}) =>{
@@ -94,6 +103,7 @@ class CheckoutPage extends Component {
     }
     this.setState({initialTab});
   };
+
   onHandlePayment = () => {
     const cart_id = localStorage.getItem('cart_id');
     const type = this.state.initialTab === 0 
@@ -105,22 +115,30 @@ class CheckoutPage extends Component {
       toast.error("Chưa có thông tin giỏ hàng");
       return;
     }
+
     if(!type){
       toast.error("Chưa có thông tin phương thức thanh toán");
       return;
     }
     this.setState({submiting : true});
+
     updateCartPaymentType(cart_id,type).then(result => {
       this.setState({submiting : false});
       if(type !== 'cod'){
         this.getCheckoutLink();
+        return;
       }
-      return;
+
+      localStorage.removeItem("cart_id");
+      localStorage.removeItem("list_cart_item");
+      console.log('checking')      
+      this.props.history.push(`/checkout/result?cart_id=${cart_id}`);
     }).catch(error => {
       this.setState({submiting : false});
       toast.error("Đã có lỗi thao tác !");
     })
   }
+
   render() {
     const infoListCart = this.handleCaclulate();
     const { initialTab, submiting } = this.state;
@@ -203,4 +221,4 @@ const mapStateToProps = state => ({
   isAuthenticate: state.users.isAuthenticate,
   list_cart_item: state.cart.list_cart_item
 });
-export default connect(mapStateToProps, { fetchCart })(CheckoutPage);
+export default connect(mapStateToProps)(CheckoutPage);

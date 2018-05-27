@@ -4,6 +4,7 @@ import { updateVoucherCart, totalQuantityCartItemInCart } from '../actions/cart'
 const initialState = {
   list_cart_item: [],
   total_cart_item : 0,
+  sellers_info: []
 };
 
 export default function Cart(state = initialState, action) {
@@ -50,6 +51,20 @@ export default function Cart(state = initialState, action) {
         error: true,
         isLoadingFetchCart: false
       };
+    case CartActionType.GET_CART_SELLER_INFO_SUCCESS:
+      return {
+        ...state,
+        sellers_info: action.payload.sellers_info,
+        isLoadingSellerInfo: true,
+        error: null
+      };
+    case CartActionType.GET_CART_SELLER_INFO_ERROR:
+      return {
+        ...state,
+        error: true,
+        isLoadingSellerInfo: false
+      };
+
     default:
       return state;
   }

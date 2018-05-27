@@ -7,23 +7,19 @@ class VerifyOtpForm extends Component {
   constructor(props){
     super(props)
 
-    console.log('props', this.props);
-
     this.state = {
       otp: '',
       error: ''
     }
   }
+
   static contextTypes = {
     router: PropTypes.object
   };
 
   handleChange = (e) => {
     this.setState({ 
-      error: {
-        ...this.state.error,
-        [e.target.name]: ''
-      },
+      error: '',
       [e.target.name]: e.target.value,
     });
   }
@@ -46,16 +42,16 @@ class VerifyOtpForm extends Component {
 
 
   render() {
+    const {otp, error} = this.state;
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        {
-          this.state.error !== '' && 
-          <p className="text-danger">{this.state.error}</p>
-        }
+        <p className="text-danger">
+          {error}
+        </p>
         <TextFieldGroup 
           type='text'
           name='otp'
-          value={this.state.otp}
+          value={otp}
           handleChange={this.handleChange}
           label="OTP"
         />

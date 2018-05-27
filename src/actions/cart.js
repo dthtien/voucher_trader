@@ -28,6 +28,7 @@ export const updateVoucherCart = (list_cart_item, cartItem) => {
 };
 
 export const removeCartListItem = () => {
+  localStorage.removeItem("cart_id");
   localStorage.removeItem("list_cart_item");
 };
 
@@ -252,4 +253,23 @@ export const unifyCart = () => {
 
 export const updateCartPaymentType = (id, type) => {
   return axios.put(`${API_URL}/carts/${id}/update_type`, {type});
+}
+
+export const getCartSellerInfo = (id) => {
+  return (dispatch) => {
+    dispatch({type: CartActionTypes.GET_CART_SELLER_INFO})
+    axios.get(`${API_URL}/carts/${id}/sellers_info`)
+      .then(response => {
+        dispatch({
+          type: CartActionTypes.GET_CART_SELLER_INFO_SUCCESS, 
+          payload: response.data
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: CartActionTypes.GET_CART_SELLER_INFO_ERROR, 
+          payload: error.response
+        });
+      });    
+  }
 }
