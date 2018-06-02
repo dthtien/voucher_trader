@@ -46,7 +46,7 @@ class Vouchers extends Component {
       hasKey(nextProps.vouchers)
     ) {
       const vouchers = [...this.state.vouchers, ...nextProps.vouchers];
-      if (this.state.page === 2) {
+      if (this.state.page === 2 || this.state.isSearched) {
         this.setState({ 
           ...this.state,
           vouchers: nextProps.vouchers,
@@ -76,6 +76,7 @@ class Vouchers extends Component {
       ...this.state,
       q: query,
       page: 0,
+      isSearched: true
     })
 
     this.props.getVouchers(this.state);
