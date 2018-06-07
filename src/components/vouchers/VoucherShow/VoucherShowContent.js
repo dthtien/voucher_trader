@@ -27,7 +27,10 @@ class VoucherShowContent extends Component {
             currency="VND"/>
         </p>
         <blockquote>
-          {voucher.kind !== 'e' && <p><strong>Địa chỉ nhận: </strong>{voucher.address_receiver}</p>}
+          {voucher.kind !== 'e' && <p><strong>Địa chỉ nhận: </strong>
+            {!voucher.address_receiver && "Mã gỉam gía không có địa chỉ nhận"}
+            {voucher.address_receiver}
+            </p>}
           <p>
             <strong>Thời gian sử dụng: </strong>
             <span className="mr-1">
@@ -51,14 +54,9 @@ class VoucherShowContent extends Component {
             </span>
           </p>
           <p>
-            <strong>Điều kiện áp dụng: </strong> 
-            {voucher.approved_condition === '' && 'Áp dụng cho tất cả mặt hàng'}
-            {voucher.approved_condition}
-          </p>
-          <p>
-            <strong>Hướng dẫn sử dụng: </strong>
-            {voucher.instruction === '' && 'Phiếu mua mua hàng được sử dụng một lần duy nhất'}
-            {voucher.instruction}
+            <strong>Mô tả: </strong> 
+            {voucher.description === '' && 'Mã gỉam gía không có mô tả gì thêm'}
+            {voucher.description}
           </p>
         </blockquote>
       </div>

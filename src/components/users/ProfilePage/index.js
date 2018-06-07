@@ -3,9 +3,14 @@ import "../../../resources/profile.scss";
 import { connect } from "react-redux";
 import TextFieldGroup from "../../shared/TextFieldGroup";
 import { fetchUserProfile, updateUserProfile, fetchVoucherBoughts } from "../../../actions/user";
+import Voucher from '../../vouchers/Voucher';
 import SellerInfo from '../../vouchers/VoucherShow/SellerInfo';
 import { Container, Button, Modal, ModalBody, ModalHeader, Badge } from "mdbreact";
 import { hasKey } from "../../utils/utils";
+import Rating from 'react-rating';
+import SellVouchers from './SellVouchers';
+import BoughtVouchers from './BoughtVouchers';
+import { FormattedDate } from 'react-intl';
 
 class IndexProfilePage extends Component {
   state = {
@@ -21,10 +26,6 @@ class IndexProfilePage extends Component {
     }
   };
   componentDidMount() {
-    if (!hasKey(this.props.currentUser)){
-      this.props.history.push("/login");
-      return;
-    }
     const { match } = this.props;
     if (typeof match !== "undefined" && typeof match.params !== "undefined") {
       this.props.fetchUserProfile(match.params.id);
@@ -99,6 +100,7 @@ class IndexProfilePage extends Component {
 
   render() {
     const { dataUser } = this.state;
+    console.log("dataUser", dataUser);
     if (!hasKey(dataUser))
       return (
         <div className="container">
@@ -221,10 +223,14 @@ class IndexProfilePage extends Component {
                 alt=""
               />
             </div>
-            <SellerInfo 
-              initialRating={1}
-              readonly={true}
-            />
+            <div className="text-warning">
+              <Rating
+                initialRating={user.feedback_score}
+                emptySymbol="fa fa-star-o fa-2x"
+                fullSymbol="fa fa-star fa-2x"
+                readonly={true}
+              />
+            </div>
             {
               !isViewOnly &&
               <div className="container-edit-profile">
@@ -239,22 +245,16 @@ class IndexProfilePage extends Component {
               </div>
             }
             <h3 className="text-title">{user.name || ""}</h3>
-            <div className="list-icon-provice">
-              <span className="text-middle">Đã cung cấp</span>
-              <span className="icon-item">
-                <i className="material-icons fa-2x">store_mall_directory</i>
-              </span>
-              <span className="icon-item">
-                <i className="material-icons fa-2x">store_mall_directory</i>
-              </span>
-              <span className="icon-item">
-                <i className="material-icons fa-2x">store_mall_directory</i>
-              </span>
-              <span className="icon-item">
-                <i className="material-icons fa-2x">store_mall_directory</i>
-              </span>
-            </div>
-            <h3 className="text-middle">Ngày tham gia</h3>
+            <h3 className="text-middle">
+              Ngày tham gia: 
+              <FormattedDate
+                value={dataUser.user.created_at}
+                className='ml-2'
+                year='numeric'
+                month='long'
+                day='2-digit'
+              />
+            </h3>
           </div>
           <div className="bottom-profile">
             <h3 className="text-title">Tin đăng cá nhân</h3>
@@ -268,18 +268,9 @@ class IndexProfilePage extends Component {
                     this.handleChangeTab({ initialTab: 0 });
                   }}
                 >
-                  Đang bán(0)
+                  Đang bán({dataUser.total_voucher_sells})
                 </div>
-                <div
-                  className={`item-header-content-bottom ${
-                    initialTab === 1 ? "active" : ""
-                  }`}
-                  onClick={() => {
-                    this.handleChangeTab({ initialTab: 1 });
-                  }}
-                >
-                  Đã bán (0)
-                </div>
+               
                 <div
                   className={`item-header-content-bottom ${
                     initialTab === 2 ? "active" : ""
@@ -288,41 +279,28 @@ class IndexProfilePage extends Component {
                     this.handleChangeTab({ initialTab: 2 });
                   }}
                 >
-                  Đã mua (0)
+                  Đã mua ({dataUser.total_voucher_boughts})
                 </div>
               </div>
               <div className="content-bottom">
+
                 {(hasKey(vouchers) && initialTab === 0) ? 
                 (
-                  vouchers.map((voucher, index) => (
-                    <div key={"voucher" + index}>
-                      <div>Điều kiện : {voucher.approved_condition || ""}</div>
-                      <div>Ngày tạo : {voucher.date_start || ""}</div>
-                      <div>Ngày hết hạn : {voucher.date_end || ""}</div>
-                      <div>Hướng dẫn : {voucher.instruction || ""}</div>
-                      <div>Số lượng : {voucher.quantity || ""}</div>
-                      <div>Giá : {voucher.price || ""}</div>
-                    </div>
-                  ))
+                  <SellVouchers vouchers={vouchers}/>
                 ) 
                 : (hasKey(voucher_boughts) && initialTab === 2) ? 
                 (
-                  voucher_boughts.map((voucher, index) => (
-                    <div style={{padding: 5, borderBottom: '1px soild'}} key={"voucher" + index}>
-                      <div style={{fontWeight: 'bold'}}>Tên : {voucher.name || ""}</div>
-                      <div>Ngày tạo : {voucher.date_start || ""}</div>
-                      <div>Ngày hết hạn : {voucher.date_end || ""}</div>
-                      <div>Số lượng : {voucher.quantity || ""}</div>
-                      <div>Giá : {voucher.price || ""}</div>
-                    </div>
-                  ))
+                  <BoughtVouchers 
+                    vouchers={voucher_boughts} 
+                    userId={parseInt(this.props.match.params.id)}
+                    currentUserId={this.props.currentUser.id}
+                  />
                 ) 
                 :
                 (
                   <div className="empty-data">
                     <h3>
-                      Bạn chưa có tin đăng cá nhân nào đang bán thử đăng bán
-                      ngay
+                      Chưa có tin đăng nào
                     </h3>
                   </div>
                 )}
