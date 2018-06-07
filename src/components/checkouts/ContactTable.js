@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 class ContactTable extends Component {
     renderListSellerInfo = () => {
-      console.log(this.props.sellers_info);
       return this.props.sellers_info.map((info, index) => {
         return(
           <tr key={`seller-infor-${index}`}>

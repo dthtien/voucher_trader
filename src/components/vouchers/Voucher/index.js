@@ -27,8 +27,6 @@ export default class Voucher extends Component{
               <div className="col col-md-12">
                 <VoucherContent store={voucher.store} voucher={voucher}/>
                 <VoucherFooter 
-                  date_end={voucher.date_end} 
-                  owner_name="Owner name"
                   seller={voucher.seller} />
               </div>
             </div>

@@ -48,6 +48,7 @@ class VoucherShow extends Component {
   }
   renderVoucherContent = () => {
     const {voucher, loading } = this.props;
+    console.log("voucher", voucher);
     if (loading || isEmpty(voucher)) {
       return (<h4>Loading...</h4>);
     } else {
@@ -60,8 +61,12 @@ class VoucherShow extends Component {
           </div>
           <div className="col-lg-7 col-md-7 col-sm-12">
             <VoucherShowContent voucher={voucher}/>
-            <SellerInfo initialRating={this.state.ratingValue} onRating={(value)=>{
+            <SellerInfo 
+              initialRating={voucher.feedback_score}
+              seller={voucher.seller}
+              onRating={(value)=>{
               this.setState({ ratingValue : value , modal : { isOpen: true, type : 'rate' } });
+
             }}/>
             <CartItemForVoucher productQuantity={1} onAddItemToCart= {this._onAddCart}/>
           </div>
