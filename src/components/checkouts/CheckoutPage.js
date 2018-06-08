@@ -56,7 +56,7 @@ class CheckoutPage extends Component {
 
     var createDate = dateFormat(date, "yyyymmddHHmmss");
     var orderId = dateFormat(date, "HHmmss");
-    var amount = infoListCart.price;
+    var amount = infoListCart.price + '00';
     var orderInfo = "this is order infor";
     var orderType = "topup";
     var locale = "vn";

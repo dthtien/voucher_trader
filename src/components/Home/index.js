@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
 import '../../resources/home.scss';
-import CategoryName from './CategoryName';
+import CategoryList from './CategoryList';
 import SearchForm from '../shared/SearchForm';
-
-import RestaurantImage from '../../resources/images/restaurant.jpg';
-import SpaImage from '../../resources/images/spa.jpg';
-import SportImage from '../../resources/images/sports.jpg';
-import TravelImage from '../../resources/images/travel.jpg';
-import AccessoriesImage from '../../resources/images/accessories.jpg';
-import MomImage from '../../resources/images/mom.jpg';
-import FoodImage from '../../resources/images/food.jpg';
-import FashionImage from '../../resources/images/fashions.jpg';
-import HomeImage from '../../resources/images/home.jpg';
+import NewestVouchers from './NewestVouchers';
 
 class Home extends Component {
   constructor(props){
@@ -59,58 +50,16 @@ class Home extends Component {
           </div>
         </div>
         <div className="container">
-          <h4 className="text-center home-category-text"><span>Danh mục</span></h4>
-          <div className="row">
-            <CategoryName
-              name="Tất cả"
-              image={HomeImage}
-            />
-            <CategoryName 
-              name="Ẩm Thực" 
-              image={RestaurantImage}
-            />
-            <CategoryName 
-              name="Du Lịch"
-              image={TravelImage}
-            />
-            <CategoryName 
-              name="Giải Trí và Thể Thao"
-              image={SportImage}
-            />
-            <CategoryName 
-              name="Spa và Làm đẹp"
-              image={SpaImage}
-            />
+          <h4 className="text-center home-category-text">
+            <span>Danh mục</span>
+          </h4>
+          <CategoryList />
 
-            <CategoryName 
-              name="Sức Khỏe và Sắc Đẹp"
-              image={SpaImage}
-            />
-            <CategoryName 
-              name="Phụ Kiện - Thiết bị số"
-              image={AccessoriesImage}
-            />
-            <CategoryName 
-              name="Mẹ và Bé"
-              image={MomImage}
-            />
-            <CategoryName 
-              name="Thực Phẩm"
-              image={FoodImage}
-            />
-            <CategoryName
-              name="Thời Trang và Phụ Kiện"
-              image={FashionImage}
-            />
-            <CategoryName
-              name="Nhà Cửa và Đời Sống"
-              image={HomeImage}
-            />
-            <CategoryName 
-              name="Khác"
-              image={AccessoriesImage}
-            />
-          </div>
+          <h4 className="text-center home-category-text">
+            <span>Mã gỉam gía mới nhất</span>
+          </h4>
+
+          <NewestVouchers />
         </div>
       </div>
     );

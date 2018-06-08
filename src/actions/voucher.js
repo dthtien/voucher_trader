@@ -26,6 +26,17 @@ export const createVoucher = (props) => {
     return axios.post(`${API_URL}/vouchers`, params);
   }
 };
+export const getNewestVouchers = () => {
+  return (dispatch) => {
+    axios.get(`${API_URL}/vouchers/newest`)
+      .then(response => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
+      })
+      .catch(error => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: error});
+      });    
+  }
+}
 
 export const getVoucher = (id) => {
   return (dispatch) => {
