@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import querystring from 'querystringify';
 import ContactTable from './ContactTable';
 import {connect} from 'react-redux';
@@ -53,7 +52,7 @@ class CheckoutResultPage extends Component {
   handleVnpayResponse = (response) => {
     var secureHash = response.vnp_SecureHash;
     const ENV = process.env;
-    var vnpayTmnCode = ENV.REACT_APP_VNPAY_TMNCODE;
+    // var vnpayTmnCode = ENV.REACT_APP_VNPAY_TMNCODE;
     var vnpayHashSecret = ENV.REACT_APP_VNPAY_HASHSECRET;
 
     response = sortObject(response);

@@ -102,10 +102,10 @@ class Header extends Component {
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className="nav-link" to="/login">Login</NavLink>
+          <NavLink className="nav-link" to="/login">Đăng nhập</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className="nav-link" to="/signup">Sign up</NavLink>
+          <NavLink className="nav-link" to="/signup">Đăng Ký</NavLink>
         </NavItem>
         <NavItem className="button-cart">
           <NavLink className="nav-link " to="/cart">

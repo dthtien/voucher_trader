@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TextFieldGroup from '../../shared/TextFieldGroup';
+import VoucherDescriptionImage from './VoucherDescriptionImage';
 import { FormattedNumber } from 'react-intl';
 
 export default class VoucherInfoFields extends Component{
@@ -14,11 +15,28 @@ export default class VoucherInfoFields extends Component{
         <form className="ml-2" onSubmit={handleSubmit.bind(this)}>
           <div className="row">
             <div className="col col-md-6">
+              <div className="form-group">
+                <label className='mt-3'>Loại mã giảm giá:</label>
+                <select name='kind' className='form-control' 
+                  onChange={handleChange.bind(this)}>
+                  <option value="">Chọn</option>
+                  <option 
+                    value='e' 
+                    selected={fields.kind === 'e'}
+                  >E voucher</option>
+                  <option 
+                    value='general'
+                    selected={fields.kind === 'general'}
+                  >General voucher</option>
+                </select>
+                {errors.kind && <span className="text-danger">
+                  {errors.kind}</span>}
+              </div>
               <TextFieldGroup
                 name='name'
                 error={errors.name}
                 type='text'
-                label="Tên mã giảm giá"
+                label="Tên mã giảm giá (ví dụ: Mã gỉam gía BigC 100.000 vnd)"
                 value={fields.name}
                 handleChange={handleChange}
               />
@@ -51,29 +69,6 @@ export default class VoucherInfoFields extends Component{
                 value={fields.date_end}
                 handleChange={handleDateFieldChange}
               />
-              
-              <div className="form-group">
-                <label className='mt-3'>Loại mã giảm giá:</label>
-                <select name='kind' className='form-control' 
-                  onChange={handleChange.bind(this)}>
-                  <option value="">Chọn</option>
-                  <option value='e'>E voucher</option>
-                  <option value='general'>General voucher</option>
-                </select>
-                {errors.kind && <span className="text-danger">
-                  {errors.kind}</span>}
-              </div>
-            </div>
-            <div className="col col-md-6">
-              <TextFieldGroup
-                name='voucher_number'
-                error={errors.voucher_number}
-                type='text'
-                label="Số voucher"
-                value={fields.voucher_number}
-                handleChange={handleChange}
-              />
-
               <TextFieldGroup
                 name='quantity'
                 error={errors.quantity}
@@ -84,25 +79,20 @@ export default class VoucherInfoFields extends Component{
               />
 
               <TextFieldGroup
-                name='instruction'
-                error={errors.instruction}
+                name='description'
+                error={errors.deescription}
                 type='textarea'
-                label="Hướng dẫn sử dụng"
-                value={fields.instruction}
-                handleChange={handleChange}
-              />
-              <TextFieldGroup
-                name='approved_condition'
-                error={errors.approved_condition}
-                type='textarea'
-                label="Điều kiện áp dụng"
-                value={fields.approved_condition}
+                label="Mô tả"
+                value={fields.deescription}
                 handleChange={handleChange}
               />
             </div>
+            <div className="col col-md-6">
+              <VoucherDescriptionImage />
+            </div>
           </div>
-          <div className="text-center">
-            <button className="btn btn-primary">Next Step </button>
+          <div className="text-center mt-2">
+            <button className="btn btn-red"> Bước tiếp theo </button>
           </div>
         </form>
       </div>

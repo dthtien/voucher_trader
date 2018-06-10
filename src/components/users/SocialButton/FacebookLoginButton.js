@@ -10,6 +10,7 @@ class FacebookLoginButton extends Component {
     return (
       <FacebookLogin
         appId="1226403430790462"
+        textButton="Đăng nhâp (Đăng ký) bằng Facebook"
         autoLoad={false}
         cssClass='btn btn-ptc waves-effect waves-light bg-primary socialButton'
         scope="public_profile,user_friends"

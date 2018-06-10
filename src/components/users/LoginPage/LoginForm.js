@@ -111,7 +111,7 @@ export default class LoginForm extends Component {
           <SocialButton facebookLogin={this.handleFacebookResonse}/>
 
           <div className='text-center'>
-            <button disabled={this.state.isLoading} className='btn btn-primary'> Login </button>
+            <button disabled={this.state.isLoading} className='btn btn-primary'> Đăng nhập </button>
           </div>
 
         </form>

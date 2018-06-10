@@ -18,7 +18,6 @@ class ShippingForm extends Component {
 
   componentWillReceiveProps(nextProps){
     if (nextProps.shipping.shippingEmpty === false) {
-      const shipping = nextProps.shipping.shipping
       this.props.history.push('/checkout');
     }
 

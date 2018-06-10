@@ -20,7 +20,9 @@ class SignupPage extends Component {
     return(
       <div className='row'>
         <div className="col-md-4 offset-md-4">
-          <h1 className="text-center mt-2">Join our community!</h1>
+          <h1 className="text-center mt-2 font-weight-bold mb-2">
+            Mời bạn đăng ký!
+          </h1>
           <SignupForm 
             signup={this.props.signup}
             addFlashMessage={this.props.addFlashMessage}

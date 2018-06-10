@@ -168,7 +168,6 @@ class NewVoucherPage extends Component {
   }
 
   handleVoucherFieldsChange = (e) =>{
-    console.log(e);
     this.handleFieldsChange(e, 'voucher', 'voucherErrors');
   }
 // end
@@ -239,11 +238,12 @@ class NewVoucherPage extends Component {
     files.map(file => {
       this.props.createImage(file)
         .then(response => {
-          console.log(response)
           this.setImageField(response.data.image)
+          return;
         })
         .catch(error => {
           console.log(error.response);
+          return;
         })
     })
   }
@@ -304,16 +304,13 @@ class NewVoucherPage extends Component {
     switch(this.state.currentStep){
       case -1:
         return(
-          <VoucherMoreInfoFields
+           <VoucherInfoFields
             fields={this.state.voucher}
             errors={this.state.voucherErrors}
             handleChange={this.handleVoucherFieldsChange}
-            handleAddressChanged={this.handleVoucherAddressChanged}
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
-            handleFileFieldChange={this.handleFileFieldChange}
-            handleDeleteFile={this.handleDeleteFile}
-            handleRadioBtnChange={this.handleRadioBtnChange}
+            handleDateFieldChange={this.handleDateFieldChange}
           />
         )
       case 0:
@@ -372,10 +369,11 @@ class NewVoucherPage extends Component {
     }
   }
   render(){
+    const currentStep = this.state.currentStep
     return(
       <div className="new-voucher container">
         <div className='row'>
-          {this.state.currentStep > 0 && 
+          {currentStep > 0 && currentStep < 3 && 
           <a className="m-2" onClick={this.previousStep.bind(this)}> 
             <i className="material-icons float-left">keyboard_arrow_left</i></a>}
           {this.showStep()}

@@ -1,6 +1,5 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux'; 
-import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import {login, loggedIn, facebookLogin} from '../../../actions/user';
 import { toast } from 'react-toastify';
@@ -25,7 +24,7 @@ class LoginPage extends Component {
     return(
       <div className='row'>
         <div className='col-md-4 offset-md-4'>
-          <h4 className="text-center m-2">Welcome!</h4>
+          <h4 className="text-center m-2 font-weight-bold">Đăng nhập</h4>
 
           <LoginForm 
             login={this.props.login}

@@ -131,15 +131,6 @@ export default class SignupForm extends Component {
             handleChange={this.handleChange}
             label="Số điện thoại"
           />
-
-          <TextFieldGroup
-            name='date_of_birth'
-            error={error.date_of_birth}
-            type='datepicker'
-            label="Ngày sinh"
-            value={this.state.date_of_birth}
-            handleChange={this.handleDateFieldChange}
-          />
           <TextFieldGroup 
             type='password'
             name='password'
@@ -161,7 +152,7 @@ export default class SignupForm extends Component {
           <SocialButton facebookLogin={this.handleFacebookResonse} />
           
           <div className='text-center'>
-            <button disabled={this.state.isLoading} className='btn btn-primary'>Signup </button>
+            <button disabled={this.state.isLoading} className='btn btn-primary'>Đăng ký </button>
           </div>
 
         </form>

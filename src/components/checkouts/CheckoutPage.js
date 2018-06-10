@@ -181,8 +181,15 @@ class CheckoutPage extends Component {
                         : 'Thanh toán thông qua ngân hàng'
                       }  
                     </div>
-                    <div className="btn-place-order-wrap">
-                      <button disabled={submiting} style={{opacity : submiting ? 0.6 : 1}} className="btn-checkout-now" onClick={this.onHandlePayment}>Đặt hàng ngay</button>
+                    <div className="btn-place-order-wrap text-center">
+                      <button 
+                        disabled={submiting} 
+                        style={{opacity : submiting ? 0.6 : 1}} 
+                        className="btn-checkout-now red" 
+                        onClick={this.onHandlePayment}
+                      >
+                        Đặt hàng ngay
+                      </button>
                     </div>
                   </div>
                 }

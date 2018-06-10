@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import FacebookLoginButton from './FacebookLoginButton'
-import GoogleLoginButton from './GoogleLoginButton'
+import FacebookLoginButton from './FacebookLoginButton';
+// import GoogleLoginButton from './GoogleLoginButton'
 
 class SocialButton extends Component {
   handleIdentityResponse = (response) => {

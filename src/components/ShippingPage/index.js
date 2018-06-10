@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ShippingForm from "./ShippingForm";
-import { fetchCart, removeCartListItem } from "../../actions/cart";
+import { removeCartListItem } from "../../actions/cart";
+// import { fetchCart } from "../../actions/cart";
 import CartItem from "../Cart/CartItem";
 import { toast } from "react-toastify";
 import Spinner from "../shared/Spinner";
@@ -111,7 +112,5 @@ const mapStateToProps = state => ({
   list_cart_item: state.cart.list_cart_item,
   shipping: state.shipping
 });
-export default connect(
-  mapStateToProps, 
-  {createShipping, removeCartListItem, getShipping})
-(ShippingPage);
+export default connect(mapStateToProps, 
+  {createShipping, removeCartListItem, getShipping})(ShippingPage);

@@ -3,8 +3,6 @@ import "../../../resources/profile.scss";
 import { connect } from "react-redux";
 import TextFieldGroup from "../../shared/TextFieldGroup";
 import { fetchUserProfile, updateUserProfile, fetchVoucherBoughts } from "../../../actions/user";
-import Voucher from '../../vouchers/Voucher';
-import SellerInfo from '../../vouchers/VoucherShow/SellerInfo';
 import { Container, Button, Modal, ModalBody, ModalHeader, Badge } from "mdbreact";
 import { hasKey } from "../../utils/utils";
 import Rating from 'react-rating';
@@ -292,7 +290,7 @@ class IndexProfilePage extends Component {
                 (
                   <BoughtVouchers 
                     vouchers={voucher_boughts} 
-                    userId={parseInt(this.props.match.params.id)}
+                    userId={parseInt(this.props.match.params.id, 10)}
                     currentUserId={this.props.currentUser.id}
                   />
                 ) 
