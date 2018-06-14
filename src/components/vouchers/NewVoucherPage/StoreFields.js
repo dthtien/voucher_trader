@@ -5,13 +5,6 @@ import PlacesWithStandaloneSearchBox from '../../shared/PlacesWithStandaloneSear
 import RegionSelect from '../../shared/RegionSelect';
 
 class StoreFields extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-
-    }
-  }
-
   componentDidMount(){
     if(typeof this.props.getRegions === 'function'){
       this.props.getRegions()

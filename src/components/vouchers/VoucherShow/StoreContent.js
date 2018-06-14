@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class StoreContent extends Component {
   static propTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object
   };
 
   render() {
@@ -14,8 +14,8 @@ class StoreContent extends Component {
           <i className="material-icons fa-5x">store_mall_directory</i>
         </div>
         <div className='col-lg-8 col-md-8'>
-          <h5>{store.name}</h5>
-          <p>{store.address}</p>
+          <h5>{store && store.name}</h5>
+          <p>{store && store.address}</p>
         </div>
       </div>
 

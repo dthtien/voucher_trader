@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { getVouchers } from '../../actions/voucher';
 import Voucher from './Voucher';
 import '../../resources/vouchers.scss';
+import VouchersBannerImage from '../../resources/images/vouchers_banner.jpg';
 import { hasKey } from "../utils/utils";
 import SearchForm from '../shared/SearchForm';
 import Spinner from '../shared/Spinner';
 import InfiniteScroll from 'react-infinite-scroller';
 import qs from 'querystringify';
-
 
 class Vouchers extends Component {
   constructor(props) {
@@ -126,7 +126,7 @@ class Vouchers extends Component {
     return (
       <div className="vouchers">
         <div className="vouchers-banner overlay full" style={{
-            backgroundImage: `url('http://htmlbeans.com/html/coupon/images/img30.jpg')`,
+            backgroundImage: `url(${VouchersBannerImage})`,
           }} >
           <div className="container holder">
             <div className="row">

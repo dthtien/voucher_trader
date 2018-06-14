@@ -18,16 +18,11 @@ export default class VoucherInfoFields extends Component{
               <div className="form-group">
                 <label className='mt-3'>Loại mã giảm giá:</label>
                 <select name='kind' className='form-control' 
-                  onChange={handleChange.bind(this)}>
+                  onChange={handleChange.bind(this)}
+                  defaultValue={fields.kind || ""}>
                   <option value="">Chọn</option>
-                  <option 
-                    value='e' 
-                    selected={fields.kind === 'e'}
-                  >E voucher</option>
-                  <option 
-                    value='general'
-                    selected={fields.kind === 'general'}
-                  >General voucher</option>
+                  <option value='e'>E voucher</option>
+                  <option value='general'>General voucher</option>
                 </select>
                 {errors.kind && <span className="text-danger">
                   {errors.kind}</span>}

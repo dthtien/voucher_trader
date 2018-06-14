@@ -121,8 +121,11 @@ class Header extends Component {
       <Navbar color="indigo" dark expand="md" scrolling color="red" fixed="top">
         <NavbarBrand href="/">
           <div className='logo'>
-            <span className='logo-cho'>Chợ</span>
-            <span className='logo-voucher'>Voucher</span>
+            <img 
+              alt="Cho voucher" 
+              src={process.env.PUBLIC_URL + '/logo.png'} 
+              className="img-logo"
+            />
           </div>
         </NavbarBrand>
         { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}

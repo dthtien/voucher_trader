@@ -142,5 +142,4 @@ const mapStateToProps = (state) => ({
   currentUser: state.users.currentUser, 
 })
 export default connect(mapStateToProps, 
-  {fetchCart, createPayment, getCartSellerInfo})
-(CheckoutResultPage);
+  {fetchCart, createPayment, getCartSellerInfo})(CheckoutResultPage);

@@ -236,7 +236,7 @@ class NewVoucherPage extends Component {
 // Handle file field change
   handleFileFieldChange = (files) => {
     files.map(file => {
-      this.props.createImage(file)
+      return this.props.createImage(file)
         .then(response => {
           this.setImageField(response.data.image)
           return;
@@ -245,7 +245,7 @@ class NewVoucherPage extends Component {
           console.log(error.response);
           return;
         })
-    })
+    });
   }
 
   setImageField = (image) => {

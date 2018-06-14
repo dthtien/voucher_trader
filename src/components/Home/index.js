@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../resources/home.scss';
+import HomeBannerImage from '../../resources/images/home_banner.jpg';
 import CategoryList from './CategoryList';
 import SearchForm from '../shared/SearchForm';
 import NewestVouchers from './NewestVouchers';
@@ -28,7 +29,7 @@ class Home extends Component {
       <div id="home">
         <div className = "full overlay white-text text-center" 
           style={{
-            backgroundImage: `url('http://htmlbeans.com/html/coupon/images/img29.jpg')`,
+            backgroundImage: `url(${HomeBannerImage})`,
           }} 
           >
           <div className="row">
@@ -56,9 +57,8 @@ class Home extends Component {
           <CategoryList />
 
           <h4 className="text-center home-category-text">
-            <span>Mã gỉam gía mới nhất</span>
+            <span>Mã giảm giá mới nhất</span>
           </h4>
-
           <NewestVouchers />
         </div>
       </div>

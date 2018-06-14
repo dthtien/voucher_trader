@@ -57,7 +57,7 @@ class VoucherShow extends Component {
         <div className="row">
           <div className="col-lg-5 col-md-5 col-sm-12">
             <ImageSlider images={voucher.images} />
-            <StoreContent store={voucher.store} />
+              <StoreContent store={voucher.store} />
           </div>
           <div className="col-lg-7 col-md-7 col-sm-12">
             <VoucherShowContent voucher={voucher}/>

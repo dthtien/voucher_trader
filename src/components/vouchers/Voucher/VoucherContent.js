@@ -10,7 +10,13 @@ class VoucherContent extends Component {
         <h6 className="voucher-name">
           {voucher.name}
         </h6>
-        <p className="store-name text-success">{store.name}</p>
+        <p className="store-name text-success">
+          {
+            (!store) ? 
+            "Không tìm thấy tên nơi áp dụng" :
+            store.name
+          }
+        </p>
         <a className="text-dange expire-date">
           Hết hạn ngày : 
           <FormattedDate
