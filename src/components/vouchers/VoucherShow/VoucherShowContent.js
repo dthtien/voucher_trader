@@ -14,7 +14,7 @@ class VoucherShowContent extends Component {
       <div className="voucher-show-content">
         <div className="text-left row">
           <div className="col-6">
-            <h3>{voucher.name}</h3>  
+            <h3>{`${voucher.name} ${voucher.origin_price}`}</h3>  
           </div>
           <div className="col-6">
             <VoucherType kind={voucher.kind}/>

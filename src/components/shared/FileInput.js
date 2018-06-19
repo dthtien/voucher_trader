@@ -40,7 +40,7 @@ class FileInput extends Component {
         <DropZone onDrop={this.onDrop} className="col col-md-3 fileuploader">
           <div className="text-center align-middle">
             <p>Click hoặc kéo hình bạn muốn đăng vào đây</p>
-            <span>(ít nhất 2 hình)</span>
+            <span>(ít nhất 1 hình)</span>
           </div>
         </DropZone>
         </div>

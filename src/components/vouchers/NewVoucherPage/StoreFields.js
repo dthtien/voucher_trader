@@ -29,7 +29,8 @@ class StoreFields extends Component {
             error={this.props.errors.name}
           />
           <h5 className="mt-3 mb-4">
-            Them dia điểm áp dụng mã gỉam gía</h5>
+            thêm địa điểm áp dụng mã giảm giá
+          </h5>
             <RegionSelect 
               regions={this.props.regions}
               handleChange={this.props.handleRegionSelectChange} 
@@ -44,10 +45,8 @@ class StoreFields extends Component {
 
   render() {
     return (
-       <div className='col-md-6 offset-md-3'>
-        <h4 className="mt-3 text-center font-weight-bold mb-4">
-          Đia điểm áp dụng mã gỉam gía</h4>
-        <form className="mt-4" onSubmit={this.props.handleSubmit.bind(this)}>
+      <div>
+        <div className="mt-4">
           <PlacesWithStandaloneSearchBox
             name='address'
             label="Chọn tên địa điểm áp dụng"
@@ -58,8 +57,7 @@ class StoreFields extends Component {
             error={this.props.errors.address}
           />
           {this.renderMoreFields()}
-          <button className="btn btn-primary">Next Step</button>
-        </form>
+        </div>
       </div>
     );
   }

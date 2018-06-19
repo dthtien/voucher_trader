@@ -218,8 +218,10 @@ class Cart extends Component {
                 </div>
                 <div className="checkout cart-detailed-actions card-block">
                   <div className="text-center">
-                    <Link to="/shipping" className="btn btn-primary">
-                      Checkout
+                    <Link 
+                      to="/shipping" 
+                      className="btn btn-primary btn-red">
+                      Tiến hành thanh toán
                     </Link>
                   </div>
                 </div>

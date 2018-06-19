@@ -40,9 +40,8 @@ class CheckoutResultPage extends Component {
           checkoutResult: "Thanh toán thành công",
           status: 'success'
         });
-
+        
         this.props.getCartSellerInfo(response.cart_id);
-
       } else {
         this.handleVnpayResponse(response);
       }
@@ -112,7 +111,9 @@ class CheckoutResultPage extends Component {
                   };
     const sellers_info = this.props.cart.sellers_info || null;
     return (
-      <div className="container text-center checkout-result-page" style={{marginTop: 130}}>
+      <div 
+        className="container text-center checkout-result-page" 
+        style={{marginTop: 130}}>
         <h4 className="title-checkout-result-page">Thanh toán đơn hàng</h4>
         <p className="result-checkout-result-page" style={color}>
           { status === 'success'

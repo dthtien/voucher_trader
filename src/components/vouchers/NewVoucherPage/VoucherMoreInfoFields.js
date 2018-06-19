@@ -42,7 +42,9 @@ export default class VoucherMoreInfoFields extends Component{
   render(){
     return(
       <div className='col-md-8 offset-md-2 mt-3'>
-        <h5 className="mb-3 ml-0">Voucher details</h5>
+        <h5 className="mb-3 ml-0 title-category-voucher text-center">
+          Mời bạn điền thêm thông tin
+        </h5>
         <form className="ml-2" onSubmit={this.props.handleSubmit.bind(this)}>
           <TextFieldGroup 
             name='post_to_facebook'
@@ -52,13 +54,13 @@ export default class VoucherMoreInfoFields extends Component{
             handleChange={this.props.handleRadioBtnChange}
           />
           {this.renderWithVoucherType()}
-
-          <button 
-            className="btn btn-warning m-2"
-            onClick={this.props.previousStep.bind(this)}
-          >Privious Step </button>
-          <button className="btn btn-primary">Next Step </button>
-  
+          <div className="text-center">
+            <button 
+              className="btn btn-warning m-2"
+              onClick={this.props.previousStep.bind(this)}
+            >Privious Step </button>
+            <button className="btn btn-primary btn-red">Next Step</button>
+          </div>
         </form>
       </div>
     );
