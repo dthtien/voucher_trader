@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { FormattedDate } from 'react-intl';
+import { FormattedNumber, FormattedDate } from 'react-intl';
 
 class VoucherContent extends Component {
   render(){
@@ -8,7 +8,11 @@ class VoucherContent extends Component {
     return(
       <div className="voucher-content">
         <h6 className="voucher-name">
-          {voucher.name}
+          {`${voucher.name} `}
+          <FormattedNumber 
+            value={voucher.origin_price} 
+            style="currency" 
+            currency="VND"/>
         </h6>
         <p className="store-name text-success">
           {

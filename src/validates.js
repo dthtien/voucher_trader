@@ -32,6 +32,10 @@ export const VoucherValidation = values => {
     errors.price = 'This field is required';
   }
 
+  if (Validator.isEmpty(values.origin_price)) {
+    errors.origin_price = 'This field is required';
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)
@@ -49,12 +53,12 @@ export const VoucherMoreInfoValidation = (values) =>{
   }
 
 
-  if (values.kind === 'general' && Validator.isEmpty(values.address_receiver)) {
+  if (values.kind === 'general' && Validator.isEmpty(values.address_receiver)){
     errors.address_receiver = 'This field is required'
   }
 
-  if (values.kind === 'general' && (values.image_ids.length < 2)) {
-    errors.image_ids = 'Voucher must be have grester than 2 images'
+  if (values.kind === 'general' && (values.image_ids.length < 1)) {
+    errors.image_ids = 'Voucher must be have grester than 1 images'
   }
 
   return {

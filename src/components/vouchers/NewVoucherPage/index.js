@@ -40,6 +40,7 @@ class NewVoucherPage extends Component {
         kind: '',
         description: '',
         price: '',
+        origin_price: '',
         code: '',
         address_receiver: '',
         post_to_facebook: true,
@@ -125,10 +126,8 @@ class NewVoucherPage extends Component {
     e.preventDefault();
     switch(this.state.currentStep){
       case 1:
-        return this.isFirstStepValid() ? this.changeStep(1): false;
-      case 2:
         return this.isSecondStepValid() ? this.changeStep(1): false;
-      case 3:
+      case 2:
         return this.handleThirdStepSubmit();
       default:
         return this.changeStep(1);
@@ -167,7 +166,7 @@ class NewVoucherPage extends Component {
     this.handleFieldsChange(e, 'store', 'storeErrors');
   }
 
-  handleVoucherFieldsChange = (e) =>{
+  handleVoucherFieldsChange = (e) => {
     this.handleFieldsChange(e, 'voucher', 'voucherErrors');
   }
 // end
@@ -302,17 +301,42 @@ class NewVoucherPage extends Component {
 // Handle render component when step change
   showStep = () => {
     switch(this.state.currentStep){
-      case -1:
-        return(
-           <VoucherInfoFields
-            fields={this.state.voucher}
-            errors={this.state.voucherErrors}
-            handleChange={this.handleVoucherFieldsChange}
-            handleSubmit={this.handleSubmit}
-            previousStep={this.previousStep}
-            handleDateFieldChange={this.handleDateFieldChange}
-          />
-        )
+      // case -1:
+      //   return(
+      //     <VoucherInfoFields
+      //       handleRegionSelectChange={this.handleRegionSelectChange}
+      //       voucherFields={this.state.voucher}
+      //       voucherErrors={this.state.voucherErrors}
+      //       handleChange={this.handleVoucherFieldsChange}
+      //       handleSubmit={this.handleSubmit}
+      //       previousStep={this.previousStep}
+      //       handleDateFieldChange={this.handleDateFieldChange}
+
+      //       approved_regions={this.state.voucher.approved_regions_attributes}
+      //       storeFields={this.state.store}
+      //       storeErrors={this.state.storeErrors}
+      //       handleStoreFieldsChange = {this.handleStoreFieldsChange}
+      //       handleRegionSelectChange={this.handleRegionSelectChange}
+      //       handleStoreAddressChanged={this.handleStoreAddressChanged}
+      //       regions = {this.props.regions}
+      //       getRegions={this.props.getRegions}
+      //     />
+      //   )
+      // case -2:
+      //   return(
+      //     <StoreFields
+      //       approved_regions={this.state.voucher.approved_regions_attributes}
+      //       fields={this.state.store}
+      //       handleChange={this.handleStoreFieldsChange}
+      //       handleAddressChanged={this.handleStoreAddressChanged}
+      //       handleSubmit={this.handleSubmit}
+      //       errors={this.state.storeErrors}
+      //       previousStep={this.previousStep}
+      //       handleRegionSelectChange={this.handleRegionSelectChange}
+      //       regions = {this.props.regions}
+      //       getRegions={this.props.getRegions}
+      //     />
+      //   )
       case 0:
         return(
           <CategoryFields 
@@ -325,31 +349,26 @@ class NewVoucherPage extends Component {
         );
       case 1:
         return(
-          <StoreFields
-            approved_regions={this.state.voucher.approved_regions_attributes}
-            fields={this.state.store}
-            handleChange={this.handleStoreFieldsChange}
-            handleAddressChanged={this.handleStoreAddressChanged}
-            handleSubmit={this.handleSubmit}
-            errors={this.state.storeErrors}
-            previousStep={this.previousStep}
-            handleRegionSelectChange={this.handleRegionSelectChange}
-            regions = {this.props.regions}
-            getRegions={this.props.getRegions}
-          />
-        )
-      case 2:
-        return(
           <VoucherInfoFields
-            fields={this.state.voucher}
-            errors={this.state.voucherErrors}
+            handleRegionSelectChange={this.handleRegionSelectChange}
+            voucherFields={this.state.voucher}
+            voucherErrors={this.state.voucherErrors}
             handleChange={this.handleVoucherFieldsChange}
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
             handleDateFieldChange={this.handleDateFieldChange}
+
+            approved_regions={this.state.voucher.approved_regions_attributes}
+            storeFields={this.state.store}
+            storeErrors={this.state.storeErrors}
+            handleStoreFieldsChange ={this.handleStoreFieldsChange}
+            handleRegionSelectChange={this.handleRegionSelectChange}
+            handleStoreAddressChanged={this.handleStoreAddressChanged}
+            regions={this.props.regions}
+            getRegions={this.props.getRegions}
           />
         )
-      case 3:
+      case 2:
         return(
           <VoucherMoreInfoFields
             fields={this.state.voucher}
