@@ -55,10 +55,11 @@ class VerifyOtpForm extends Component {
           handleChange={this.handleChange}
           label="OTP"
         />
-
-        <button className="btn btn-primary">
-          Xác nhận
-        </button>
+        <div className="text-center">
+          <button className="btn btn-red">
+            Xác nhận
+          </button>
+        </div>
       </form>
     );
   }

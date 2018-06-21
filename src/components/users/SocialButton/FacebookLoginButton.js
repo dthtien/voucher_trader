@@ -9,7 +9,7 @@ class FacebookLoginButton extends Component {
   render() {
     return (
       <FacebookLogin
-        appId="1226403430790462"
+        appId={process.env.REACT_APP_FACEBOOK_ID}
         textButton="Đăng nhâp (Đăng ký) bằng Facebook"
         autoLoad={false}
         cssClass='btn btn-ptc waves-effect waves-light bg-primary socialButton'
