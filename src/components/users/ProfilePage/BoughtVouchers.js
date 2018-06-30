@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { fetchVoucherBoughts } from "../../../actions/user";
+import { connect } from 'react-redux';
+import { FormattedDate } from 'react-intl';
 
 class BoughtVouchers extends Component {
+  componentDidMount(){
+    this.props.fetchVoucherBoughts(this.props.userId);
+  }
+
   renderVoucherList = ({vouchers}) => (
     vouchers.map((voucher, index)=>(
        this.renderVoucher(voucher, index)
@@ -15,13 +21,21 @@ class BoughtVouchers extends Component {
       return(
         <tr key={`voucher-bought-${index}`}>
           <td>{voucher.name}</td>
-          <td>{voucher.date_end}</td>
+          <td>
+            <FormattedDate
+              value={voucher.date_end}
+              className='ml-2'
+              year='numeric'
+              month='long'
+              day='2-digit'
+            />
+          </td>
           <td>{voucher.quantity}</td>
           <td>{voucher.price}</td>
           <td>
-            <Link to={`/profile/${seller.id}`}>
+            <a href={`/profile/${seller.id}`}>
               {seller.name}
-            </Link>
+            </a>
           </td>
           <td>{seller.email}</td>
           <td>{seller.phone_number}</td>
@@ -31,7 +45,15 @@ class BoughtVouchers extends Component {
       return(
         <tr key={`voucher-bought-${index}`}>
           <td>{voucher.name}</td>
-          <td>{voucher.date_end}</td>
+          <td>
+            <FormattedDate
+              value={voucher.date_end}
+              className='ml-2'
+              year='numeric'
+              month='long'
+              day='2-digit'
+            />
+          </td>
           <td>{voucher.quantity}</td>
           <td>Thông tin không thể hiên thị</td>
           <td>Thông tin không thể hiên thị</td>
@@ -41,7 +63,6 @@ class BoughtVouchers extends Component {
     }
   }
   render() {
-    console.log(this.props)
     return (
       <table className="table table-hover mt-2">
         <thead>
@@ -64,4 +85,9 @@ class BoughtVouchers extends Component {
   }
 }
 
-export default BoughtVouchers;
+const mapStateToProps = (state) => ({
+  vouchers: state.vouchers.all,
+  loading: state.vouchers.loading
+})
+
+export default connect(mapStateToProps, {fetchVoucherBoughts})(BoughtVouchers);

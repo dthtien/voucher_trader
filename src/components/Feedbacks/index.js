@@ -6,8 +6,8 @@ import Spinner from '../shared/Spinner';
 
 class Feedbacks extends Component{
   componentDidMount(){
-    const {type, voucherId} = this.props;
-    this.props.getFeedbacks(type, voucherId);
+    const {type, recordId} = this.props;
+    this.props.getFeedbacks(type, recordId);
   }
 
   renderFeedbackList = () => {

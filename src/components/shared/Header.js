@@ -83,9 +83,9 @@ class Header extends Component {
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle nav caret>{currentUser.name}</DropdownToggle>
             <DropdownMenu>
-              <Link className="dropdown-item waves-effect waves-light" to={`/profile/${currentUser.id}`}>
+              <a className="dropdown-item waves-effect waves-light" href={`/profile/${currentUser.id}`}>
                 <i className="fa fa-user-circle mr-2"></i>Profile
-              </Link>
+              </a>
               <a className="dropdown-item waves-effect waves-light" onClick={this.logout.bind(this)} href="/">
                 <i className="fa fa-sign-out mr-2"></i> Logout
               </a>

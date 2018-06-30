@@ -134,7 +134,9 @@ export const updateUserProfile = (id,data) => {
     axios
       .patch(`${API_URL}/users/${id}`, {user : data})
       .then(response => {
+        dispatch(loggedIn(response.data.access_token));
         dispatch(updateUserProfileSuccess());
+        window.location.reload();
       })
       .catch(error => {
         console.log("failed", error);
@@ -156,8 +158,14 @@ export const updatePhoneNumber = (data) => {
 }
 
 export const fetchVoucherBoughts = (id) => {
-  return dispatch => {
-    return axios.get(`${API_URL}/users/${id}/voucher_boughts`);
+  return (dispatch) => {
+    return axios.get(`${API_URL}/users/${id}/voucher_boughts`)
+    .then(response => {
+      dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
+    })
+    .catch(error => {
+      dispatch({type: VoucherActionType.GET_VOUCHERS, payload: error});
+    });    
   }
 }
 

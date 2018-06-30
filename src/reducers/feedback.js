@@ -16,7 +16,7 @@ export default function Category(state = initialState, action){
         return {
           ...state,
           all: data.feedbacks || {},
-          isLoading: isEmpty(data.feedbacks)
+          isLoading: false
         }
       } else{
         return {...state, isLoading: true};

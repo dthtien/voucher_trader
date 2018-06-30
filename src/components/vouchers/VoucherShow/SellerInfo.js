@@ -72,7 +72,7 @@ class SellerInfo extends Component {
           </div>
         </div>
         <div className='feedbacks'>
-          <Feedbacks type="vouchers" voucherId={this.props.voucherId} />
+          <Feedbacks type="vouchers" recordId={this.props.voucherId} />
         </div>
       </div>
     );

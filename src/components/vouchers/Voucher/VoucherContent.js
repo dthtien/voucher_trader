@@ -24,7 +24,7 @@ class VoucherContent extends Component {
         <a className="text-dange expire-date">
           Hết hạn ngày : 
           <FormattedDate
-            value={voucher.date_end}
+            value={voucher.date_end || new Date()}
             className='ml-2'
             year='numeric'
             month='long'
