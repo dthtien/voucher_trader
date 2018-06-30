@@ -1,4 +1,5 @@
 import * as UserActionType from "../actiontypes/user";
+import * as VoucherActionType from '../actiontypes/voucher';
 import setAuthorizationToken from "../config/setAuthorizationToken";
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -159,3 +160,15 @@ export const fetchVoucherBoughts = (id) => {
     return axios.get(`${API_URL}/users/${id}/voucher_boughts`);
   }
 }
+
+export const getSellingVouchers = (id) => {
+  return (dispatch) => {
+    axios.get(`${API_URL}/users/${id}/selling`)
+      .then(response => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
+      })
+      .catch(error => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: error});
+      });    
+  }
+};

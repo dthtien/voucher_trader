@@ -13,10 +13,10 @@ class VoucherShowContent extends Component {
     return (
       <div className="voucher-show-content">
         <div className="text-left row">
-          <div className="col-6">
+          <div className="col-10">
             <h3>{`${voucher.name} ${voucher.origin_price}`}</h3>  
           </div>
-          <div className="col-6">
+          <div className="col-2">
             <VoucherType kind={voucher.kind}/>
           </div>
         </div>

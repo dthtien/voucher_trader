@@ -6,6 +6,7 @@ import CategoryReducer from './category';
 import RegionReducer from './region';
 import CartReducer from './cart';
 import ShippingReducer from './shipping';
+import FeedbackReducer from './feedback';
 
 import {reducer as formReducer} from 'redux-form';
 
@@ -17,7 +18,8 @@ const allReducers = combineReducers({
   regions: RegionReducer,
   form: formReducer,
   cart: CartReducer,
-  shipping: ShippingReducer
+  shipping: ShippingReducer,
+  feedbacks: FeedbackReducer
 });
 
 export default allReducers;

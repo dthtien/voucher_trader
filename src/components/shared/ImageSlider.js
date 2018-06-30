@@ -34,7 +34,6 @@ class ImageSlider extends Component {
     }
   }
   render() {
-    console.log(this.props.images);
     return (
       <ImageGallery showPlayButton={false} items={this.mapToImageGallery()} />
     );

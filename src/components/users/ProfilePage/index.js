@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "../../../resources/profile.scss";
+import DefaultAvatar from "../../../resources/images/default_avatar.png";
+import DefaultCover from "../../../resources/images/default_cover.png";
 import { connect } from "react-redux";
 import TextFieldGroup from "../../shared/TextFieldGroup";
 import { fetchUserProfile, updateUserProfile, fetchVoucherBoughts } from "../../../actions/user";
@@ -11,18 +13,23 @@ import BoughtVouchers from './BoughtVouchers';
 import { FormattedDate } from 'react-intl';
 
 class IndexProfilePage extends Component {
-  state = {
-    isOpenModal: false,
-    rating_note: "",
-    dataUser: {},
-    initialTab: 0,
-    ratingValue : 3.5,
-    voucher_boughts: [],
-    modal : {
+  constructor(props){
+    super(props);
+    
+    this.state = {
+      profileId: props.match.params.id,
       isOpenModal: false,
-      type: ''
-    }
-  };
+      rating_note: "",
+      dataUser: {},
+      initialTab: 0,
+      ratingValue : 3.5,
+      voucher_boughts: [],
+      modal : {
+        isOpenModal: false,
+        type: ''
+      }
+    };
+  }
   componentDidMount() {
     const { match } = this.props;
     if (typeof match !== "undefined" && typeof match.params !== "undefined") {
@@ -209,16 +216,16 @@ class IndexProfilePage extends Component {
         <div className="col-md-12 text-center">
           <div className="top-profile">
             <img
-              src="https://www.kvbkunlun.com/img/maps/img-maps-sydney-2.png"
-              alt=""
+              src={DefaultCover}
+              alt="chovoucher"
             />
           </div>
           <div className="middle-profile">
             <div className="avatar">
               <img
-                src="https://www.bowerplace.com.au/wp-content/themes/bridge-child/img/default_avatar_community.png"
+                src={DefaultAvatar}
                 className="img-avatar"
-                alt=""
+                alt="chovoucher"
               />
             </div>
             <div className="text-warning">
@@ -281,27 +288,17 @@ class IndexProfilePage extends Component {
                 </div>
               </div>
               <div className="content-bottom">
-
-                {(hasKey(vouchers) && initialTab === 0) ? 
-                (
-                  <SellVouchers vouchers={vouchers}/>
-                ) 
-                : (hasKey(voucher_boughts) && initialTab === 2) ? 
-                (
+              {
+                (initialTab === 0) ? 
+                ( <SellVouchers profileId={this.state.profileId}/>) 
+                :(
                   <BoughtVouchers 
                     vouchers={voucher_boughts} 
                     userId={parseInt(this.props.match.params.id, 10)}
                     currentUserId={this.props.currentUser.id}
                   />
-                ) 
-                :
-                (
-                  <div className="empty-data">
-                    <h3>
-                      Chưa có tin đăng nào
-                    </h3>
-                  </div>
-                )}
+                )
+              }
               </div>
             </div>
           </div>
