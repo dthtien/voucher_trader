@@ -11,10 +11,9 @@ import ImageSlider from '../../shared/ImageSlider';
 import isEmpty from 'lodash/isEmpty';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import CartItemForVoucher from '../../Cart/CartItemForVoucher';
+import Spinner from '../../shared/Spinner'
 import { Container, Button, Modal, ModalBody, ModalHeader } from 'mdbreact';
 import '../../../resources/voucherShow.scss'
-
-
 
 class VoucherShow extends Component {
   static contextTypes = {
@@ -48,9 +47,8 @@ class VoucherShow extends Component {
   }
   renderVoucherContent = () => {
     const {voucher, loading } = this.props;
-    console.log("voucher", voucher);
     if (loading || isEmpty(voucher)) {
-      return (<h4>Loading...</h4>);
+      return (<Spinner />);
     } else {
       const { modal } = this.state;
       return (
@@ -128,32 +126,31 @@ class VoucherShow extends Component {
     }
     const params = {
       note : rating_note,
+      score: ratingValue,
       voucher_id : match.params.id,
-      kind,
+      kind: kind,
     };
     if(!params.note){
       alert('Vui lòng nhập ý kiến');
       return;
     }
-    // this.setState({
-    //   rating_note: '',
-    //   ratingValue: 3.5,
-    //   modal: false,
-    // });
     this.props.rating(params).then(result =>{
       if(result.error){
         this.setState({
           ...this.state,
-          ratingValue : 3.5,
+          ratingValue: ratingValue,
           messageModal: 'Đã có lỗi xảy ra !' 
         })
         return;
       }
+
       this.setState({
         rating_note: '',
         ratingValue: 3.5,
         modal: false,
       });
+
+      window.location.reload();
     });
 
   }
