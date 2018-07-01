@@ -16,35 +16,57 @@ class ShippingForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount(){
+    const cart_id = localStorage.getItem("cart_id")
+
+    if (!cart_id) {
+      this.props.history.push('/');
+    }
+  }
+
   componentWillReceiveProps(nextProps){
     if (nextProps.shipping.shippingEmpty === false) {
-      this.props.history.push('/checkout');
+      this.props.history.push(`/checkout/result?cart_id=${localStorage.getItem("cart_id")}`);
     }
 
 
   }
   handleSubmit = (e) => {
     e.preventDefault();
-
-    const params = {
-      shipping: this.state,
-      cart_id: localStorage.getItem("cart_id")
-    }
-
     const { shipping_address, direct_contact } = this.state;
+    
     if(!direct_contact && !shipping_address){
       toast.warn("Bạn chưa nhập địa chỉ nhận !");
       return;
     }
 
+    //for online version
+
+    const shipping = {
+      direct_contact: true,
+      shipping_address: shipping_address
+    }
+
+    const params = {
+      shipping: shipping,
+      cart_id: localStorage.getItem("cart_id")
+    }
+    // end
+    ////for local version
+    // const params = {
+    //   shipping: this.state,
+    //   cart_id: localStorage.getItem("cart_id")
+    // }
+
     this.props.createShipping(params).then((result) => {
       console.log("result => ", result);
       const { data } = result;
       if(data && data.status === 'success'){
-        if(!direct_contact){
-          this.props.history.push('/checkout');
-          return;
-        }
+        ////for local version
+        // if(!direct_contact){
+        //   this.props.history.push('/checkout');
+        //   return;
+        // }
 
         localStorage.removeItem("cart_id");
         localStorage.removeItem("list_cart_item");
