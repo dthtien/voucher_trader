@@ -60,10 +60,7 @@ class CheckoutResultPage extends Component {
     delete response.vnp_SecureHashType;
 
     var signData = vnpayHashSecret + qs.stringify(response, {encode: false})
-    console.log(signData)
-    console.log(response)
     var checkSum = md5(signData)
-    console.log(checkSum);
     if (checkSum === secureHash) {
       var responseCode = response.vnp_ResponseCode;
 
