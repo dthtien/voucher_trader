@@ -33,7 +33,7 @@ class VoucherShowContent extends Component {
             </p>}
           <p>
             <strong>Thời gian sử dụng: </strong>
-            <span className="mr-1">
+            <span className="mr-1 font-weight-bold">
               <FormattedDate
                 value={voucher.date_start}
                 className='ml-2'
@@ -43,7 +43,7 @@ class VoucherShowContent extends Component {
               />
             </span>
             <span> đến </span>
-            <span className="ml-1">
+            <span className="ml-1 font-weight-bold">
               <FormattedDate
                 value={voucher.date_end}
                 className='ml-2'
@@ -57,6 +57,10 @@ class VoucherShowContent extends Component {
             <strong>Mô tả: </strong> 
             {voucher.description === '' && 'Mã gỉam gía không có mô tả gì thêm'}
             {voucher.description}
+          </p>
+          <p>
+            <strong>Kho còn: </strong> 
+            {voucher.quantity}
           </p>
         </blockquote>
       </div>

@@ -43,7 +43,7 @@ class NewVoucherPage extends Component {
         origin_price: '',
         code: '',
         address_receiver: '',
-        post_to_facebook: true,
+        post_to_facebook: false,
         image_ids: [],
         images: [],
         approved_regions_attributes: []
@@ -383,7 +383,11 @@ class NewVoucherPage extends Component {
         )
       default:
         return(
-          <h1>Success!</h1>
+          <div className='mt-3'>
+            <a className="link-to-homepage btn red" href='/'>
+              Trở về trang chủ
+            </a>
+          </div>
         )
     }
   }

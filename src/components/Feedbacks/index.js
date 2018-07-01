@@ -11,7 +11,17 @@ class Feedbacks extends Component{
   }
 
   renderFeedbackList = () => {
-    return this.props.feedbacks.map( feedback => {
+    const {feedbacks} = this.props;
+
+    if (feedbacks.length  === 0) {
+      return(
+        <div className='feedback text-center'>
+          <p>Chưa có đánh giá nào</p>
+        </div>
+      )
+    }
+    
+    return feedbacks.map( feedback => {
       return (
         <Feedback 
           key={feedback.id}

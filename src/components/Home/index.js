@@ -36,7 +36,7 @@ class Home extends Component {
             <div className="col-sm-12">
               <div className="banner-text">
                 <h2>Tìm mã giảm gía và deals rẻ</h2>
-                <h5>Hơn 3000+ của hàng có tại đây</h5>
+                <h5>Của nhiều của hàng tại đây</h5>
               </div>
             </div>
             <div className="col-sm-12">

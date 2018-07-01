@@ -29,7 +29,7 @@ class StoreFields extends Component {
             error={this.props.errors.name}
           />
           <h5 className="mt-3 mb-4">
-            thêm địa điểm áp dụng mã giảm giá
+            Thêm địa điểm áp dụng mã giảm giá
           </h5>
             <RegionSelect 
               regions={this.props.regions}
