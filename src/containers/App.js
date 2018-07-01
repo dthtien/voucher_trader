@@ -23,7 +23,7 @@ import UpdatePhoneNumberPage from '../components/users/UpdatePhoneNumberPage';
 import CheckoutPage from '../components/checkouts/CheckoutPage';
 import CheckoutResultPage from '../components/checkouts/CheckoutResultPage';
 import ShippingPage from '../components/ShippingPage';
-import PolicyPage from '../components/PolicyPage';
+import EditVoucherPage from'../components/vouchers/EditVoucherPage';
 
 const App = () => {
   return (
@@ -43,6 +43,7 @@ const App = () => {
             <Route exact path='/vouchers' component={Vouchers}/>
             <Route exact path='/vouchers/new' component={NewVoucherPage} />
             <Route path='/checkout/result' component={CheckoutResultPage}/>
+            <Route path='/vouchers/:id/edit' component={EditVoucherPage} />
             <Route path='/vouchers/:id' component={VoucherShow} />
             <Route 
               path='/users/update_phone_number' 

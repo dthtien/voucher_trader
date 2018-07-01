@@ -18,36 +18,12 @@ import {
 } from '../../../validates';
 
 
-class NewVoucherPage extends Component {
+class VoucherFormPage extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      store: {
-        name: '',
-        showStoreName: false,
-        address: '',
-        category_id: -1
-      },
 
-      voucher: {
-        name: '',
-        voucher_number: '',
-        quantity: '1',
-        date_start: {},
-        date_end: {},
-        instruction: '',
-        approved_condition: '',
-        kind: '',
-        description: '',
-        price: '',
-        origin_price: '',
-        code: '',
-        address_receiver: '',
-        post_to_facebook: false,
-        image_ids: [],
-        images: [],
-        approved_regions_attributes: []
-      },
+    this.state = {
+      ...props.data,
       currentStep: 0,
       storeErrors: {},
       voucherErrors: {},
@@ -419,4 +395,4 @@ export default connect(mapStateToProps, {
     getCategories, 
     createImage,
     deleteImage
-})(NewVoucherPage)
+})(VoucherFormPage)
