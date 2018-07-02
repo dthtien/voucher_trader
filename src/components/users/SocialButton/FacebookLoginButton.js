@@ -13,7 +13,7 @@ class FacebookLoginButton extends Component {
         textButton="Đăng nhâp (Đăng ký) bằng Facebook"
         autoLoad={false}
         cssClass='btn btn-ptc waves-effect waves-light bg-primary socialButton'
-        scope="public_profile,user_friends"
+        scope="public_profile"
         fields="name,email,picture"
         callback={this.handleFacebookResponse} />
     );
