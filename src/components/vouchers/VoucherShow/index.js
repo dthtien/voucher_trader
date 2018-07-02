@@ -39,6 +39,10 @@ class VoucherShow extends Component {
     this.props.getVoucher(id);
   };
 
+  componentWillReceiveProps(nextProps){
+    document.title = `${nextProps.voucher.name}`
+  }
+
   onChange = (e) => {
     this.setState({
       ...this.state, 

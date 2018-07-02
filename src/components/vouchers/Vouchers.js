@@ -27,8 +27,9 @@ class Vouchers extends Component {
   componentDidMount(){
     const query = qs.parse(this.props.location.search)
     console.log(query);
+    const category_endcode = decodeURIComponent(query.cat)
 
-    if (decodeURIComponent(query.cat) === 'Tất cả') {
+    if (category_endcode === 'Tất cả') {
       this.props.getVouchers({cat: '', q: query.q});
     } else{
       this.setState({
@@ -37,6 +38,8 @@ class Vouchers extends Component {
 
       this.props.getVouchers(query);
     }
+
+    document.title=`Chợ voucher - Mã giảm gía - ${category_endcode}`
   };
 
   componentWillReceiveProps(nextProps) {

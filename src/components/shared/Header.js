@@ -68,8 +68,8 @@ class Header extends Component {
     const userLinks = (
       <NavbarNav right>
         <NavItem>
-        <NavLink className="nav-link upload-btn" to="/vouchers/new">
-          Đăng mã giảm giá
+          <NavLink className="nav-link upload-btn" to="/vouchers/new">
+            Đăng mã giảm giá
           </NavLink>
         </NavItem>
         <NavItem className="button-cart">
@@ -129,7 +129,7 @@ class Header extends Component {
           </div>
         </NavbarBrand>
         { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-        <Collapse cisopen={ this.state.collapse.toString() } navbar>
+        <Collapse isOpen={ this.state.collapse } navbar>
           { isAuthenticate ? userLinks : guestLinks}
         </Collapse>
       </Navbar>
