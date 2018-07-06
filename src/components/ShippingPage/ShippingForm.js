@@ -41,7 +41,6 @@ class ShippingForm extends Component {
     }
 
     //for online version
-
     const shipping = {
       direct_contact: true,
       shipping_address: shipping_address
@@ -59,7 +58,6 @@ class ShippingForm extends Component {
     // }
 
     this.props.createShipping(params).then((result) => {
-      console.log("result => ", result);
       const { data } = result;
       if(data && data.status === 'success'){
         ////for local version
