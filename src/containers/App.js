@@ -23,6 +23,7 @@ import UpdatePhoneNumberPage from '../components/users/UpdatePhoneNumberPage';
 import CheckoutPage from '../components/checkouts/CheckoutPage';
 import CheckoutResultPage from '../components/checkouts/CheckoutResultPage';
 import ShippingPage from '../components/ShippingPage';
+import PolicyPage from '../components/PolicyPage';
 
 const App = () => {
   return (
@@ -33,15 +34,16 @@ const App = () => {
         <div className="main">
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/vouchers' component={Vouchers}/>
-            <Route exact path='/vouchers/new' component={NewVoucherPage} />
-            <Route exact path='/checkout' component={CheckoutPage}/>
-            <Route path='/shipping' component={ShippingPage}/>
-            <Route path='/checkout/result' component={CheckoutResultPage}/>
-            <Route path='/vouchers/:id' component={VoucherShow} />
             <Route path='/messages' component={Message}/>
             <Route path='/signup' component={SignupPage}/>
             <Route path='/verify' component={VerifyOtpPage}/>
+            <Route path='/policy' component={PolicyPage}/>
+            <Route path='/shipping' component={ShippingPage}/>
+            <Route exact path='/checkout' component={CheckoutPage}/>
+            <Route exact path='/vouchers' component={Vouchers}/>
+            <Route exact path='/vouchers/new' component={NewVoucherPage} />
+            <Route path='/checkout/result' component={CheckoutResultPage}/>
+            <Route path='/vouchers/:id' component={VoucherShow} />
             <Route 
               path='/users/update_phone_number' 
               component={UpdatePhoneNumberPage}
