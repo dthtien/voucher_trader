@@ -40,31 +40,32 @@ class ShippingForm extends Component {
       return;
     }
 
-    //for online version
-    const shipping = {
-      direct_contact: true,
-      shipping_address: shipping_address
-    }
+    // //for online version
+    // const shipping = {
+    //   direct_contact: true,
+    //   shipping_address: shipping_address
+    // }
 
-    const params = {
-      shipping: shipping,
-      cart_id: localStorage.getItem("cart_id")
-    }
-    // end
-    ////for local version
     // const params = {
-    //   shipping: this.state,
+    //   shipping: shipping,
     //   cart_id: localStorage.getItem("cart_id")
     // }
+    // // end
+    
+    //for local version
+    const params = {
+      shipping: this.state,
+      cart_id: localStorage.getItem("cart_id")
+    }
 
     this.props.createShipping(params).then((result) => {
       const { data } = result;
       if(data && data.status === 'success'){
-        ////for local version
-        // if(!direct_contact){
-        //   this.props.history.push('/checkout');
-        //   return;
-        // }
+        //for local version
+        if(!direct_contact){
+          this.props.history.push('/checkout');
+          return;
+        }
 
         localStorage.removeItem("cart_id");
         localStorage.removeItem("list_cart_item");
