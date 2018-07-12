@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 const CategoryName = props => {
-  const { image, name } = props;
+  const { image, name, vouchersCount } = props;
   
   return (
     <div className="col-lg-3 col-md-4 col-sm-6">
@@ -13,7 +13,8 @@ const CategoryName = props => {
         <div className="bottom-home-category">
           <div>
             <span className="text-category">{name}</span>
-            <Link to={`vouchers?cat=${name}`} className="link-category-home"> Xem ngay</Link>
+            <Link to={`vouchers?cat=${name}`} className="link-category-home"> Xem ngay {vouchersCount && `(${vouchersCount})`}
+            </Link>
           </div>
         </div>
       </div>

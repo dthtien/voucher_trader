@@ -1,68 +1,47 @@
-import React from 'react';
+import React, {Component} from 'react';
 import CategoryName from './CategoryName';
-import RestaurantImage from '../../resources/images/restaurant.jpg';
-import SpaImage from '../../resources/images/spa.jpg';
-import SportImage from '../../resources/images/sports.jpg';
-import TravelImage from '../../resources/images/travel.jpg';
-import AccessoriesImage from '../../resources/images/accessories.jpg';
-import MomImage from '../../resources/images/mom.jpg';
-import FoodImage from '../../resources/images/food.jpg';
-import FashionImage from '../../resources/images/fashions.jpg';
-import HomeImage from '../../resources/images/home.jpg';
+import {getCategories} from '../../actions/category';
+import { connect } from 'react-redux';
+import Spinner from '../shared/Spinner';
 
-const CategoryList = (props) => {
-  return(
-    <div className="row">
-      <CategoryName
-        name="Tất cả"
-        image={HomeImage}
-      />
-      <CategoryName 
-        name="Ẩm Thực" 
-        image={RestaurantImage}
-      />
-      <CategoryName 
-        name="Du Lịch"
-        image={TravelImage}
-      />
-      <CategoryName 
-        name="Giải Trí và Thể Thao"
-        image={SportImage}
-      />
-      <CategoryName 
-        name="Spa và Làm đẹp"
-        image={SpaImage}
-      />
-      <CategoryName 
-        name="Sức Khỏe và Sắc Đẹp"
-        image={SpaImage}
-      />
-      <CategoryName 
-        name="Phụ Kiện - Thiết bị số"
-        image={AccessoriesImage}
-      />
-      <CategoryName 
-        name="Mẹ và Bé"
-        image={MomImage}
-      />
-      <CategoryName 
-        name="Thực Phẩm"
-        image={FoodImage}
-      />
-      <CategoryName
-        name="Thời Trang và Phụ Kiện"
-        image={FashionImage}
-      />
-      <CategoryName
-        name="Nhà Cửa và Đời Sống"
-        image={HomeImage}
-      />
-      <CategoryName 
-        name="Khác"
-        image={AccessoriesImage}
-      />
-    </div>
-  );
+class CategoryList extends Component {
+  componentWillMount(){
+    this.props.getCategories();
+  }
+
+  renderCategoriesList = () => {
+    if (this.props.isLoading) {
+      return <Spinner />
+    } else {
+      const IMAGE_URL = 'https://s3-ap-southeast-1.amazonaws.com/voucher-trader/';
+      return this.props.categories.map(category => (
+        <CategoryName
+          key={category.id}
+          name={category.name} 
+          image={`${IMAGE_URL}${category.path}`}
+          vouchersCount={category.vouchers_count}
+        />
+      ));
+    }
+  }
+  render(){
+    const IMAGE_URL = 'https://s3-ap-southeast-1.amazonaws.com/voucher-trader/';
+    console.log(this.props);
+    return(
+      <div className="row">
+        <CategoryName
+          name="Tất cả"
+          image={`${IMAGE_URL}home.jpg`}
+        />
+        {this.renderCategoriesList()}
+      </div>
+    );
+  }
 }
 
-export default CategoryList;
+const mapStateToProps = (state) => ({
+  isLoading: state.categories.isLoading,
+  categories: state.categories.categories
+})
+
+export default connect(mapStateToProps, {getCategories})(CategoryList);
