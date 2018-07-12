@@ -26,7 +26,7 @@ class TextFieldGroup extends Component {
     switch(props.type){
       case "datepicker":
         return(
-          <DatePickerField 
+          <DatePickerField
             value={props.value}  
             name={props.name}
             label={props.label}
@@ -52,8 +52,8 @@ class TextFieldGroup extends Component {
       default:
         return (
           <Input 
-            value={props.value}
-            defaultValue={props.value}
+            value={props.value.toString()}
+            defaultValue={props.value.toString()}
             onChange={props.handleChange.bind(this)}
             type={props.type}
             name={props.name}

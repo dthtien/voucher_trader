@@ -5,10 +5,10 @@ import StoreFields from './StoreFields';
 import VoucherInfoFields from './VoucherInfoFields';
 import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import CategoryFields from './CategoryFields';
-import {createVoucher} from '../../../actions/voucher';
+import {createVoucher, updateVoucher} from '../../../actions/voucher';
 import { getCategories } from '../../../actions/category';
 import { toast } from 'react-toastify';
-import { createImage, deleteImage } from '../../../actions/image'
+import { createImage, deleteImage} from '../../../actions/image'
 import '../../../resources/newVoucher.scss';
 
 import { 
@@ -38,12 +38,12 @@ class VoucherFormPage extends Component {
   componentDidMount(){
     const {isAuthenticate, currentUser} = this.props.users
     if (!isAuthenticate) {
-      toast.error("You have to login first")
+      toast.error("Bạn phải đăng nhập trước");
       this.context.router.history.push('/login');
     }
 
     if (isAuthenticate && !currentUser.active) {
-      toast.error('You have to verify your account first'); 
+      toast.error('Bạn phải xác nhận tài khoản trước'); 
       this.context.router.history.push('/verify');
     }
   }
@@ -81,12 +81,17 @@ class VoucherFormPage extends Component {
 
   handleThirdStepSubmit = () =>{
     if (this.isThirdStepValid()) {
-      this.props.createVoucher(this.state)
+      const {createVoucher, updateVoucher} = this.props;
+      const currentAction = (this.state.voucher.id) ? updateVoucher : createVoucher;
+
+      currentAction(this.state)
         .then(response => {
-          this.changeStep(1);
+          toast.success("Thành công");
+          this.context.router.history.push(`/vouchers/${response.data.voucher.id}`);
         })
         .catch(error => {
           console.log(error.response);
+          toast.error(error.response.data);
           this.setState({
             ...this.state,
             currentStep: 1,
@@ -354,6 +359,7 @@ class VoucherFormPage extends Component {
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
             handleFileFieldChange={this.handleFileFieldChange}
+            handleDeleteFile={this.handleDeleteFile}
             handleRadioBtnChange={this.handleRadioBtnChange}
           />
         )
@@ -394,5 +400,6 @@ export default connect(mapStateToProps, {
     createVoucher,
     getCategories, 
     createImage,
-    deleteImage
+    deleteImage,
+    updateVoucher
 })(VoucherFormPage)

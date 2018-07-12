@@ -24,6 +24,7 @@ import CheckoutPage from '../components/checkouts/CheckoutPage';
 import CheckoutResultPage from '../components/checkouts/CheckoutResultPage';
 import ShippingPage from '../components/ShippingPage';
 import EditVoucherPage from'../components/vouchers/EditVoucherPage';
+import PolicyPage from '../components/PolicyPage';
 
 const App = () => {
   return (
