@@ -169,9 +169,9 @@ export const fetchVoucherBoughts = (id) => {
   }
 }
 
-export const getSellingVouchers = (id) => {
+export const getSellingVouchers = ({id, page}) => {
   return (dispatch) => {
-    axios.get(`${API_URL}/users/${id}/selling`)
+    axios.get(`${API_URL}/users/${id}/selling?page=${(page) ? page : ''}`)
       .then(response => {
         dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
       })
