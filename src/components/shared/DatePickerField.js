@@ -14,6 +14,8 @@ export default class DatePickerField extends Component  {
   }
 
   render() {
+    const isString = (typeof(this.props.value) === 'string')
+    const defaultDate = isString ? new Date(this.props.value) : null;
     return(
       <div className="md-form">
         <MuiThemeProvider>
@@ -23,7 +25,7 @@ export default class DatePickerField extends Component  {
               name={this.props.name} 
               style={{borderBottom: '1px solid #bdbdbd'}} 
               id="datepicker"
-              value={this.props.value} 
+              value={defaultDate || this.props.value} 
               autoOk={true}
               onChange={this.onChange.bind(this)}
               formatDate={(date) => moment(date).format('DD-MM-YYYY')}>

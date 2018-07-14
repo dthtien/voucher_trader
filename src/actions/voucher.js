@@ -59,3 +59,14 @@ export const deleteVoucher = (id, callback) => {
     payload: request
   };
 }
+
+export const updateVoucher = (props) => {
+  return (dispatch) => {
+    const params = {
+      voucher: props.voucher,
+      store: props.store
+    }
+    
+    return axios.patch(`${API_URL}/vouchers/${props.voucher.id}`, params);
+  }
+}; 
