@@ -12,8 +12,13 @@ const CategoryName = props => {
         </div>
         <div className="bottom-home-category">
           <div>
-            <span className="text-category">{name}</span>
-            <Link to={`vouchers?cat=${name}`} className="link-category-home"> Xem ngay {vouchersCount && `(${vouchersCount})`}
+            <span className="text-category">
+              {name}
+            </span>
+            <Link to={`vouchers?cat=${name}`} className="link-category-home"> Xem ngay 
+              {(vouchersCount !== undefined) ? 
+                `(${vouchersCount})` : ''
+              } 
             </Link>
           </div>
         </div>

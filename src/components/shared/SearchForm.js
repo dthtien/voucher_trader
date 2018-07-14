@@ -28,7 +28,7 @@ class SearchForm extends Component {
                 type="text" 
                 name="q"
                 className="form-control input-lg" 
-                placeholder="Type anything...."
+                placeholder="Nhập tên cửa hàng, tên mã giảm gía muốn tìm"
                 value={this.props.searchText}
                 onChange={this.handleTextChange}
                 ref={(input) => this.query = input} 
