@@ -70,3 +70,19 @@ export const updateVoucher = (props) => {
     return axios.patch(`${API_URL}/vouchers/${props.voucher.id}`, params);
   }
 }; 
+
+export const getVouchersFromCoordinates = (coords) => {
+  const position = {
+    latitude: coords.latitude, 
+    longitude: coords.longitude
+  }
+  return (dispatch) => {
+    axios.get(`${API_URL}/vouchers/nearby`, {params: position})
+      .then(response => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
+      })
+      .catch(error => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: error});
+      });    
+  }
+};

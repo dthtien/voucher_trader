@@ -8,43 +8,62 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
+import Rating from 'react-rating';
 import voucherIcon from '../../resources/voucher_icon.png'
 import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
 import {inputStyle} from '../../config/inputStyle';
+import { Link } from 'react-router-dom';
+
+
+const defaultProps = {
+  googleMapURL: process.env.REACT_APP_GOOGLE_MAP_URL,
+  loadingElement: <div style={{ height: `100%` }} />,
+  containerElement: <div style={{ height: `700px` }} />,
+  mapElement: <div style={{ height: `100%` }} />
+}
 
 const InitMap = compose(
-  withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `700px` }} />,
-    mapElement: <div style={{ height: `100%` }} />
-  }),
+  withProps(defaultProps),
   withScriptjs,
   withGoogleMap
 )((props) =>{
-  console.log('props.vouchers', props.vouchers);
-  const renderMarkers = (typeof props.vouchers !== 'undefined' && Array.isArray(props.vouchers)) && props.vouchers.map(voucher => {
-    return(
-      <Marker
-        options={{icon: voucherIcon}}
-        key={voucher.id} 
-        position={{ lat: voucher.latitude, lng: voucher.longitude }}
-        onClick={() => {props.showInfo(voucher)}}
-      />
-    )
-  });
+  const {vouchers, location, isLoadingVoucher} = props;
+  const renderMarkers = vouchers.map(voucher => {
+    if (!voucher.store) {
+      return;
+    }else {
+      return(
+        <Marker
+          options={{icon: voucherIcon}}
+          key={voucher.id} 
+          position={{ lat: voucher.store.latitude, lng: voucher.store.longitude }}
+          onClick={() => {props.showInfo(voucher)}}
+        />
+      );
+    }});
 
   const renderInfor = () =>{
     if (props.isOpen) {
       return(
         <InfoWindow 
           position={{
-            lat: props.currentVoucher.latitude,
-            lng: props.currentVoucher.longitude
+            lat: props.currentVoucher.store.latitude,
+            lng: props.currentVoucher.store.longitude
           }}
           onCloseClick={() => {props.onCloseInfo()}}>
-          <div>
-            Hello
+          <div className='text-center'>
+            <p>
+              <Rating
+                initialRating={props.currentVoucher.feedback_score}
+                emptySymbol="fa fa-star-o text-warning"
+                fullSymbol="fa fa-star text-warning"
+                fractions={2}
+                readonly={true}
+              />
+            </p>
+            <Link to={`vouchers/${props.currentVoucher.id}`}>
+              {props.currentVoucher.name}
+            </Link>
           </div>
         </InfoWindow>
       )
@@ -52,11 +71,29 @@ const InitMap = compose(
       return null;
     }
   }
+  const defaultCenter = () =>{
+    let coords;
+    if (vouchers.length > 0) {
+      var i;
+      for(i=0; i < vouchers.length; i++){
+        if (vouchers[i].store.longitude) {
+          let store = vouchers[i].store;
+          coords = {
+            lat: store.latitude,
+            lng: store.longitude
+          }
+          return coords;
+        }
+      }
+    }
+  }
+
+  const centerLcation = defaultCenter() || {lat: location.latitude, lng: location.longitude}
 
   return(
     <GoogleMap
       defaultZoom={16}
-      defaultCenter={{lat: 10.846247, lng: 106.778941}}
+      defaultCenter={centerLcation}
     >
       <SearchBox
         controlPosition={google.maps.ControlPosition.TOP_LEFT}
