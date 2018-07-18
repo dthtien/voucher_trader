@@ -55,7 +55,7 @@ const App = () => {
             <Route path='/vouchers' component={MapCotainer}/>
             <Route path='/profile/:id' component={ProfilePage}/>
             <Route path='/cart' component={Cart}/>
-            <Route path='/map' component={MapContainer}/>
+            <Route path='/nearby' component={MapContainer}/>
           </Switch>
         </div>
         <Footer />

@@ -72,6 +72,11 @@ class Header extends Component {
             Đăng mã giảm giá
           </NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink className="nav-link upload-btn" to="/nearby">
+            Mã giảm giá gần bạn
+          </NavLink>
+        </NavItem>
         <NavItem className="button-cart">
           <NavLink className="nav-link " to="/cart">
             <i className="fa fa-shopping-cart"></i>

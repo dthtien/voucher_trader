@@ -17,9 +17,9 @@ import { Link } from 'react-router-dom';
 
 const defaultProps = {
   googleMapURL: process.env.REACT_APP_GOOGLE_MAP_URL,
-  loadingElement: <div style={{ height: `100%` }} />,
-  containerElement: <div style={{ height: `700px` }} />,
-  mapElement: <div style={{ height: `100%` }} />
+  loadingElement: <div style={{ height: '100%' }} />,
+  containerElement: <div style={{ height: '800px' }} />,
+  mapElement: <div style={{ height: '100%' }} />
 }
 
 const InitMap = compose(
@@ -64,6 +64,7 @@ const InitMap = compose(
             <Link to={`vouchers/${props.currentVoucher.id}`}>
               {props.currentVoucher.name}
             </Link>
+            <p>{props.currentVoucher.store.name}</p>
           </div>
         </InfoWindow>
       )
@@ -71,6 +72,7 @@ const InitMap = compose(
       return null;
     }
   }
+
   const defaultCenter = () =>{
     let coords;
     if (vouchers.length > 0) {
@@ -88,11 +90,14 @@ const InitMap = compose(
     }
   }
 
-  const centerLcation = defaultCenter() || {lat: location.latitude, lng: location.longitude}
 
+  const centerLcation = defaultCenter() || {lat: location.latitude, lng: location.longitude}
+  defaultCenter();
+  defaultCenter();
+  
   return(
     <GoogleMap
-      defaultZoom={16}
+      defaultZoom={18}
       defaultCenter={centerLcation}
     >
       <SearchBox

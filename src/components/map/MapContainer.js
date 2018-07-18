@@ -58,7 +58,7 @@ class MapContainer extends Component {
         />
       )
     }
-    }
+  }
 }
 
 const mapStateToProps = (state) => ({
