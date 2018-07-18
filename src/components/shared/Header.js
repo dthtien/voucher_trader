@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { 
   Navbar, 
   NavbarBrand, 
@@ -107,11 +107,11 @@ class Header extends Component {
           </NavLink>
         </NavItem>
         <NavItem>
-        <NavItem>
           <NavLink className="nav-link upload-btn" to="/vouchers/new">
             Đăng mã giảm giá
           </NavLink>
         </NavItem>
+        <NavItem>
           <NavLink className="nav-link" to="/login">Đăng nhập</NavLink>
         </NavItem>
         <NavItem>

@@ -44,7 +44,7 @@ class SellerInfo extends Component {
               <Link to={`/profile/${seller_id}`}>
                 <div className='row'>
                   <div className='col-2'>
-                    <img className='img-avatar-sm' src={DefaultAvatar}/>
+                    <img className='img-avatar-sm' src={DefaultAvatar} alt='chovoucher'/>
                   </div>
                   <div className='col-10'>
                     <p className='mr-2 font-weight-bold'>{seller.name}</p>

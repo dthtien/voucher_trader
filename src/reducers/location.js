@@ -1,6 +1,4 @@
 import * as LocationActionType from '../actiontypes/location';
-import isEmpty from 'lodash/isEmpty';
-
 const initialState = {
   isLoadingLocation: true,
   location: {}

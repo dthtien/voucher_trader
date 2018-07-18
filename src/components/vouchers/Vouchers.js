@@ -4,10 +4,8 @@ import { getVouchers } from '../../actions/voucher';
 import Voucher from './Voucher';
 import '../../resources/vouchers.scss';
 import VouchersBannerImage from '../../resources/images/vouchers_banner.jpg';
-import { hasKey } from "../utils/utils";
 import SearchForm from '../shared/SearchForm';
 import Spinner from '../shared/Spinner';
-import InfiniteScroll from 'react-infinite-scroller';
 import qs from 'querystringify';
 import ReactPaginate from 'react-paginate';
 

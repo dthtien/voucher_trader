@@ -1,7 +1,6 @@
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'; 
-import StoreFields from './StoreFields';
 import VoucherInfoFields from './VoucherInfoFields';
 import VoucherMoreInfoFields from './VoucherMoreInfoFields';
 import CategoryFields from './CategoryFields';
@@ -282,42 +281,6 @@ class VoucherFormPage extends Component {
 // Handle render component when step change
   showStep = () => {
     switch(this.state.currentStep){
-      // case -1:
-      //   return(
-      //     <VoucherInfoFields
-      //       handleRegionSelectChange={this.handleRegionSelectChange}
-      //       voucherFields={this.state.voucher}
-      //       voucherErrors={this.state.voucherErrors}
-      //       handleChange={this.handleVoucherFieldsChange}
-      //       handleSubmit={this.handleSubmit}
-      //       previousStep={this.previousStep}
-      //       handleDateFieldChange={this.handleDateFieldChange}
-
-      //       approved_regions={this.state.voucher.approved_regions_attributes}
-      //       storeFields={this.state.store}
-      //       storeErrors={this.state.storeErrors}
-      //       handleStoreFieldsChange = {this.handleStoreFieldsChange}
-      //       handleRegionSelectChange={this.handleRegionSelectChange}
-      //       handleStoreAddressChanged={this.handleStoreAddressChanged}
-      //       regions = {this.props.regions}
-      //       getRegions={this.props.getRegions}
-      //     />
-      //   )
-      // case -2:
-      //   return(
-      //     <StoreFields
-      //       approved_regions={this.state.voucher.approved_regions_attributes}
-      //       fields={this.state.store}
-      //       handleChange={this.handleStoreFieldsChange}
-      //       handleAddressChanged={this.handleStoreAddressChanged}
-      //       handleSubmit={this.handleSubmit}
-      //       errors={this.state.storeErrors}
-      //       previousStep={this.previousStep}
-      //       handleRegionSelectChange={this.handleRegionSelectChange}
-      //       regions = {this.props.regions}
-      //       getRegions={this.props.getRegions}
-      //     />
-      //   )
       case 0:
         return(
           <CategoryFields 
@@ -338,7 +301,6 @@ class VoucherFormPage extends Component {
             handleSubmit={this.handleSubmit}
             previousStep={this.previousStep}
             handleDateFieldChange={this.handleDateFieldChange}
-
             approved_regions={this.state.voucher.approved_regions_attributes}
             storeFields={this.state.store}
             storeErrors={this.state.storeErrors}
