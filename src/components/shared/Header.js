@@ -68,13 +68,13 @@ class Header extends Component {
     const userLinks = (
       <NavbarNav right>
         <NavItem>
-          <NavLink className="nav-link upload-btn" to="/vouchers/new">
-            Đăng mã giảm giá
+          <NavLink className="nav-link upload-btn" to="/nearby">
+            Mã giảm giá gần bạn
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className="nav-link upload-btn" to="/nearby">
-            Mã giảm giá gần bạn
+          <NavLink className="nav-link upload-btn" to="/vouchers/new">
+            Đăng mã giảm giá
           </NavLink>
         </NavItem>
         <NavItem className="button-cart">
