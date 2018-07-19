@@ -193,3 +193,9 @@ export const getSellingVouchers = ({id, page}) => {
       });    
   }
 };
+
+export const forgotPassword = (params) => {
+  return (dispatch) => {
+    return axios.post(`${API_URL}/users/forgot_password`, params)
+  }
+}

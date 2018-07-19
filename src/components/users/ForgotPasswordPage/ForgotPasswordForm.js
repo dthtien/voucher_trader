@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
+import {toast} from 'react-toastify';
 
-class UpdatePhoneNumberPageForm extends Component {
+class ForgotPasswordForm extends Component {
   constructor(props){
     super(props)
 
-    console.log('props', this.props);
-
     this.state = {
-      phone_number: '',
-      error: "",
+      email: '',
+      error: ''
     }
   }
+
   static contextTypes = {
     router: PropTypes.object
   };
@@ -26,42 +26,43 @@ class UpdatePhoneNumberPageForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.update_phone_number(this.state)
+    this.props.forgotPassword(this.state)
     .then(response => {
-      console.log(response);
-      this.props.loggedIn(response.data.access_token);
-      this.context.router.history.push('/verify');
+      toast.success("Bạn vui lòng kiểm tra email và làm theo hướng dẫn!")
+      this.context.router.history.push('/');
     })
     .catch(error => {
       this.setState({
         ...this.state,
         error: error.response.data.message
       })
-      
-      console.log(error.response)
     })
   }
 
 
   render() {
+    const {email, error} = this.state;
+    console.log(email);
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <p className="text-danger">{this.state.error}</p>
-
+        <p className="text-danger">
+          {error}
+        </p>
         <TextFieldGroup 
           type='text'
-          name='phone_number'
-          value={this.state.phone_number}
+          name='email'
+          value={this.state.email}
           handleChange={this.handleChange}
-          label="Số điện thoại"
+          label="Email"
         />
-
-        <button className="btn btn-primary">
-          Xác nhận >
-        </button>
+        <div className="text-center">
+          <button className="btn btn-red">
+            Xác nhận
+          </button>
+        </div>
       </form>
     );
   }
 }
 
-export default UpdatePhoneNumberPageForm;
+export default ForgotPasswordForm;

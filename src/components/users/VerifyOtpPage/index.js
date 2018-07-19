@@ -18,7 +18,7 @@ class VerifyOtpPage extends Component {
       <div className='container'>
         <div className='verify-otp'>
           <h4 className="text-center title-category-voucher mb-3">
-            Nhập mã OTP đã gửi về máy bạn
+            Nhập mã OTP đã gửi về số điện thoại của bạn
           </h4>
           <VerifyOtpForm 
             phoneNumber={this.props.currentUser.phone_number}

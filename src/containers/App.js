@@ -27,6 +27,7 @@ import EditVoucherPage from'../components/vouchers/EditVoucherPage';
 import PolicyPage from '../components/PolicyPage';
 import MapContainer from '../components/map/MapContainer';
 import CartShowPage from '../components/CartShowPage';
+import ForgotPasswordPage from '../components/users/ForgotPasswordPage';
 
 const App = () => {
   return (
@@ -51,6 +52,10 @@ const App = () => {
             <Route 
               path='/users/update_phone_number' 
               component={UpdatePhoneNumberPage}
+            />
+            <Route 
+              path='/users/forgot_password' 
+              component={ForgotPasswordPage}
             />
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>
