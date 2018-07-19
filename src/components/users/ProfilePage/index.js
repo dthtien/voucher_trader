@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchUserProfile, updateUserProfile } from "../../../actions/user";
 import { hasKey } from "../../utils/utils";
 import SellVouchers from './SellVouchers';
-import BoughtVouchers from './BoughtVouchers';
+import BoughtCarts from './BoughtCarts';
 import EditProfileForm from './EditProfileForm';
 import ProfileHeader from './ProfileHeader';
 import Feedbacks from '../../Feedbacks';
@@ -80,7 +80,7 @@ class IndexProfilePage extends Component {
   renderTab = () => {
     switch(this.state.initialTab){
       case 1:
-        return (<BoughtVouchers 
+        return (<BoughtCarts 
           userId={parseInt(this.state.profileId, 10)}
           currentUserId={this.props.currentUser.id}
         />);

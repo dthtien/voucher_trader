@@ -273,3 +273,21 @@ export const getCartSellerInfo = (id) => {
       });    
   }
 }
+
+export const getCart = (id) => {
+  return (dispatch) => {
+    axios.get(`${API_URL}/carts/${id}`)
+      .then(response => {
+        dispatch({
+          type: CartActionTypes.GET_CART_SUCCESS, 
+          payload: response.data
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: CartActionTypes.GET_CART_ERROR, 
+          payload: error.response
+        });
+      });
+    }   
+}

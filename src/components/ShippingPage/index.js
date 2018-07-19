@@ -38,6 +38,7 @@ class ShippingPage extends Component {
             price={cart.price || 0}
             quantity={cart.quantity || 0}
             name={cart.voucher.name || ""}
+            voucher={cart.voucher}
             images={!isEmpty(cart.voucher.images) ? cart.voucher.images[0] : {}}
             isReadOnly={true}
           />

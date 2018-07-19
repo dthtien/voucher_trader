@@ -342,7 +342,7 @@ class VoucherFormPage extends Component {
         <div className='row'>
           {currentStep > 0 && currentStep < 3 && 
           <a className="m-2" onClick={this.previousStep.bind(this)}> 
-            <i className="material-icons float-left">keyboard_arrow_left</i></a>}
+            <i className="fa fa-3x fa-angle-left float-left"></i></a>}
           {this.showStep()}
         </div>
       </div>

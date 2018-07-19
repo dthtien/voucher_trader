@@ -100,9 +100,8 @@ const InitMap = compose(
     }
   }
 
-
   const centerLcation = defaultCenter() || {lat: location.latitude, lng: location.longitude}
-  defaultCenter();
+  
   defaultCenter();
   
   return(

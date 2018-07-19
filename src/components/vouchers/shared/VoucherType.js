@@ -5,7 +5,6 @@ const VoucherType = (props) =>{
     return(
       <div className="col-md-6 col-sm-6 pr-0">
         <span className="voucher-type">
-          <i className="material-icons">explicit</i>
           E-Voucher
         </span>
       </div>
@@ -14,7 +13,6 @@ const VoucherType = (props) =>{
     return(
       <div className="col-md-6 col-sm-6 pr-0">
         <span className="voucher-type ">
-          <i className="material-icons">description</i>
           General Voucher
         </span>
       </div>
