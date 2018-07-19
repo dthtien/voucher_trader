@@ -17,7 +17,6 @@ class SellVouchers extends Component {
   }
 
   handlePageClick = ({selected}) =>  {
-    console.log(selected);
     this.props.getSellingVouchers({id: this.props.profileId, page: selected})
   }
   render(){
@@ -31,8 +30,8 @@ class SellVouchers extends Component {
           <div className="row">
             {this.renderVoucherList()}
             <nav className="pagination">
-              <ReactPaginate previousLabel={"Trở lại"}
-                nextLabel={"Tiếp"}
+              <ReactPaginate previousLabel="Trở lại"
+                nextLabel="Tiếp"
                 breakLabel={<a href="">...</a>}
                 breakClassName="break-me"
                 pageCount={pageCount}

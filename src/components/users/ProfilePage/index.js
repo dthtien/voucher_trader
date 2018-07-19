@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "../../../resources/profile.scss";
 import { connect } from "react-redux";
-import { fetchUserProfile, updateUserProfile, fetchVoucherBoughts } from "../../../actions/user";
+import { fetchUserProfile, updateUserProfile } from "../../../actions/user";
 import { hasKey } from "../../utils/utils";
 import SellVouchers from './SellVouchers';
-import BoughtVouchers from './BoughtVouchers';
+import BoughtCarts from './BoughtCarts';
 import EditProfileForm from './EditProfileForm';
 import ProfileHeader from './ProfileHeader';
 import Feedbacks from '../../Feedbacks';
@@ -80,7 +80,7 @@ class IndexProfilePage extends Component {
   renderTab = () => {
     switch(this.state.initialTab){
       case 1:
-        return (<BoughtVouchers 
+        return (<BoughtCarts 
           userId={parseInt(this.state.profileId, 10)}
           currentUserId={this.props.currentUser.id}
         />);
@@ -115,9 +115,8 @@ class IndexProfilePage extends Component {
           </div>
         </div>
       );
-    const { initialTab, modal, voucher_boughts } = this.state;
+    const { initialTab, modal } = this.state;
     const { user } = dataUser;
-    const { vouchers } = dataUser;
     const { id } = this.props.currentUser;
     const isViewOnly =  (id) === user.id ? false : true; 
     return (
@@ -186,14 +185,12 @@ class IndexProfilePage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    currentUser: state.users.currentUser,
-    dataUser: state.users.dataUser,
-    resultUpdate: state.users.resultUpdate,
-    vouchers: state.vouchers.all
-  };
-};
+const mapStateToProps = state => ({
+  currentUser: state.users.currentUser,
+  dataUser: state.users.dataUser,
+  resultUpdate: state.users.resultUpdate,
+  vouchers: state.vouchers.all
+});
 const mapDispatchToProps = dispatch => {
   return {
     fetchUserProfile: id => dispatch(fetchUserProfile(id)),

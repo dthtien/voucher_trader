@@ -261,3 +261,11 @@ img.img-thumbnail-home.img-home-category {
     color: #fff;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .banner-text {
+    h2{
+      font-size: 1.2rem !important;
+    }
+  }
+}

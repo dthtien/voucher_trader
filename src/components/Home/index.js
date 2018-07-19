@@ -35,7 +35,9 @@ class Home extends Component {
           <div className="row">
             <div className="col-sm-12">
               <div className="banner-text">
-                <h2>Tìm mã giảm gía và deals rẻ</h2>
+                <h2 className='font-weight-bold text-banner'>
+                  Tìm mã giảm giá và deals rẻ
+                </h2>
                 <h5>Của nhiều của hàng tại đây</h5>
               </div>
             </div>

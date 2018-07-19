@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import '../../resources/cart.scss'
-import { FormattedNumber } from 'react-intl';
+import { FormattedNumber, FormattedDate } from 'react-intl';
 
 class CartItem extends Component {
   render() {
-    const { quantity, name, price, images, isReadOnly } = this.props;
+    const { quantity, name, price, images, isReadOnly, voucher, isShowSellerInfo} = this.props;
+    const {seller} = voucher;
     return (
       <li className="cart-item">
         <div className="product-line-grid">
@@ -18,16 +19,44 @@ class CartItem extends Component {
             <div className="product-line-info">
               <a className="label">{name}</a>
             </div>
-
             <div className="product-line-info">
-              <span className="value">
-                <FormattedNumber 
-                  value={price}
-                  style='currency' 
-                  currency='VND'
-                />
-              </span>
+              <p className='label'>
+                <strong>Thời gian sử dụng: </strong>
+                <span className="font-weight-bold">
+                  <FormattedDate
+                    value={voucher.date_start}
+                    className='ml-2'
+                    year='numeric'
+                    month='long'
+                    day='2-digit'
+                  />
+                </span>
+                <span> đến </span>
+                <span className="ml-1 font-weight-bold">
+                  <FormattedDate
+                    value={voucher.date_end}
+                    className='ml-2'
+                    year='numeric'
+                    month='long'
+                    day='2-digit'
+                  />
+                </span>
+              </p>
             </div>
+            { 
+              isShowSellerInfo && 
+              <div className="product-line-info">
+                <p className='label'>
+                  Thông tin người bán: {seller.name}
+                </p>
+                <p className="label">
+                  Email: {seller.email}
+                </p>
+                <p className="label">
+                  Số điện thoại: {seller.phone_number}
+                </p>
+              </div>
+            }
           </div>
           <div className="product-line-grid-right product-line-actions col-md-5 col-xs-12">
             <div className="row">

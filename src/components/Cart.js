@@ -23,6 +23,7 @@ class Cart extends Component {
       };
     }
     componentDidMount(){
+      document.title = 'Chợ Voucher | Giỏ hàng'
       this.props.fetchCart();
     }
     componentWillReceiveProps(nextProps) {
@@ -161,6 +162,7 @@ class Cart extends Component {
                       return (
                         <CartItem 
                           key={"cart-item" + index}
+                          voucher={cart.voucher} 
                           price={cart.price || 0}
                           quantity={cart.quantity || 0}
                           name={cart.voucher.name || ''}
@@ -183,7 +185,8 @@ class Cart extends Component {
 
             <div className="col-lg-12 col-xl-12 col-sm-12 mt-4 mb-4">
               <a className="label continue-shopping" href="/">
-                <i className="fa fa-angle-left"></i>Continue shopping
+                <i className="fa fa-angle-left"></i>
+                Tiếp tục mua sắm
               </a>
             </div>
 
@@ -210,7 +213,7 @@ class Cart extends Component {
                     </div>
                 
                     <div className="cart-summary-line">
-                      <small className="label">Taxes</small>
+                      <small className="label">Thuế</small>
                       <small className="value">0.00 VND</small>
                     </div>
                   </div>

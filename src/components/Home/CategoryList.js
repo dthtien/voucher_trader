@@ -26,7 +26,6 @@ class CategoryList extends Component {
   }
   render(){
     const IMAGE_URL = 'https://s3-ap-southeast-1.amazonaws.com/voucher-trader/';
-    console.log(this.props);
     return(
       <div className="row">
         <CategoryName

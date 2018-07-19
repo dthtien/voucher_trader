@@ -4,11 +4,10 @@ import { getVouchers } from '../../actions/voucher';
 import Voucher from './Voucher';
 import '../../resources/vouchers.scss';
 import VouchersBannerImage from '../../resources/images/vouchers_banner.jpg';
-import { hasKey } from "../utils/utils";
 import SearchForm from '../shared/SearchForm';
 import Spinner from '../shared/Spinner';
-import InfiniteScroll from 'react-infinite-scroller';
 import qs from 'querystringify';
+import ReactPaginate from 'react-paginate';
 
 class Vouchers extends Component {
   constructor(props) {
@@ -17,10 +16,7 @@ class Vouchers extends Component {
     this.state = {
       cat: '',
       q: '',
-      page: 1,
-      totalPage: null,
-      vouchers: [],
-      hasMore: true
+      page: 0,
     }
   }
 
@@ -42,31 +38,6 @@ class Vouchers extends Component {
     document.title=`Chợ voucher - Mã giảm gía - ${category_endcode}`
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      typeof nextProps !== "undefined" &&
-      nextProps !== this.props &&
-      hasKey(nextProps.vouchers)
-    ) {
-      const vouchers = [...this.state.vouchers, ...nextProps.vouchers];
-      if (this.state.page === 2 || this.state.isSearched) {
-        this.setState({ 
-          ...this.state,
-          vouchers: nextProps.vouchers,
-        });
-      } else {
-        if (nextProps.totalVouchers !== this.state.vouchers.length) {
-          this.setState({ 
-            ...this.state,
-            vouchers: vouchers,
-            totalPage: Math.round(nextProps.totalVouchers / 25)
-          });
-        }
-      }
-
-    }
-  }
-
   handleTextChange = (e) => {
     this.setState({
       ...this.state,
@@ -85,42 +56,51 @@ class Vouchers extends Component {
     this.props.getVouchers(this.state);
   }
 
-  handleLoadMore = (page) => {
-    if (this.state.page <= this.state.totalPage-1) {
-      this.setState({
-        ...this.state,
-        page: this.state.page + 1
-      })
+  handlePageClick = ({selected}) => {
+    console.log(selected);
+    this.setState({
+      ...this.state,
+      page: selected
+    })
 
-      this.props.getVouchers(this.state);
-    } else{
-      this.setState({
-        ...this.state,
-        hasMore: false
-      })
-    }
+    this.props.getVouchers({...this.state, page: selected})
   }
 
   renderVoucherList = () => {
-    if (this.state.vouchers.length === 0) {
+    if (this.props.loading) {
       return (
         <Spinner key={0} />
        );
     } else {
-      const vouchersList = this.state.vouchers.map((voucher, index) => {
-        return <Voucher key={index} voucher={voucher} />;
+      const vouchersList = this.props.vouchers.map((voucher, index) => {
+        return <Voucher key={voucher.id} voucher={voucher} />;
       });
+
+      const pageCount = this.props.totalVouchers/24
+
       return(
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={this.handleLoadMore.bind(this)}
-          hasMore={this.state.hasMore}
-          loader={
-            <Spinner key={1} />
-          }
-          className="row">
+        <div className="row">
           {vouchersList}
-        </InfiniteScroll>
+          <nav className="pagination">
+            <ReactPaginate previousLabel="Trở lại"
+              nextLabel="Tiếp"
+              breakLabel={<a href="">...</a>}
+              breakClassName="break-me"
+              pageCount={pageCount}
+              forcePage={this.state.page}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={this.handlePageClick}
+              containerClassName="pagination pg-blue"
+              pageClassName="page-item"
+              previousClassName="page-item"
+              nextClassName="page-item"
+              previousLinkClassName="page-link"
+              pageLinkClassName="page-link"
+              nextLinkClassName="page-link"
+              activeClassName="active" />
+          </nav>
+        </div>
       );
     }
   }
@@ -145,9 +125,7 @@ class Vouchers extends Component {
             searchText={this.state.q}
             handleTextChange={this.handleTextChange}
           />
-          <div className="mt-1">
-            {this.renderVoucherList()}
-          </div>
+          {this.renderVoucherList()}
         </div>
       </div>
     );

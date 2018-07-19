@@ -11,7 +11,7 @@ class StoreContent extends Component {
     return (
       <div className="row store-content">
         <div className='col-lg-4 col-md-4'>
-          <i className="material-icons fa-5x">store_mall_directory</i>
+          <i className="fa fa-shopping-cart fa-4x"></i>
         </div>
         <div className='col-lg-8 col-md-8'>
           <h5>{store && store.name}</h5>

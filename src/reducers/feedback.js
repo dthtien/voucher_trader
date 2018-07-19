@@ -1,5 +1,4 @@
 import * as FeedbackActionTypes from '../actiontypes/feedback';
-import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
   isLoading: true,

@@ -25,6 +25,8 @@ import CheckoutResultPage from '../components/checkouts/CheckoutResultPage';
 import ShippingPage from '../components/ShippingPage';
 import EditVoucherPage from'../components/vouchers/EditVoucherPage';
 import PolicyPage from '../components/PolicyPage';
+import MapContainer from '../components/map/MapContainer';
+import CartShowPage from '../components/CartShowPage';
 
 const App = () => {
   return (
@@ -53,7 +55,9 @@ const App = () => {
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>
             <Route path='/profile/:id' component={ProfilePage}/>
-            <Route path='/cart' component={Cart}/>
+            <Route exact path='/cart' component={Cart}/>
+            <Route path='/carts/:id' component={CartShowPage}/>
+            <Route path='/nearby' component={MapContainer}/>
           </Switch>
         </div>
         <Footer />

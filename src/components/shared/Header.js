@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { 
   Navbar, 
   NavbarBrand, 
@@ -68,6 +68,11 @@ class Header extends Component {
     const userLinks = (
       <NavbarNav right>
         <NavItem>
+          <NavLink className="nav-link upload-btn" to="/nearby">
+            Mã giảm giá gần bạn
+          </NavLink>
+        </NavItem>
+        <NavItem>
           <NavLink className="nav-link upload-btn" to="/vouchers/new">
             Đăng mã giảm giá
           </NavLink>
@@ -96,6 +101,11 @@ class Header extends Component {
     );
     const guestLinks = (
       <NavbarNav right>
+        <NavItem>
+          <NavLink className="nav-link upload-btn" to="/nearby">
+            Mã giảm giá gần bạn
+          </NavLink>
+        </NavItem>
         <NavItem>
           <NavLink className="nav-link upload-btn" to="/vouchers/new">
             Đăng mã giảm giá

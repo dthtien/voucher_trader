@@ -6,16 +6,13 @@ import isEmpty from 'lodash/isEmpty';
 import Spinner from '../shared/Spinner';
 
 class EditVoucherPage extends Component {
-  constructor(props){
-    super(props)
-  }
   componentDidMount(){
     const id = this.props.match.params.id;
     this.props.getVoucher(id);
   }
 
   componentWillReceiveProps(nextProps){
-    if (this.props.currentUser.id != nextProps.voucher.seller.id) {
+    if (this.props.currentUser.id !== nextProps.voucher.seller.id) {
       this.props.history.push('/')
     }
   }
@@ -26,7 +23,6 @@ class EditVoucherPage extends Component {
       return <Spinner />
     } else {
       const { store} = voucher;
-      console.log(store);
       
       const data = {
         voucher: voucher,

@@ -112,9 +112,6 @@ class CheckoutResultPage extends Component {
         className="container text-center checkout-result-page" 
         style={{marginTop: 130}}>
         <h4 className="title-checkout-result-page">Thanh toán đơn hàng</h4>
-        <p>
-          Chức năng thanh toán online đang được bảo trì mời quý khác thử lại sau
-        </p>
         <p className="result-checkout-result-page" style={color}>
           { status === 'success'
             ? <i className="fa fa-check-circle" style={color}></i>

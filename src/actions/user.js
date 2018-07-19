@@ -1,5 +1,6 @@
 import * as UserActionType from "../actiontypes/user";
 import * as VoucherActionType from '../actiontypes/voucher';
+import * as CartActionType from '../actiontypes/cart';
 import setAuthorizationToken from "../config/setAuthorizationToken";
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -165,6 +166,18 @@ export const fetchVoucherBoughts = (id) => {
     })
     .catch(error => {
       dispatch({type: VoucherActionType.GET_VOUCHERS, payload: error});
+    });    
+  }
+}
+
+export const fetchBoughtCarts = (id) => {
+  return (dispatch) => {
+    return axios.get(`${API_URL}/users/${id}/bought_carts`)
+    .then(response => {
+      dispatch({type: CartActionType.GET_CARTS_SUCCESS, payload: response.data})
+    })
+    .catch(error => {
+      dispatch({type: CartActionType.GET_CARTS_ERROR, payload: error});
     });    
   }
 }
