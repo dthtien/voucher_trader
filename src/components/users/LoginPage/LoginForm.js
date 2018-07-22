@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import { loginValidation } from '../../../validates';
 import SocialButton from '../SocialButton';
-import {toast} from 'react-toastify'
+import {toast} from 'react-toastify';
+import {Link} from 'react-router-dom';
 
 export default class LoginForm extends Component {
   constructor(props){
@@ -68,7 +69,7 @@ export default class LoginForm extends Component {
           } else {
             this.props.fetchCart();
           }
-          this.context.router.history.goBack();
+          this.context.router.history.push('/');
         })
         .catch(error => {
           console.log(error);
@@ -109,7 +110,9 @@ export default class LoginForm extends Component {
             label="password"
           />
           <SocialButton facebookLogin={this.handleFacebookResonse}/>
-
+          <Link to='/users/forgot_password' className='mt-3'>
+            Quên mật khẩu?
+          </Link>
           <div className='text-center'>
             <button disabled={this.state.isLoading} className='btn btn-primary'> Đăng nhập </button>
           </div>

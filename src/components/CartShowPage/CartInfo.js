@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedNumber } from "react-intl"; 
+import NumberToCurrency from '../shared/NumberToCurrency'; 
 
 const CartInfo = ({totalQuantity, totalPrice}) => {
   return(
@@ -10,11 +10,7 @@ const CartInfo = ({totalQuantity, totalPrice}) => {
       <div className="total-product col-9">
         <span className="text-title-shipping">
           Tổng tiền: 
-          <FormattedNumber 
-          value={totalPrice}
-          style='currency' 
-          currency='VND'
-          />
+          <NumberToCurrency value={totalPrice} />
         </span>
       </div>
     </div>

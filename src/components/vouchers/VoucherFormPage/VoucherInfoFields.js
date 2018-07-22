@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import TextFieldGroup from '../../shared/TextFieldGroup';
+import NumberToCurrency from '../../shared/NumberToCurrency';
 import VoucherDescriptionImage from './VoucherDescriptionImage';
-import { FormattedNumber } from 'react-intl';
 import StoreFields from './StoreFields';
 
 export default class VoucherInfoFields extends Component{
@@ -59,10 +59,7 @@ export default class VoucherInfoFields extends Component{
                 handleChange={handleChange}
                 error={voucherErrors.origin_price}
               />
-              <FormattedNumber 
-                value={voucherFields.origin_price} 
-                style="currency" 
-                currency="VND"/>
+              <NumberToCurrency value={voucherFields.origin_price}/>
 
               <TextFieldGroup 
                 name='price'
@@ -72,10 +69,7 @@ export default class VoucherInfoFields extends Component{
                 handleChange={handleChange}
                 error={voucherErrors.price}
               />
-              <FormattedNumber 
-                value={voucherFields.price} 
-                style="currency" 
-                currency="VND"/>
+              <NumberToCurrency value={voucherFields.price} />
 
               <StoreFields
                 approved_regions={approved_regions}

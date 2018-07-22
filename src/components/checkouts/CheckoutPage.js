@@ -9,7 +9,7 @@ import { updateCartPaymentType } from "../../actions/cart";
 import { toast } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import "../../resources/checkout.scss";
-import { FormattedNumber } from "react-intl";
+import NumberToCurrency from "../shared/NumberToCurrency";
 
 class CheckoutPage extends Component {
   state = {
@@ -205,11 +205,7 @@ class CheckoutPage extends Component {
               <div className="total-product">
                 <span className="text-title-shipping">
                   Tổng tiền:
-                  <FormattedNumber
-                    value={infoListCart.price}
-                    style="currency"
-                    currency="VND"
-                  />
+                  <NumberToCurrency value={infoListCart.price} />
                 </span>
               </div>
             </div>

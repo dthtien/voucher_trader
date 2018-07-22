@@ -4,12 +4,12 @@ import VoucherImage from './VoucherImage';
 import VoucherContent from './VoucherContent';
 import VoucherFooter from './VoucherFooter';
 import VoucherType from '../shared/VoucherType';
-import { FormattedNumber } from 'react-intl';
+import NumberToCurrency from '../../shared/NumberToCurrency';
 
 
 export default class Voucher extends Component{
   render(){
-    const {voucher} = this.props
+    const {voucher, isEdit} = this.props
     return(
       <div className="col col-md-4 col-sm-6 item-voucher">
         <div className="voucher-detail">
@@ -19,10 +19,13 @@ export default class Voucher extends Component{
                 <VoucherImage images={voucher.images} />
                 <VoucherType kind={voucher.kind}/>
                 <p className='text-danger font-weight-bold text-center price-voucher'>
-                  <FormattedNumber 
-                    value={voucher.price} 
-                    style="currency" currency="VND"/>
+                  <NumberToCurrency 
+                    value={voucher.price} />
                 </p>
+                {isEdit && <Link to={`/vouchers/${voucher.id}/edit`} 
+                  className='btn-edit-voucher'>
+                  <i className="fa fa-edit fa-2x"></i>
+                </Link>}
               </div>
               <div className="col col-md-12">
                 <VoucherContent store={voucher.store} voucher={voucher}/>

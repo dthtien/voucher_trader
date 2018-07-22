@@ -12,7 +12,7 @@ export default class Message extends Component {
 
   componentWillMount(){
     const cable = ActionCable
-      .createConsumer('ws://chovoucher.com/cable');
+      .createConsumer('ws://localhost:6060/cable');
 
     this.sub = cable.subscriptions.create({
       channel: 'MessengerChannel'

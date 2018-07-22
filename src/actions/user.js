@@ -199,3 +199,14 @@ export const forgotPassword = (params) => {
     return axios.post(`${API_URL}/users/forgot_password`, params)
   }
 }
+
+export const resetPassword = (params) => {
+  return (dispatch) => {
+    return axios.post(`${API_URL}/users/reset_password`, params)
+  }
+}
+export const changePassword = (params) => {
+  return (dispatch) => {
+    return axios.post(`${API_URL}/users/change_password`, {user: params})
+  }
+}

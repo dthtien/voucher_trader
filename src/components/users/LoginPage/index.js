@@ -17,9 +17,10 @@ class LoginPage extends Component {
   handleWhenLoggedIn = (data) => {
     if (data.isAuthenticate) {
       toast.warning('Bạn đã có tài khoản');      
-      this.props.history.goBack();
+      this.props.history.push('/');
     }
   }
+  
   render(){
     return(
       <div className='row'>

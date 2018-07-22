@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ShippingForm from "./ShippingForm";
 import { removeCartListItem } from "../../actions/cart";
-// import { fetchCart } from "../../actions/cart";
 import CartItem from "../Cart/CartItem";
 import { toast } from "react-toastify";
 import Spinner from "../shared/Spinner";
 import isEmpty from "lodash/isEmpty";
 import "../../resources/shipping.scss";
 import { createShipping, getShipping} from '../../actions/shippings';
-import { FormattedNumber } from 'react-intl';
+import NumberToCurrency from '../shared/NumberToCurrency';
 
 
 class ShippingPage extends Component {
@@ -79,11 +78,7 @@ class ShippingPage extends Component {
               <div className="total-product col-9">
                 <span className="text-title-shipping">
                   Tổng tiền: 
-                  <FormattedNumber 
-                  value={infoListCart.price}
-                  style='currency' 
-                  currency='VND'
-                  />
+                  <NumberToCurrency value={infoListCart.price} />
                 </span>
               </div>
             </div>

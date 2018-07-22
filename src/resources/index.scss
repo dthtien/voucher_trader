@@ -23,7 +23,9 @@ body {
   outline: "none";
   text-overflow: "ellipses";
 }
-
+.number-to-currency{
+  margin-left: 3px;
+}
 .voucher-type {
   font-size: 9px;
   padding: 5px;
@@ -260,6 +262,15 @@ img.img-thumbnail-home.img-home-category {
     background: #ffa61e;
     color: #fff;
   }
+}
+.btn-edit-voucher{
+  font-size: 8pt;
+  margin-top: 5px;
+  margin-right: 1.5em;
+  position:absolute;
+  top:0;
+  right:0;
+  color: #222 !important;
 }
 
 @media screen and (max-width: 600px) {

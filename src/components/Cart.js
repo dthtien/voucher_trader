@@ -7,7 +7,7 @@ import '../resources/cart.scss'
 import Spinner from './shared/Spinner';
 import { fetchCart, updateCartItem, deleteCartItem } from '../actions/cart';
 import { Container, Modal, ModalBody, ModalHeader   } from 'mdbreact';
-import { FormattedNumber } from 'react-intl';
+import NumberToCurrency from './shared/NumberToCurrency';
 
 class Cart extends Component {
     constructor(props) {
@@ -204,11 +204,7 @@ class Cart extends Component {
                       <span className="label">Total (tax excl.)</span>
 
                       <span className="value">
-                        <FormattedNumber 
-                          value={totalPrice}
-                          style='currency' 
-                          currency='VND'
-                        />
+                        <NumberToCurrency value={totalPrice}/>
                       </span>
                     </div>
                 

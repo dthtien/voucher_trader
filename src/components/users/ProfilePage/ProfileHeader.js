@@ -36,13 +36,13 @@ class ProfileHeader extends Component {
             {
               !isViewOnly &&
               <div className="container-edit-profile">
-                <div className="button-edit-profile" 
-                onClick={()=>{
+                <div className="button-edit-profile text-center" 
+                  onClick={()=>{
                     toggle({ type : 'edit_profile', ratingValue : 3.5 });
                   }
                 }
                 >
-                  <i className="material-icons">create</i>
+                  <i className="fa fa-edit fa-2x"></i>
                 </div>
               </div>
             }

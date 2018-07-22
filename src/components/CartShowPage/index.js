@@ -24,7 +24,6 @@ class CartShowPage extends Component {
     if (!this.props.isLoading) {
       const cartItems  = this.props.cart.cart_items;
       return cartItems.map((cartItem, index) => {
-        const {voucher} = cartItem;
         return (
           <CartItem
             key={"cart-item" + index}

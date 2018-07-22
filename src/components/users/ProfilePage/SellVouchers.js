@@ -12,7 +12,7 @@ class SellVouchers extends Component {
 
   renderVoucherList = () =>{
     return this.props.vouchers.map((voucher, index) => (
-      <Voucher key={index} voucher={voucher} />
+      <Voucher key={index} voucher={voucher} isEdit={true} />
     ))
   }
 

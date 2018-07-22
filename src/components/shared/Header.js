@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { 
   Navbar, 
   NavbarBrand, 
@@ -91,8 +91,13 @@ class Header extends Component {
               <a className="dropdown-item waves-effect waves-light" href={`/profile/${currentUser.id}`}>
                 <i className="fa fa-user-circle mr-2"></i>Profile
               </a>
+              <Link className="dropdown-item waves-effect waves-light" to='/users/change_password'>
+                <i className="fa fa-cog mr-2"></i>
+                Đổi mật khẩu
+              </Link>
               <a className="dropdown-item waves-effect waves-light" onClick={this.logout.bind(this)} href="/">
-                <i className="fa fa-sign-out mr-2"></i> Logout
+                <i className="fa fa-sign-out mr-2"></i>
+                Đăng xuất
               </a>
             </DropdownMenu>
           </Dropdown>
@@ -128,7 +133,7 @@ class Header extends Component {
     );
 
     return(
-      <Navbar color="indigo" dark expand="md" scrolling color="red" fixed="top">
+      <Navbar dark expand="md" scrolling color="red" fixed="top">
         <NavbarBrand href="/">
           <div className='logo'>
             <img 

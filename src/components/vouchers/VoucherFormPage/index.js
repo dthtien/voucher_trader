@@ -305,7 +305,6 @@ class VoucherFormPage extends Component {
             storeFields={this.state.store}
             storeErrors={this.state.storeErrors}
             handleStoreFieldsChange ={this.handleStoreFieldsChange}
-            handleRegionSelectChange={this.handleRegionSelectChange}
             handleStoreAddressChanged={this.handleStoreAddressChanged}
             regions={this.props.regions}
             getRegions={this.props.getRegions}

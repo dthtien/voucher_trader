@@ -4,7 +4,6 @@ import {
   Route, 
   Switch
 } from 'react-router-dom';
-import '../resources/App.css';
 import Vouchers from '../components/vouchers/Vouchers';
 import NewVoucherPage from '../components/vouchers/NewVoucherPage';
 import VoucherShow from '../components/vouchers/VoucherShow';
@@ -28,6 +27,8 @@ import PolicyPage from '../components/PolicyPage';
 import MapContainer from '../components/map/MapContainer';
 import CartShowPage from '../components/CartShowPage';
 import ForgotPasswordPage from '../components/users/ForgotPasswordPage';
+import ResetPasswordPage from '../components/users/ResetPasswordPage';
+import ChangePasswordPage from '../components/users/ChangePasswordPage';
 
 const App = () => {
   return (
@@ -56,6 +57,14 @@ const App = () => {
             <Route 
               path='/users/forgot_password' 
               component={ForgotPasswordPage}
+            />
+            <Route 
+              path='/users/reset_password' 
+              component={ResetPasswordPage}
+            />
+            <Route 
+              path='/users/change_password' 
+              component={ChangePasswordPage}
             />
             <Route path='/login' component={LoginPage}/>
             <Route path='/vouchers' component={MapCotainer}/>

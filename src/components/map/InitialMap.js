@@ -13,7 +13,7 @@ import voucherIcon from '../../resources/voucher_icon.png'
 import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
 import {inputStyle} from '../../config/inputStyle';
 import { Link } from 'react-router-dom';
-import { FormattedNumber } from 'react-intl';
+import NumberToCurrency from '../shared/NumberToCurrency';
 
 
 const defaultProps = {
@@ -31,7 +31,7 @@ const InitMap = compose(
   const {vouchers, location} = props;
   const renderMarkers = vouchers.map(voucher => {
     if (!voucher.store) {
-      return;
+      return false;
     }else {
       return(
         <Marker
@@ -70,10 +70,7 @@ const InitMap = compose(
             </Link>
             <p>{props.currentVoucher.store.name}</p>
             <p className="text-danger">
-              <FormattedNumber 
-                value={props.currentVoucher.price} 
-                style="currency" 
-                currency="VND"/>
+              <NumberToCurrency value={props.currentVoucher.price}/>
             </p>
           </div>
         </InfoWindow>

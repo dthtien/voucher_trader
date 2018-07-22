@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedNumber } from 'react-intl';
+import { FormattedDate } from 'react-intl';
+import NumberToCurrency from '../../shared/NumberToCurrency';
 import VoucherType from '../shared/VoucherType';
 
 class VoucherShowContent extends Component {
@@ -21,10 +22,7 @@ class VoucherShowContent extends Component {
           </div>
         </div>
         <p className="text-danger">
-          <FormattedNumber 
-            value={voucher.price} 
-            style="currency" 
-            currency="VND"/>
+          <NumberToCurrency value={voucher.price}/>
         </p>
         <blockquote>
           {voucher.kind !== 'e' && <p><strong>Địa chỉ nhận: </strong>

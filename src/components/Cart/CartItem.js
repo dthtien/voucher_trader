@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import '../../resources/cart.scss'
-import { FormattedNumber, FormattedDate } from 'react-intl';
+import { FormattedDate } from 'react-intl';
+import NumberToCurrency from '../shared/NumberToCurrency';
 
 class CartItem extends Component {
   render() {
@@ -113,10 +114,7 @@ class CartItem extends Component {
                   <div className="col-md-6 col-xs-2 price">
                     <span className="product-price">
                       <strong>
-                        <FormattedNumber 
-                          value={(+price) * (+quantity) }
-                          style='currency' currency='VND'
-                        />
+                        <NumberToCurrency value={(+price) * (+quantity) } />
                       </strong>
                     </span>
                   </div>
