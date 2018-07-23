@@ -138,7 +138,7 @@ class Header extends Component {
           <div className='logo'>
             <img 
               alt="Cho voucher" 
-              src={process.env.PUBLIC_URL + '/logo.png'} 
+              src='https://i.imgur.com/VcgPQhD.png' 
               className="img-logo"
             />
           </div>
