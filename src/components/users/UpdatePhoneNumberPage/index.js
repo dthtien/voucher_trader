@@ -5,10 +5,9 @@ import UpdatePhoneNumberPageForm from './UpdatePhoneNumberPageForm';
 
 class UpdatePhoneNumberPage extends Component {
   componentWillReceiveProps({isAuthenticate, currentUser}){
-    if (isAuthenticate) {
+    if (!isAuthenticate) {
       this.props.history.push('/login')
     }
-
     if (currentUser.active) {
       this.props.history.push('/');
     }
