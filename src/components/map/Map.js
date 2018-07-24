@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getVouchers } from '../../actions/voucher';
+import { getVouchersFromCoordinates } from '../../actions/voucher';
+import { getLocation } from '../../actions/location';
 import {
   Map, 
   Marker,
   GoogleApiWrapper,
   InfoWindow
 } from 'google-maps-react';
-
-const GoogleMapConfig = {
-  key: 'AIzaSyCxCiL6khLdmEmHZh9A5fCOitV3iy2jY0A',
-  libraries: 'places',
-};
-
-const LoadingContainer = (props) => (
-  <h1>Loading...!</h1>
-)
+import Spinner from '../shared/Spinner';
+import isEmpty from 'lodash/isEmpty';
 
 export class MapContainer extends Component {
   constructor(props){
@@ -27,8 +21,14 @@ export class MapContainer extends Component {
     }
   }
 
-  componentWillMount(){
-    this.props.getVouchers();
+  componentDidMount(){
+    this.props.getLocation();
+  }
+  
+  componentWillReceiveProps(nextProps){
+    if (isEmpty(nextProps.vouchers)) {
+      this.props.getVouchersFromCoordinates(nextProps.location);
+    }
   }
 
   onMarkerClick = (props, marker, e) =>
@@ -51,13 +51,17 @@ export class MapContainer extends Component {
     const google = this.props.google;
 
     return this.props.vouchers.map(voucher => {
-      console.log(voucher);
+      if (!voucher.store) {
+        return;
+      }
       return(
         <Marker
           key={voucher.id}
           name={voucher.kind}
           title={`${voucher.kind}- ${voucher.description}`}
-          position={{lat: voucher.latitude, lng: voucher.longitude}}
+          position={
+            {lat: voucher.store.latitude, lng: voucher.store.longitude}
+          }
         >
           <InfoWindow
             marker={this.state.activeMarker}
@@ -72,29 +76,38 @@ export class MapContainer extends Component {
   }
 
   render(){
-    return(
-      <Map google={this.props.google}
-          initialCenter={{
-            lat: 10.846247,
-            lng: 106.778941
-          }}
-          style={{width: '100%', height: '100%', position: 'relative'}}
-          className={'map'}
-          zoom={14}>
+    const {location, isLoadingLocation} = this.props;
 
+    if (isLoadingLocation) {
+      return <Spinner />
+    } else {  
+    return(
+      <Map 
+        google={this.props.google}
+        initialCenter={{
+          lat: location.latitude,
+          lng: location.longitude
+        }}
+        style={{width: '100%', height: '100%', position: 'relative'}}
+        className={'map'}
+        zoom={15}>
           {this.renderVouchersOnMap()}
       </Map>
     )
+    }
   }
 }
 
 MapContainer = GoogleApiWrapper({
-  apiKey: GoogleMapConfig.key,
-  LoadingContainer: LoadingContainer 
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+  LoadingContainer: Spinner 
 })(MapContainer)
 
 const mapStateToProps = (state) => ({
   vouchers: state.vouchers.all,
+  location: state.locations.location,
+  isLoadingLocation: state.locations.isLoadingLocation
 })
 
-export default connect(mapStateToProps, {getVouchers})(MapContainer);
+export default connect(mapStateToProps, 
+  {getVouchersFromCoordinates, getLocation})(MapContainer);

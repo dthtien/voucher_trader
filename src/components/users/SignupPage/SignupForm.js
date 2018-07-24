@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
 import { signupValidation } from '../../../validates';
+import SocialButton from '../SocialButton';
+import {toast} from 'react-toastify'
 
 export default class SignupForm extends Component {
   constructor(props){
     super(props);
     this.state = {
+      phone_number: '',
+      name: '',
+      address: '',
       email: '',
       password: '',
       password_confirmation: '',
       error: {},
+      date_of_birth: {},
       isLoading: false
     }
   }
@@ -21,10 +27,8 @@ export default class SignupForm extends Component {
 
   static propTypes = {
     signup: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
     loggedIn: PropTypes.func.isRequired
   };
-
 
 
   handleChange = (e) => {
@@ -47,6 +51,21 @@ export default class SignupForm extends Component {
     return isValid;
   }
 
+  // Handle date fields change
+  handleDateFieldChange = (value, field) => {
+    console.log(value, field);
+
+    this.setState({
+      ...this.state,
+      error: {
+        ...this.state.error,
+        [field]: ''
+      },
+      [field]: value
+    });
+  }
+// end
+
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -58,16 +77,12 @@ export default class SignupForm extends Component {
 
       this.props.signup(this.state)
         .then( response => {
-          this.props.addFlashMessage({
-            type: 'success',
-            text: response.data.message
-          });
-
+          toast.success('Đăng ký thành công! Mời bạn xác nhận số điện thoai');
           this.props.loggedIn(response.data.access_token);
-
-          this.context.router.history.push('/');
+          this.context.router.history.push('/verify');
         })
         .catch(error => {
+          console.log(error.response);
           this.setState({
             error: error.response.data.error, 
             isLoading: false
@@ -76,28 +91,54 @@ export default class SignupForm extends Component {
     }
   }
 
+  handleFacebookResonse = (response) => {
+    this.props.facebookLogin(response);
+    this.context.router.history.push('/users/update_phone_number');
+  }
+
   render(){
     const error = this.state.error
-
+    console.log(error)
     return(
       <div className="container">
         <form onSubmit={this.handleSubmit.bind(this)}>
+          <div className='row'>
+            <div className='col col-sm-12 col-md-6'>
+              <TextFieldGroup 
+                type='text'
+                name='name'
+                value={this.state.name}
+                error={error.name}
+                handleChange={this.handleChange}
+                label="Tên"
+              />              
+            </div>
+            <div className='col col-sm-12 col-md-6'>
+              <TextFieldGroup 
+                type='text'
+                name='email'
+                value={this.state.email}
+                error={error.email}
+                handleChange={this.handleChange}
+                label="Email"
+              />
+            </div>
+          </div>
           <TextFieldGroup 
-            type='text'
-            name='email'
-            value={this.state.email}
-            error={error.email}
+            type='number'
+            name='phone_number'
+            value={this.state.phone_number}
+            error={error.phone_number}
             handleChange={this.handleChange}
-            label="email"
+            label="Số điện thoại"
           />
-
           <TextFieldGroup 
             type='password'
             name='password'
             value={this.state.password}
             error={error.password}
             handleChange={this.handleChange}
-            label="password"
+            label="Mật khẩu"
           />
           
           <TextFieldGroup 
@@ -106,9 +147,14 @@ export default class SignupForm extends Component {
             value={this.state.password_confirmation}
             error={error.password_confirmation}
             handleChange={this.handleChange}
-            label="Password confirmation"
+            label="Nhập lại mật khẩu"
           />
-          <button disabled={this.state.isLoading} className='btn btn-primary'>Signup </button>
+
+          <SocialButton facebookLogin={this.handleFacebookResonse} />
+          
+          <div className='text-center'>
+            <button disabled={this.state.isLoading} className='btn btn-primary'>Đăng ký </button>
+          </div>
 
         </form>
       </div>

@@ -11,7 +11,8 @@ export default class Message extends Component {
   }
 
   componentWillMount(){
-    const cable = ActionCable.createConsumer('ws://localhost:6060/cable');
+    const cable = ActionCable
+      .createConsumer('ws://localhost:6060/cable');
 
     this.sub = cable.subscriptions.create({
       channel: 'MessengerChannel'

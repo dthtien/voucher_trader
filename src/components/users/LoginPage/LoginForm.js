@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../../shared/TextFieldGroup';
-import { signupValidation } from '../../../validates';
+import { loginValidation } from '../../../validates';
+import SocialButton from '../SocialButton';
+import {toast} from 'react-toastify';
+import {Link} from 'react-router-dom';
 
 export default class LoginForm extends Component {
   constructor(props){
@@ -20,7 +23,6 @@ export default class LoginForm extends Component {
 
   static propTypes = {
     login: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
     loggedIn: PropTypes.func.isRequired
   };
 
@@ -37,7 +39,7 @@ export default class LoginForm extends Component {
   }
 
   isValid = () => {
-    const {errors, isValid } = signupValidation(this.state);
+    const {errors, isValid } = loginValidation(this.state);
     if (!isValid) {
       this.setState({ error: errors });
     }
@@ -56,24 +58,36 @@ export default class LoginForm extends Component {
 
       this.props.login(this.state)
         .then( response => {
-          this.props.addFlashMessage({
-            type: 'success',
-            text: response.data.message
-          });
-
+          toast.success('Đăng nhập thành công');
           this.props.loggedIn(response.data.access_token);
-          this.context.router.history.goBack();
+        })
+        .then(() => {
+          if(localStorage.getItem('cart_id')){
+            this.props.unifyCart().then(result => {
+              console.log("Unify cart", result)
+            });
+          } else {
+            this.props.fetchCart();
+          }
+          this.context.router.history.push('/');
         })
         .catch(error => {
-          console.log(error.response);
+          console.log(error);
           this.setState({
             error: error.response.data, 
             isLoading: false
           });
+          return;
         })
     }
   }
 
+  handleFacebookResonse = (response) => {
+    this.props.facebookLogin(response);
+    console.log('response', response);
+    this.context.router.history.push('/users/update_phone_number');
+  }
+  
   render(){
     const error = this.state.error
     return(
@@ -96,8 +110,13 @@ export default class LoginForm extends Component {
             handleChange={this.handleChange}
             label="password"
           />
-
-          <button disabled={this.state.isLoading} className='btn btn-primary'> Login </button>
+          <SocialButton facebookLogin={this.handleFacebookResonse}/>
+          <Link to='/users/forgot_password' className='mt-3'>
+            Quên mật khẩu?
+          </Link>
+          <div className='text-center'>
+            <button disabled={this.state.isLoading} className='btn btn-primary'> Đăng nhập </button>
+          </div>
 
         </form>
       </div>

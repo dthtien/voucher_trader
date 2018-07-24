@@ -1,12 +1,13 @@
 import * as VoucherActionType from '../actiontypes/voucher';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:6060/api/v1';
+import {apiLinkDev as API_URL} from '../config/apiLink';
 
-export const getVouchers = () => {
+export const getVouchers = (query = {}) => {
+  const q = query.q || "", cat = query.cat || "", page = query.page || "";
   return (dispatch) => {
     dispatch({type: VoucherActionType.GET_VOUCHERS})
-    axios.get(`${API_URL}/vouchers`)
+    axios.get(`${API_URL}/vouchers?q=${q}&cat=${cat}&page=${page}`)
       .then(response => {
         dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
       })
@@ -22,10 +23,20 @@ export const createVoucher = (props) => {
       voucher: props.voucher,
       store: props.store
     }
-    console.log(params)
     return axios.post(`${API_URL}/vouchers`, params);
   }
 };
+export const getNewestVouchers = () => {
+  return (dispatch) => {
+    axios.get(`${API_URL}/vouchers/newest`)
+      .then(response => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
+      })
+      .catch(error => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: error});
+      });    
+  }
+}
 
 export const getVoucher = (id) => {
   return (dispatch) => {
@@ -48,3 +59,30 @@ export const deleteVoucher = (id, callback) => {
     payload: request
   };
 }
+
+export const updateVoucher = (props) => {
+  return (dispatch) => {
+    const params = {
+      voucher: props.voucher,
+      store: props.store
+    }
+    
+    return axios.patch(`${API_URL}/vouchers/${props.voucher.id}`, params);
+  }
+}; 
+
+export const getVouchersFromCoordinates = (coords) => {
+  const position = {
+    latitude: coords.latitude, 
+    longitude: coords.longitude
+  }
+  return (dispatch) => {
+    axios.get(`${API_URL}/vouchers/nearby`, {params: position})
+      .then(response => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: response})
+      })
+      .catch(error => {
+        dispatch({type: VoucherActionType.GET_VOUCHERS, payload: error});
+      });    
+  }
+};

@@ -1,0 +1,1 @@
+export const GET_FEEDBACKS = 'feedback/GET_FEEDBACKS';

@@ -2,7 +2,7 @@ import 'bootstrap/scss/bootstrap.scss';
 import 'font-awesome/scss/font-awesome.scss'
 import 'mdbreact/dist/scss/mdb.scss';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import './resources/index.css';
+import './resources/index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
@@ -13,7 +13,11 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import setAuthorizationToken from './config/setAuthorizationToken';
 import { loggedIn } from './actions/user';
 import App from './containers/App';
+import vi from 'react-intl/locale-data/vi'
+import { IntlProvider, addLocaleData } from 'react-intl'
+import { fetchCart } from './actions/cart';
 
+addLocaleData(vi);
 injectTapEventPlugin();
 
 String.prototype.capitalize = function() {
@@ -32,13 +36,17 @@ const store = createStore(
 );
 
 if (localStorage.accessToken) {
-  setAuthorizationToken(localStorage.accessToken)
+  setAuthorizationToken(localStorage.accessToken);
   store.dispatch(loggedIn(localStorage.accessToken));
 }
 
+store.dispatch(fetchCart());
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <IntlProvider locale={'vi'}>
+      <App />
+    </IntlProvider>
   </Provider>, 
   document.getElementById('root'));
 registerServiceWorker();

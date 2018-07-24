@@ -8,10 +8,6 @@ export const VoucherValidation = values => {
     errors.name = "This field is required"
   }
 
-  if (Validator.isEmpty(values.voucher_number)) {
-    errors.voucher_number = "This field is required"
-  }
-
   if (values.quantity === '0' || values.quantity === '') {
     errors.quantity = "Quantity must be greater than 0"
   }
@@ -28,16 +24,16 @@ export const VoucherValidation = values => {
     errors.date_end = "End date must greater than start date"
   }
 
-  // if (Validator.isEmpty(values.description)) {
-  //   errors.description = 'This field is required';
-  // }
-
   if (Validator.isEmpty(values.kind)) {
     errors.kind = 'This field is required';
   }
 
-  if (Validator.isEmpty(values.price)) {
+  if (Validator.isEmpty(values.price.toString())) {
     errors.price = 'This field is required';
+  }
+
+  if (Validator.isEmpty(values.origin_price.toString())) {
+    errors.origin_price = 'This field is required';
   }
 
   return {
@@ -57,8 +53,12 @@ export const VoucherMoreInfoValidation = (values) =>{
   }
 
 
-  if (values.kind === 'general' && Validator.isEmpty(values.address_receiver)) {
+  if (values.kind === 'general' && Validator.isEmpty(values.address_receiver)){
     errors.address_receiver = 'This field is required'
+  }
+
+  if (values.kind === 'general' && (values.images.length < 1)) {
+    errors.image_ids = 'Voucher must be have grester than 1 images'
   }
 
   return {
@@ -84,18 +84,48 @@ export const StoreValidation = (values) => {
   }; 
 }
 
-
-
-export const signupValidation = values => {
+export const loginValidation = values => {
   let errors = {};
-
+  
   if (Validator.isEmpty(values.email)) {
-    errors.email = "This field is required"
+    errors.email = "This field is required";
+  }
+
+  if (!Validator.isEmail(values.email)) {
+    errors.email = 'Email is invalid'
   }
 
   if (Validator.isEmpty(values.password)) {
     errors.password = "This field is required"
   }
+
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  };
+}
+
+
+
+export const signupValidation = values => {
+  let errors = {};
+
+
+  if (Validator.isEmpty(values.password)) {
+    errors.password = "This field is required"
+  }
+
+  if (Validator.isEmpty(values.name)) {
+    errors.name = "This field is required"
+  }
+
+   if (Validator.isEmpty(values.phone_number)) {
+    errors.phone_number = "This field is required"
+  }
+
+  // if (JSON.stringify(values.date_of_birth) === JSON.stringify({})) {
+  //   errors.date_of_birth = "This field is required"
+  // }
 
   if (!Validator.isEmail(values.email)) {
     errors.email = 'Email is invalid'

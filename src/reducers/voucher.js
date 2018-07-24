@@ -3,19 +3,10 @@ import * as VoucherActionType from '../actiontypes/voucher';
 const initialState ={
   all: [],
   voucher: {
-    kind: '',
-    description: '',
-    price: '',
-    code: '',
-    address_receiver: '',
-    post_to_facebook: false,
-    image: null
   },
   store: {
-    name: '',
-    address: '',
-    category_id: -1
   },
+  totalVoucher: 0,
   loading: true
 }
 
@@ -23,7 +14,13 @@ export default function Voucher(state = initialState, action){
   switch(action.type){
     case VoucherActionType.GET_VOUCHERS:
       if (typeof action.payload !== 'undefined') {
-        return {...state, all: action.payload.data.vouchers, loading: false};
+        const data = action.payload.data
+        return {
+          ...state, 
+          all: data.vouchers, 
+          totalVouchers: data.total_vouchers,
+          loading: false,
+        };
       } else {
         return {...state, loading: true};
       }

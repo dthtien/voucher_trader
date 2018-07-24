@@ -1,0 +1,1 @@
+export const apiLinkDev = process.env.REACT_APP_API_URL
