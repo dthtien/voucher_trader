@@ -82,6 +82,7 @@ export default class SignupForm extends Component {
           this.context.router.history.push('/verify');
         })
         .catch(error => {
+          console.log(error.response);
           this.setState({
             error: error.response.data.error, 
             isLoading: false
@@ -97,7 +98,7 @@ export default class SignupForm extends Component {
 
   render(){
     const error = this.state.error
-
+    console.log(error)
     return(
       <div className="container">
         <form onSubmit={this.handleSubmit.bind(this)}>

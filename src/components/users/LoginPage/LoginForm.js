@@ -84,6 +84,7 @@ export default class LoginForm extends Component {
 
   handleFacebookResonse = (response) => {
     this.props.facebookLogin(response);
+    console.log('response', response);
     this.context.router.history.push('/users/update_phone_number');
   }
   

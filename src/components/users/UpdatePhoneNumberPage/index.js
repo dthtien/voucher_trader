@@ -4,12 +4,12 @@ import { updatePhoneNumber, loggedIn} from '../../../actions/user';
 import UpdatePhoneNumberPageForm from './UpdatePhoneNumberPageForm';
 
 class UpdatePhoneNumberPage extends Component {
-  componentDidMount(){
-    if (!this.props.isAuthenticate) {
+  componentWillReceiveProps({isAuthenticate, currentUser}){
+    if (isAuthenticate) {
       this.props.history.push('/login')
     }
 
-    if (this.props.currentUser.active) {
+    if (currentUser.active) {
       this.props.history.push('/');
     }
   }
@@ -17,7 +17,7 @@ class UpdatePhoneNumberPage extends Component {
     return (
       <div className='container'>
         <div className='verify-otp'>
-          <h4>Please enter your phone number code</h4>
+          <h4>Nhập số điện thoại</h4>
           <UpdatePhoneNumberPageForm 
             update_phone_number={this.props.updatePhoneNumber}
             loggedIn={this.props.loggedIn}/>

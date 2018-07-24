@@ -6,10 +6,6 @@ import { toast } from 'react-toastify';
 import { fetchCart, unifyCart } from '../../../actions/cart';
 
 class LoginPage extends Component {
-  componentWillReceiveProps(nextProps){
-    this.handleWhenLoggedIn(nextProps);
-  }
-
   componentDidMount(){
     this.handleWhenLoggedIn(this.props);
   }
