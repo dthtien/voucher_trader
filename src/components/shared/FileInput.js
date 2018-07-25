@@ -20,7 +20,7 @@ class FileInput extends Component {
             <a onClick={e => {this.onDelete(e, value)}}
               className="deleteImage"
             >
-              <i className="material-icons">clear</i>
+              <i className="fa fa-trash"></i>
             </a>
             <img 
               src={value.url_medium} alt="cho-voucher"

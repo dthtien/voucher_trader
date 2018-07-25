@@ -10,6 +10,7 @@ import NumberToCurrency from '../../shared/NumberToCurrency';
 export default class Voucher extends Component{
   render(){
     const {voucher, isEdit} = this.props
+    console.log(voucher)
     return(
       <div className="col col-md-4 col-sm-6 item-voucher">
         <div className="voucher-detail">
@@ -37,7 +38,7 @@ export default class Voucher extends Component{
         </div>
         <div className='text-center bottom-voucher-detail'>
           <Link 
-            to={`/vouchers/${voucher.id}`}
+            to={`/vouchers/${voucher.to_param}`}
             className="btn red">
             Xem chi tiết
           </Link>
