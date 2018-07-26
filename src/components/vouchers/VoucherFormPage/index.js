@@ -86,7 +86,8 @@ class VoucherFormPage extends Component {
       currentAction(this.state)
         .then(response => {
           toast.success("Thành công");
-          this.context.router.history.push(`/vouchers/${response.data.voucher.id}`);
+          this.context.router
+            .history.push(`/vouchers/${response.data.voucher.to_param}`);
         })
         .catch(error => {
           console.log(error.response);
